@@ -7,7 +7,7 @@ function ouvrepageCV() {
 }
 enteteIndex.addEventListener("click", ouvrepageIndex);
 function ouvrepageIndex() {
-  window.open("Index.html", "_self");
+  window.open("index.html", "_self");
 }
 enteteCreations.addEventListener("click", ouvrepageCreations);
 function ouvrepageCreations() {
@@ -101,7 +101,7 @@ let moveIndex = 0;
 let bouclesIndex = 0;
 enteteIndex.addEventListener("mouseover", mouseoverenteteindex);
 function mouseoverenteteindex() {
-  if (window.location.pathname != "/CV/Index.html") {
+  if (window.location.pathname != "/CV/index.html") {
     let elements = document.getElementById("enteteIndex");
     if (bouclesIndex < 4) {
       setTimeout(() => {

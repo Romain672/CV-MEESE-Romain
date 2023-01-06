@@ -7,6 +7,7 @@ Jour 4: ajout d'arène, couleurs, affichage de hp dans l'arène, bouton fight qu
 Jour 4 (2): refonte des stats ajout des icones sur elles + ajout du log + ajout du système de combat
 Jour 5: "height: max-content;" & "align-content:flex-start;" & supression d'un joueur
 Jour 6: permet d'ajouter des gens, en enlever, fuite codé
+Jour 6 (2): première publication sur github, arène plus petite et en haut, bugs corrigés, rafraichissement
 */
 
 let nombrepersonnesdepart = 4;
@@ -22,7 +23,7 @@ let fuiteactif;
 window.addEventListener("load", createstats);
 function createstats() {
   //ennemi
-  listpersons.unshift(newpersonnage(difficulty, "ennemy"));
+  listpersons.unshift(newpersonnage(difficulty, "enemy"));
   afficherpersonnage(listpersons[0], document.getElementById("ennemi"));
   afficherareneennemi();
 
@@ -81,7 +82,7 @@ function buttonfight() {
     //nouvel ennemi
     difficulty++;
     listpersons.shift();
-    listpersons.unshift(newpersonnage(difficulty, "ennemy"));
+    listpersons.unshift(newpersonnage(difficulty, "enemy"));
     afficherpersonnage(listpersons[0], document.getElementById("ennemi"));
 
     //icon ennemi
@@ -124,7 +125,7 @@ function combat() {
     logs.prepend(document.createElement("br"));
     //initiative
     if (joueur.initiative < ennemi.initiative) {
-      logs.prepend("Ennemy start");
+      logs.prepend("Enemy start");
       actif = 1;
     } else {
       logs.prepend("Player start");
@@ -140,15 +141,15 @@ function combat() {
     logs.prepend("Fuite non effectuée");
     logs.prepend(document.createElement("br"));
     random = Math.floor(Math.random() * 100);
+    if (j[actif].extratour > random) {
+      logs.prepend("Extra turn");
+    } else {
+      logs.prepend("Turn of other player");
+      actif = (actif + 1) % 2;
+    }
     logs.prepend(
       "🔃 Tour suivant: 🔃" + j[actif].extratour + " vs 🎲" + random + " : "
     );
-    if (j[actif].extratour > random) {
-      logs.prepend("Extra tour");
-    } else {
-      logs.prepend("Tour de l'autre joueur");
-      actif = (actif + 1) % 2;
-    }
     logs.prepend(document.createElement("br"));
 
     /*
@@ -167,7 +168,7 @@ function combat() {
     if (actif == 0) {
       logs.prepend(" (player):");
     } else {
-      logs.prepend(" (ennemy):");
+      logs.prepend(" (enemy):");
     }
     logs.prepend("Turn of " + j[actif].nom);
     logs.prepend(document.createElement("br"));
@@ -209,11 +210,12 @@ function combat() {
       if (j[actif].currenthp < 1) {
         logs.prepend(document.createElement("br"));
         logs.prepend("Dead.");
+        logs.prepend(document.createElement("br"));
         return;
       }
 
     } else {
-      logs.prepend(" success:");
+      logs.prepend(" success");
       logs.prepend(
         "🎯" +
           j[actif].precision +
@@ -270,8 +272,13 @@ function combat() {
       if (j[actif].fuite > random) {
         logs.prepend(document.createElement("br"));
         logs.prepend(" successfull: you can now leave the fight:");
-        logs.prepend("💤 Leak" + j[actif].fuite + " vs 🎲" + random);
+        logs.prepend("💤 Leak " + j[actif].fuite + " vs 🎲" + random);
         logs.prepend(document.createElement("br"));
+
+        afficherpersonnage(joueur,document.getElementById("personne"+personnageactif));
+        afficherpersonnage(joueur,document.getElementById("personnageactif"));
+
+
         fuite = personnageactif;
         fuiteactif = actif;
         return;
@@ -284,17 +291,19 @@ function combat() {
 
     //tour suivant
     random = Math.floor(Math.random() * 100);
-    logs.prepend(
-      "🔃 Next turn: 🔃" + j[actif].extratour + " vs 🎲" + random + " : "
-    );
-    if (j[actif].extratour > random) {
+     if (j[actif].extratour > random) {
       logs.prepend("Extra turn");
     } else {
       logs.prepend("Other player's turn");
       actif = (actif + 1) % 2;
     }
+    logs.prepend(
+      "Next turn: 🔃" + j[actif].extratour + " vs 🎲" + random + " : "
+    );
     logs.prepend(document.createElement("br"));
   }
+  
+ 
 
   /*
     📈3   12
@@ -330,7 +339,7 @@ function clickonroaster() {
 
 function afficherarenejoueur(number) {
   document.getElementById("iconplayer").innerHTML =
-    "<img src='../Icones/" +
+    "<img src='./Icones/" +
     listpersons[number].avatar +
     "' alt='icone age' class='icon'>";
   document.getElementById("hpplayer").innerHTML =
@@ -341,7 +350,7 @@ function afficherarenejoueur(number) {
 
 function afficherareneennemi() {
   document.getElementById("iconennemi").innerHTML =
-    "<img src='../Icones/" +
+    "<img src='./Icones/" +
     listpersons[0].avatar +
     "' alt='icone age' class='icon'>";
 
@@ -435,7 +444,7 @@ function newpersonnage(skills, text = "ally") {
   let i = listpersons.length;
   variable = i;
 
-  if (text != "ennemy") {
+  if (text != "enemy") {
     cadreinit[i] = "<div id='personne" + [i] + "' class='personne'></div>";
     document
       .getElementById("coulisses")
@@ -454,7 +463,7 @@ function newpersonnage(skills, text = "ally") {
   let stats = 40;
   for (let i = 0; i < skills; i++) {
     let nbr;
-    if (text == "ennemy") {
+    if (text == "enemy") {
        nbr = Math.floor(Math.random() * 3);
     } else {
        nbr = Math.floor(Math.random() * 4);
@@ -535,7 +544,7 @@ function afficherpersonnage(moi, element) {
   element.innerHTML =
     "<span id='textpersonne" +
     variable +
-    "'><img src='../Icones/" +
+    "'><img src='../CV/Icones/" +
     moi.avatar +
     "' alt='icone age' class='icon'>" +
     moi.nom +

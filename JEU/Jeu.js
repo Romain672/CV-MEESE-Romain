@@ -544,7 +544,7 @@ function afficherpersonnage(moi, element) {
   element.innerHTML =
     "<span id='textpersonne" +
     variable +
-    "'><img src='../CV/Icones/" +
+    "'><img src='../Icones/" +
     moi.avatar +
     "' alt='icone age' class='icon'>" +
     moi.nom +

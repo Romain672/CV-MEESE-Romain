@@ -690,7 +690,8 @@ function randomavatar() {
     "etoilemoitie",
   ];
   var rand = Math.floor(Math.random() * avatar.length);
-  return ("../../CV/Icones/".concat(rValue = avatar[rand].concat(".svg")));
+  //return ("../../CV/Icones/".concat(rValue = avatar[rand].concat(".svg")));
+  return (rValue = avatar[rand].concat(".svg"));
 }
 
 function generaterandomname() {

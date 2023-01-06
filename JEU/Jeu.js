@@ -330,7 +330,7 @@ function clickonroaster() {
 
 function afficherarenejoueur(number) {
   document.getElementById("iconplayer").innerHTML =
-    "<img src='./Icones/" +
+    "<img src='../Icones/" +
     listpersons[number].avatar +
     "' alt='icone age' class='icon'>";
   document.getElementById("hpplayer").innerHTML =
@@ -341,7 +341,7 @@ function afficherarenejoueur(number) {
 
 function afficherareneennemi() {
   document.getElementById("iconennemi").innerHTML =
-    "<img src='./Icones/" +
+    "<img src='../Icones/" +
     listpersons[0].avatar +
     "' alt='icone age' class='icon'>";
 

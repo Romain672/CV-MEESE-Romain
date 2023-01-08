@@ -7,7 +7,8 @@ Jour 4: ajout d'arène, couleurs, affichage de hp dans l'arène, bouton fight qu
 Jour 4 (2): refonte des stats ajout des icones sur elles + ajout du log + ajout du système de combat
 Jour 5: "height: max-content;" & "align-content:flex-start;" & supression d'un joueur
 Jour 6: permet d'ajouter des gens, en enlever, fuite codé
-Jour 6 (2): première publication sur github, arène plus petite et en haut, bugs corrigés, rafraichissement
+Jour 6 (2): première publication sur github, arène plus petite et en haut, bugs corrigés, rafraichissement, ajoute le help bouton
+Jour 7: addEventListener peut être dans les fonctions :o Je les ai toujours utilisé à l'extérieur
 */
 
 let nombrepersonnesdepart = 4;
@@ -62,7 +63,7 @@ function buttonfight() {
     //VICTOIRE
     document
       .getElementById("logs")
-      .prepend("Victory, Care of 💗" + joueur.regen);
+      .prepend("Victory, heal of 💗" + joueur.regen);
     joueur.currenthp = joueur.currenthp + joueur.regen;
     if (joueur.currenthp > joueur.hp) {
       joueur.currenthp = joueur.hp;
@@ -270,7 +271,6 @@ function combat() {
     if (actif == 0) {
       random = Math.floor(Math.random() * 100);
       if (j[actif].fuite > random) {
-        logs.prepend(document.createElement("br"));
         logs.prepend(" successfull: you can now leave the fight:");
         logs.prepend("💤 Leak " + j[actif].fuite + " vs 🎲" + random);
         logs.prepend(document.createElement("br"));
@@ -339,7 +339,7 @@ function clickonroaster() {
 
 function afficherarenejoueur(number) {
   document.getElementById("iconplayer").innerHTML =
-    "<img src='../Icones/" +
+    "<img src='../CV/Icones/" +
     listpersons[number].avatar +
     "' alt='icone age' class='icon'>";
   document.getElementById("hpplayer").innerHTML =
@@ -350,13 +350,19 @@ function afficherarenejoueur(number) {
 
 function afficherareneennemi() {
   document.getElementById("iconennemi").innerHTML =
-    "<img src='../Icones/" +
+    "<img src='../CV/Icones/" +
     listpersons[0].avatar +
     "' alt='icone age' class='icon'>";
 
   document.getElementById("hpennemi").innerHTML =
     Math.floor(listpersons[0].currenthp) + "/" + Math.floor(listpersons[0].hp);
 }
+
+document.getElementById("help").addEventListener("click", help);
+function help(){
+  alert("Welcome to the game\.\nOn the left, you got some units ready to fight\. When you click on one of them, they will be ready to fight on the Arena, present on the right\.\nOn the right, you got a an ennemy you must kill, and a button fight to make your selected person and the enemy fight\.\n\nThe goal is to survive as many fights as possible\.\n\nEach character have 4 main stats: 💪strength, 🛡️defense, 💨speed, and 🪄magic.\nEach point of 💪 give you ⚔️+1 minimum damage, ⚔️+3 maximum damage, 🎯+5 precision.\nEach point of 🛡️defense give you 💖+3hp, 🦺+1 armor, 👣+5dodge.\nEach point of 💨speed give you 📕many point of initiative to start the first turn, 🔃+6% chance to play again after your turn, 👈+12% chance to inflict 4 direct damage to the opponent when he misses.\nEach point of 🪄Magic give you 📈+1/3 of scaling (without effect atm), 💗+4 heal when you kill the ennemy, 💤+3% chance to be able to flee the combat.\n\nWhen you kill an ennemy, you gain a new person. When you get killed, you lose that character.\n\nWhen you start a fight, the highest 📕 start. Then we compare 🎯with 🎲-ennemy👣. If it's superior the attack is succesful: the active player deal ⚔️-🦺 in 💖damage to the other player. If he kill it, the active player win. If the initial attack failed, we instead compare ennemy👈 with 🎲, and if it's higher, the active player take 4 damages. Then if the active player is yourself, you got a chance to 💤. If you success, you can either ignore it by fighting again (will be as if the roll was failed), or change the active player (the 📕 will be rolled again). Then we compare 🔃 with 🎲 to maybe make the active player play again. And we repeat until a winner or a flee.\n\nAfter a kill, you heal💗 some of your hp, gain another person, and create a new ennemy with the sum of his stats being one higher.\nHave fun.");
+}
+
 
 let personnage = {
   //noms
@@ -544,7 +550,7 @@ function afficherpersonnage(moi, element) {
   element.innerHTML =
     "<span id='textpersonne" +
     variable +
-    "'><img src='../Icones/" +
+    "'><img src='../CV/Icones/" +
     moi.avatar +
     "' alt='icone age' class='icon'>" +
     moi.nom +

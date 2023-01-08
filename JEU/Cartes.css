@@ -1,0 +1,59 @@
+/* cartes */
+.carte{
+    position:absolute;
+    width:100px;
+    height: 100px;
+    background-color: lightblue;
+    margin-left:1px;
+    bottom: -50px;
+}
+
+#carte1{
+    left:10%;
+    transform: rotate(-10deg);
+}
+
+#carte2{
+    left:25%;
+    transform: rotate(-5deg);
+}
+
+#carte3{
+    left:40%;
+    transform: rotate(0deg);
+}
+
+#carte4{
+    left:55%;
+    transform: rotate(5deg);
+}
+
+#carte5{
+    left:70%;
+    transform: rotate(10deg);
+}
+
+#conteneurcarte{
+    display:flex;
+    flex-direction:row;
+}
+
+.hoveredcard{
+    width:200px;
+    height: 200px;
+    background-color:cornflowerblue;
+    font-size:32px;
+    z-index:10;
+}
+
+#greencircle{
+    width:50px;
+    height:50px;
+    border-radius:100%;
+    position:absolute;
+    left:200px;
+    bottom:50px;
+    background-color: green;
+    z-index:100;
+
+}

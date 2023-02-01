@@ -1,0 +1,76 @@
+<!-- Logs:
+Partie 1: Coeur du jeu:
+Jour 1: début du projet, création de 10 joueurs avec leurs stats, et affichage
+Jour 2: ajout d'un joueur actif, transformation du code en 'orienté objet'
+Jour 3: polissage + sélection d'un joueur via une gestion de chaine de texte (une seule fonction pour 12 events) + ajout d'un ennemi + ajout d'animaux
+Jour 4: ajout d'arène, couleurs, affichage de hp dans l'arène, bouton fight qui enlève 10hp a chaque joueur
+Jour 4 (2): refonte des stats ajout des icones sur elles + ajout du log + ajout du système de combat
+Jour 5: "height: max-content;" & "align-content:flex-start;" & supression d'un joueur
+Jour 6: permet d'ajouter des gens, en enlever, fuite codé
+Jour 6 (2): première publication sur github, arène plus petite et en haut, bugs corrigés, rafraichissement, ajoute le help bouton
+
+Partie 2: Ajout des cartes:
+Jour 7: addEventListener peut être dans les fonctions :o Je les ai toujours utilisés à l'extérieur
+Jour 8: récupération des coordonnées de la souris, récupération de ces coordonnées pendant un drag, meilleure compréhension de event.target, utilisation du drag sur un autre élément: ce fut pas très fun :(
+Jour 9: hover via le css (2x) et animations, suppression de l'hover du javascript, changement du css sur l'élément cible
+Jour 10: abandon de l'essai de mettre une flèche quand on sélectionne un carte et qu'on la drag
+Jour 11: ajout des effets aléatoire des cartes, transformY sur les cartes quand hovered pour les voir en entier
+Jour 11 (2): alignement du display des cartes en fonction de la largeur de la fenêtre
+Jour 12 (1&2): gestion des chaines de texte, regextract (que je connaissais déjà via googlesheet): redesign du texte des cartes, maintenant le texte contient des nombres, qui sont transformés en icon durant le display, ce qui est mieux. Il y avait plus simple (transformer les cartes en classe), mais ça m'a fait travailler d'autres trucs.
+
+Partie 3: correction des bugs:
+Jour 13~15: correction de bugs, effects de la plupart des cartes, affichage des principales stats au lieu de toutes
+-->
+<!--❤️‍🩹💪🛡️💨🪄|⚔️🎯💖🦺👣📕🔃👈📈💗💤-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Jeu.css">
+    <link rel="stylesheet" href="./Cartes.css">
+    <title>Jeu</title>
+</head>
+
+<body id="body">
+
+   <div id=premiereligne>
+        <div id="coulisses">
+        </div>
+        <div id="partiedroite">
+            <button id="help">help</button>
+            <div id="conteneurpersonnageactif">
+                <div id="personnageactif" class="personne"></div>
+                <div id="arene">
+                    <div id="iconplayerandhp">
+                        <div id="iconplayer"></div>
+                        <div id="hpplayer"></div>
+                    </div>
+                    <button id="buttonfight">
+                        <-fight->
+                    </button>
+                    <div id="iconennemiandhp">
+                        <div id="iconennemi"></div>
+                        <div id="hpennemi"></div>
+                    </div>
+                </div>
+                <div id="ennemi" class="personne"></div>
+            </div>
+            
+            <div id="logs">
+            </div>
+        </div>
+    </div>
+
+    <!--cartes-->
+    <div id="conteneurcarte">
+    </div>
+
+
+    <script src="./Cartes.js"></script>
+    <script src="./Jeu.js"></script>
+</body>
+
+</html>

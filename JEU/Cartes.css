@@ -1,0 +1,47 @@
+/* cartes */
+.carte{
+    /*position:absolute;*/
+    width:100px;
+    height: 100px;
+    background-color: lightsalmon;
+    /*margin-left:1px;
+    bottom: -50px;*/
+    border: black 1px solid;
+    margin:2px;
+    /*font-size:14px;*/
+}
+
+#conteneurcarte{
+    display:flex;
+    position: fixed;
+    bottom: -30px;
+    width: 99%;
+    justify-content:space-evenly;
+    z-index: 101;
+}
+
+/* Animations:*/
+.carte{
+    transition: visibility 0.001s, transform 0.4s;
+}
+.carte:hover{
+    /*-ms-transform: scale(1.5); /* IE 9 */
+    /*-webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.5) translateY(-50px);
+    background-color: lightcoral;
+}
+
+
+#fullbody{
+    background-color:red;
+
+}
+
+/* gray screen above all*/
+.personne{
+    z-index: 101;
+}
+
+#personnageactif, #ennemi{
+    z-index: 0;
+}

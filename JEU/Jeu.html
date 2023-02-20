@@ -1,0 +1,75 @@
+<!-- Logs:
+Partie 1: Coeur du jeu:
+Hours 1~3: début du projet, création de 10 joueurs avec leurs stats, et affichage
+Hours 4~6: ajout d'un joueur actif, transformation du code en 'orienté objet'
+Hours 7~9: polissage + sélection d'un joueur via une gestion de chaine de texte (une seule fonction pour 12 events) + ajout d'un ennemi + ajout d'animaux
+Hours 10~12: ajout d'arène, couleurs, affichage de hp dans l'arène, bouton fight qui enlève 10hp a chaque joueur
+Hours 13~15: refonte des stats ajout des icones sur elles + ajout du log + ajout du système de combat
+Hours 16~18: "height: max-content;" & "align-content:flex-start;" & supression d'un joueur
+Hours 19~21: permet d'ajouter des gens, en enlever, fuite codé
+Hours 22~24: première publication sur github, arène plus petite et en haut, bugs corrigés, rafraichissement, ajoute le help bouton
+
+Partie 2: Ajout des cartes:
+Hours 25~27: addEventListener peut être dans les fonctions :o Je les ai toujours utilisés à l'extérieur
+Hours 28~30: récupération des coordonnées de la souris, récupération de ces coordonnées pendant un drag, meilleure compréhension de event.target, utilisation du drag sur un autre élément: ce fut pas très fun :(
+Hours 31~33: hover via le css (2x) et animations, suppression de l'hover du javascript, changement du css sur l'élément cible
+Hours 34~36: abandon de l'essai de mettre une flèche quand on sélectionne un carte et qu'on la drag
+Hours 37~39: ajout des effets aléatoire des cartes, transformY sur les cartes quand hovered pour les voir en entier
+Hours 40~42: alignement du display des cartes en fonction de la largeur de la fenêtre
+Hours 43~45: gestion des chaines de texte, regextract (que je connaissais déjà via googlesheet): redesign du texte des cartes, maintenant le texte contient des nombres, qui sont transformés en icon durant le display, ce qui est mieux. Il y avait plus simple (transformer les cartes en classe), mais ça m'a fait travailler d'autres trucs.
+
+Partie 3: Correction des bugs:
+Hours 46~55: correction de bugs, effects de la plupart des cartes, affichage des principales stats au lieu de toutes
+Hours 56~59: gestion du glisser/déposer: ajout de la transparance pendant un glisser, highlight du target, bug avec les divs enfant du glisser déposer à cause de l'ordre entre>entre>sort>sort au lieu de entre>sort>entre>sort (non résolu).
+-->
+<!--❤️‍🩹💪🛡️💨🪄|⚔️🎯💖🦺👣📕🔃👈📈💗💤-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Jeu.css">
+    <link rel="stylesheet" href="./Cartes.css">
+    <title>Jeu</title>
+</head>
+
+<body id="body">
+   <div id=premiereligne>
+        <div id="coulisses">
+        </div>
+        <div id="partiedroite">
+            <button id="help">help</button>
+            <div id="conteneurpersonnageactif">
+                <div id="personnageactif" class="personne"></div>
+                <div id="arene">
+                    <div id="iconplayerandhp">
+                        <div id="iconplayer"></div>
+                        <div id="hpplayer"></div>
+                    </div>
+                    <button id="buttonfight">
+                        <-fight->
+                    </button>
+                    <div id="iconennemiandhp">
+                        <div id="iconennemi"></div>
+                        <div id="hpennemi"></div>
+                    </div>
+                </div>
+                <div id="ennemi" class="personne"></div>
+            </div>
+            
+            <div id="logs">
+            </div>
+        </div>
+    </div>
+
+    <!--cartes-->
+    <div id="conteneurcarte">
+    </div>
+
+    <script src="./Cartes.js"></script>
+    <script src="./Jeu.js"></script>
+</body>
+
+</html>

@@ -92,10 +92,12 @@ body{
     font-size:17px;
     text-decoration:underline;
     color:black;
+    pointer-events: none;
 }
 
 .statssecondaires{
     display:none;
+    pointer-events: none;
 }
 
 #logs{
@@ -120,8 +122,8 @@ body{
     transition: transform .1s;
 }
 .personne:hover{
-    -ms-transform: scale(1.5); /* IE 9 */
-    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    /*-ms-transform: scale(1.5); /* IE 9 */
+    /*-webkit-transform: scale(1.5); /* Safari 3-8 */
     transform: scale(1.1);
 }
 

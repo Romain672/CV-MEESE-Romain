@@ -75,13 +75,29 @@ function creerdisplaycarte(card){
 
 let dragged = null;
 let currentpersonhovered = "buginit";
-document.addEventListener("dragstart",dragcartestart);
+document.addEventListener("dragstart", dragcartestart);
 function dragcartestart(event){
   dragged = event.target;
   event.target.style.opacity = .5;
+
+  //add gray screen
+  var elemDiv = document.createElement('div');
+  elemDiv.style.cssText = 'position:absolute;bottom:0;left:0;width:100%;height:100%;opacity:0.6;z-index:100;background:gray;';
+  elemDiv.setAttribute("id","grayscreen");
+  document.body.appendChild(elemDiv);
+  //document.getElementById("body").style.background = "#505050ff";
 }
 document.addEventListener("dragend", dragcarteend);
 function dragcarteend(event){
+  //remove gray screen
+  document.getElementById("grayscreen").remove();
+
+  //correction de bug: enlever toutes les highlights des personnes qui auraient été activés incorrectement via le glisser/déposer
+  for (let i=1;i<listpersons.length;i++){
+    document.getElementById("personne" + i).style.transform = "scale(1)";
+    document.getElementById("statssecondaires" + document.getElementById("personne" + i).id.replace("personne","").replace("text","")).style.display = "none";
+  }
+
   event.target.style.opacity = "";
   let currentcard = listcards[event.target.id.replace("carte","")-1];
   try{
@@ -136,6 +152,27 @@ document.addEventListener("dragover", dragovercard);
 function dragovercard(event){
   event.preventDefault();
 }
+
+document.addEventListener("dragleave", dragleavecard);
+function dragleavecard(event){
+  if (event.target.className=="personne" || event.target.className=="textpersonne"){
+    event.target.style.transform = "scale(1)";
+    document.getElementById("statssecondaires" + event.target.id.replace("personne","").replace("text","")).style.display = "none";
+  }
+}
+
+document.addEventListener("dragenter", dragentercard);
+function dragentercard(event){
+  //BUG HERE
+  //make sure dragleave is done before dragenter which work 95% of the time
+  setTimeout(() => {
+  if (event.target.className=="personne" || event.target.className=="textpersonne"){
+    event.target.style.transform = "scale(1.1)";
+    document.getElementById("statssecondaires" + event.target.id.replace("personne","").replace("text","")).style.display = "unset";
+  }
+  }, 1);
+}
+
 
 function dropacard(event){
   if (event.target.className == "personne" ||  event.target.className == "textpersonne" || event.target.className == "statsprincipales" || event.target.className == "statssecondaires") {

@@ -45,10 +45,11 @@ function buttonfight() {
   }
   if (joueur.currenthp > 0) {
     //VICTOIRE
+    //HEAL *4 OVERWRITED HERE
     document
       .getElementById("logs")
-      .prepend("Victory, heal of 💗" + joueur.regen);
-    joueur.currenthp = joueur.currenthp + joueur.regen;
+      .prepend("Victory, heal of 💗" + joueur.regen *4);
+    joueur.currenthp = joueur.currenthp + joueur.regen *4;
     if (joueur.currenthp > joueur.hp) {
       joueur.currenthp = joueur.hp;
     }
@@ -82,7 +83,6 @@ function buttonfight() {
 
   //nouvelle carte
   document.getElementById("logs").prepend("New card.");
-  document.getElementById("logs").prepend(document.createElement("br"));
   createcard();
 }
 
@@ -129,7 +129,8 @@ function afficherareneennemi() {
 
 document.getElementById("help").addEventListener("click", help);
 function help(){
-  alert("Welcome to the game\.\nOn the left, you got some units ready to fight\. When you click on one of them, they will be ready to fight on the Arena, present on the right\.\nOn the right, you got a an ennemy you must kill, and a button fight to make your selected person and the enemy fight\.\n\nThe goal is to survive as many fights as possible\.\n\nEach character have 4 main stats: 💪strength, 🛡️defense, 💨speed, and 🪄magic.\nEach point of 💪 give you ⚔️+1 minimum damage, ⚔️+3 maximum damage, 🎯+5 precision.\nEach point of 🛡️defense give you 💖+3hp, 🦺+1 armor, 👣+5dodge.\nEach point of 💨speed give you 📕many point of initiative to start the first turn, 🔃+6% chance to play again after your turn, 👈+12% chance to inflict 4 direct damage to the opponent when he misses.\nEach point of 🪄Magic give you 📈+1/3 of scaling (without effect atm), 💗+4 heal when you kill the ennemy, 💤+3% chance to be able to flee the combat.\n\nWhen you kill an ennemy, you gain a new person. When you get killed, you lose that character.\n\nWhen you start a fight, the highest 📕 start. Then we compare 🎯with 🎲-ennemy👣. If it's superior the attack is succesful: the active player deal ⚔️-🦺 in 💖damage to the other player. If he kill it, the active player win. If the initial attack failed, we instead compare ennemy👈 with 🎲, and if it's higher, the active player take 4 damages. Then if the active player is yourself, you got a chance to 💤. If you success, you can either ignore it by fighting again (will be as if the roll was failed), or change the active player (the 📕 will be rolled again). Then we compare 🔃 with 🎲 to maybe make the active player play again. And we repeat until a winner or a flee.\n\nAfter a kill, you heal💗 some of your hp, gain another person, and create a new ennemy with the sum of his stats being one higher.\nHave fun.");
+  alert("Choses intéressantes du point de vue code:\nGénération aléatoire des personnages, icones, noms, et statistiques.\nMettre la souris sur les personnages en haut à gauche.\nCliquer déposer sur les cartes en bas (avec des choses qui 's'illuminent').\nCliquer sur un personnage puis sur fight pour afficher des logs.\nAprès un combat réussi, ajout de personnages, cartes, génération d'un nouvel ennemi plus fort.\n\n------------------------------------\n\nVous avez des unités cliquable en haut à gauche que vous pouvez choisir pour combattre dans l'arène. Un ennemi en haut à droite est prêt à l'affronter.\n\nPour les faire combattre, il suffit de sélectionner un personnage et de cliquer sur 'fight' (des logs apparaitront qui se lisent de bas en haut).\n\nDe plus, vous disposez de cartes en bas que vous pouvez glisser et déposer jusqu'à vos personnages pour les améliorer\.\n\nL'une des abilités les plus importantes (en gameplay) est la fuite 💤\. Si vous réussissez le jeu de dé lors d'un combat, vous avez la possibilité de choisir un autre personnage pour effectuer la suite du combat\.\n\nUn combat réussi vous donne des cartes en plus, un personnage de plus, et un autre ennemi aléatoire un peu plus fort que le précédent\.\n\nIl n'y a pas de condition de victoire pour le moment.\n\nJe crois que 2 ou 3 effets sur les dix des cartes ne marche pas/ne marche pas totalement.\n\:)");
+  //alert("Welcome to the game\.\nOn the left, you got some units ready to fight\. When you click on one of them, they will be ready to fight on the Arena, present on the right\.\nOn the right, you got a an ennemy you must kill, and a button fight to make your selected person and the enemy fight\.\n\nThe goal is to survive as many fights as possible\.\n\nEach character have 4 main stats: 💪strength, 🛡️defense, 💨speed, and 🪄magic.\nEach point of 💪 give you ⚔️+1 minimum damage, ⚔️+3 maximum damage, 🎯+5 precision.\nEach point of 🛡️defense give you 💖+3hp, 🦺+1 armor, 👣+5dodge.\nEach point of 💨speed give you 📕many point of initiative to start the first turn, 🔃+6% chance to play again after your turn, 👈+12% chance to inflict 4 direct damage to the opponent when he misses.\nEach point of 🪄Magic give you 📈+1/3 of scaling (without effect atm), 💗+4 heal when you kill the ennemy, 💤+3% chance to be able to flee the combat.\n\nWhen you kill an ennemy, you gain a new person. When you get killed, you lose that character.\n\nWhen you start a fight, the highest 📕 start. Then we compare 🎯with 🎲-ennemy👣. If it's superior the attack is succesful: the active player deal ⚔️-🦺 in 💖damage to the other player. If he kill it, the active player win. If the initial attack failed, we instead compare ennemy👈 with 🎲, and if it's higher, the active player take 4 damages. Then if the active player is yourself, you got a chance to 💤. If you success, you can either ignore it by fighting again (will be as if the roll was failed), or change the active player (the 📕 will be rolled again). Then we compare 🔃 with 🎲 to maybe make the active player play again. And we repeat until a winner or a flee.\n\nAfter a kill, you heal💗 some of your hp, gain another person, and create a new ennemy with the sum of his stats being one higher.\nHave fun.");
 }
 
 let personnage = {
@@ -286,8 +287,8 @@ function supprimerpersonnage(personnageactif) {
   listpersons.splice(personnageactif, 1);
   document.getElementById("personne" + personnageactif).remove();
   let nbr = Number(personnageactif) + Number(1);
-  let mmm = listpersons.length + 1;
-  for (let i = nbr; i < mmm; i++) {
+  let len = listpersons.length + 1;
+  for (let i = nbr; i < len; i++) {
     document.getElementById(["personne" + i]).id = "personne" + [i - 1];
     document.getElementById(["textpersonne" + i]).id = "textpersonne" + [i - 1];
   }
@@ -390,7 +391,6 @@ function statstransformback(moi) {
 }
 
 
-
 //COMBAT
 function combat(){
   statstransform(listpersons[personnageactif]);
@@ -417,7 +417,10 @@ function combat2() {
 
   //début
   if (fuite == 0 || personnageactif != fuite) {
-    logs.prepend("===================");
+    logs.prepend(document.createElement("br"));
+    logs.prepend(document.createElement("br"));
+    logs.prepend(document.createElement("br"));
+    logs.prepend(document.createElement("br"));
     logs.prepend(document.createElement("br"));
     logs.prepend("Start of combat:");
     logs.prepend(document.createElement("br"));
@@ -457,9 +460,7 @@ function combat2() {
       logs.prepend("Turn of other player");
       actif = (actif + 1) % 2;
     }
-    logs.prepend(
-      "🔃 Tour suivant: 🔃" + j[actif].extratour + " vs 🎲" + random + " : "
-    );
+    logs.prepend("🔃 Tour suivant: 🔃" + j[actif].extratour + " vs 🎲" + random + " : ");
     logs.prepend(document.createElement("br"));
 
     /*
@@ -509,16 +510,7 @@ function combat2() {
         );
       }
       
-      logs.prepend(
-        "Riposte 👈" + j[[(actif + 1) % 2]].riposte + " vs 🎲" + random + ": "
-      );
-
-      if (j[actif].currenthp < 1) {
-        logs.prepend(document.createElement("br"));
-        logs.prepend("Dead.");
-        logs.prepend(document.createElement("br"));
-        return;
-      }
+      logs.prepend("Riposte 👈" + j[[(actif + 1) % 2]].riposte + " vs 🎲" + random + ": ");
 
     } else {
       logs.prepend(" success");
@@ -558,16 +550,19 @@ function combat2() {
             " left."
         );
 
-        if (j[(actif + 1) % 2].currenthp < 1) {
-          logs.prepend(document.createElement("br"));
-          logs.prepend("Dead.");
-          logs.prepend(document.createElement("br"));
-          return;
-        }
       } else {
         logs.prepend("All damages absorbed by the armor.");
       }
     }
+
+    
+    if (j[actif].currenthp < 1) {
+      logs.prepend(document.createElement("br"));
+      logs.prepend("Dead.");
+      logs.prepend(document.createElement("br"));
+      return;
+    }
+
     logs.prepend(document.createElement("br"));
 
     //fuite
@@ -576,7 +571,6 @@ function combat2() {
       if (j[actif].fuite > random) {
         logs.prepend(" successfull: you can now leave the fight:");
         logs.prepend("💤 Leak " + j[actif].fuite + " vs 🎲" + random);
-        logs.prepend(document.createElement("br"));
 
         fuite = personnageactif;
         fuiteactif = actif;

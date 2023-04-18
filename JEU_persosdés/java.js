@@ -213,30 +213,63 @@ function clickde(event){
 let cantrip=0; //check if you can chose another dice or not
 function resolveeffect(player, id){
     //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸
-    let split = listcards[id].effect1.split("$");
     cantrip=0;
-    for (let i=1;i<split.length;i++){
-        let char = split[i].charAt(0);
-        if (char[0]=="h"){
-            heal(player, 1);
+    for (let j=0;j<5;j++){        
+        let split;
+        if (j==0){
+            split = listcards[id].effect1.split("$");
         }
-        if (char[0]=="h"){
-            cantrip=1;
+        if (j==1) {
+            if(listcards[id].effect2 != undefined) {
+            split = listcards[id].effect2.split("$");
+            } else {
+                split="b";
+            }
         }
-        if (char[0]=="m"){
-            atkmel(player,1);
+        if (j==2){
+            if(listcards[id].effect3 != undefined) {
+            split = listcards[id].effect3.split("$");
+            } else {
+                split="b";
+            }
         }
-        if (char[0]=="r"){
-            atkran(player,1);
+        if (j==3){
+            if(listcards[id].effect4 != undefined) {
+            split = listcards[id].effect4.split("$");
+            } else {
+                split="b";
+            }
         }
-        if (char[0]=="p"){
-            move(player,char[1]);
+        if (j==4){
+            if(listcards[id].effect5 != undefined) {
+            split = listcards[id].effect5.split("$");
+            } else {
+                split="b";
+            }
         }
-        if (char[0]=="s"){
-            heal(player, -1);
+        for (let i=1;i<split.length;i++){
+            let char = split[i].charAt(0);
+            if (char[0]=="h"){
+                heal(player, 1);
+            }
+            if (char[0]=="h"){
+                cantrip=1;
+            }
+            if (char[0]=="m"){
+                atkmel(player,1);
+            }
+            if (char[0]=="r"){
+                atkran(player,1);
+            }
+            if (char[0]=="p"){
+                move(player,split[i].charAt(1));
+            }
+            if (char[0]=="s"){
+                heal(player, -1);
+            }
         }
+        //special effect of cards
     }
-    //special effect of cards
     afficherallperso(ordrepersos);
 }
 function heal(player, nbr) {

@@ -1,0 +1,63 @@
+body{
+    background-color: black;
+    color:white;
+    text-align: center;
+}
+
+#conteneurcarte{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
+}
+
+#conteneurperso{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
+}
+
+.perso{
+    background-color: darkgreen;
+    width:100px;
+    height:200px;
+    margin:1px;
+}
+
+.carte{
+    background-color: darkslategray;
+    width:150px;
+    height:200px;
+    margin:1px;
+}
+
+#persoetde5{
+    background-color: darkred;
+}
+
+.de, .intro, #perso5{
+    font-size: 60px;
+}
+
+.nom{
+    text-decoration: underline;
+}
+
+.titrecarte{
+    text-decoration: underline;
+    font-size:20px;
+}
+
+#poing{
+    background-color: black;
+    font-size: 50px;
+    width:80px;
+    height:200px;
+    margin:1px;
+}
+#messagecentral{
+    font-size: 50px;
+}
+
+.hidden{
+    color:transparent;
+}

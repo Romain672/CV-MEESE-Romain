@@ -1,7 +1,8 @@
 let listpersos = [];
-let listabilities = [6];
+let listabilities = [7]; //7ème carte est vide
 let listcards = [];
 let ordrepersos = [0,1,2,3,4,5];
+let diceavailable = ["y","y","y","y","y"];
 let ennemy=5;
 
 window.addEventListener("load", onload);
@@ -10,6 +11,7 @@ function onload() {
     generatecards();
     createbasicdeck();
     afficherallcarte();
+    document.getElementById("messagecentral").textContent="Select a dice to play";
     debutdutour();
 }
 
@@ -34,13 +36,33 @@ function Personnage(a, b, c, d, e, f, g, h) {
     this.atkmel = g;
     this.atkran = h;
 }
-var des = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"]; //1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣
+var des = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "🔁"]; //1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣🔀🔢🔁
 function afficherperso(element, id) {
     let children = element.children;
+    if(id==0){
+        element.style.backgroundColor = "navy";
+    }
+    if(id==1){
+        element.style.backgroundColor = "green";
+    }
+    if(id==2){
+        element.style.backgroundColor = "darkolivegreen";
+    }
+    if(id==3){
+        element.style.backgroundColor = "darkgreen";
+    }
+    if(id==4){
+        element.style.backgroundColor = "darkslategray";
+    }
     children[0].textContent = listpersos[id].nom;
     children[2].textContent = "💖".concat((listpersos[id].currenthp.toString()).concat("/").concat(listpersos[id].maxhp.toString()));
     if (id<5){
-        children[1].textContent = des[listpersos[id].de-1];
+        if(diceavailable[id]=="n"){
+                children[1].textContent = des[6];
+                listpersos[ordrepersos[ordrepersos.indexOf(id)]].de = "7" ;
+            } else {
+                children[1].textContent = des[listpersos[id].de-1];
+         }
         children[3].textContent = "⚔️".concat(listpersos[id].atkmel).concat(" - ").concat("🏹".concat(listpersos[id].atkran));
     } else{
         //ennemi
@@ -121,16 +143,18 @@ function afficherallcarte(){
 }
 function generatecards(){
     //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸
+    //Trash
+    listcards.push(new Carte("none","none", 0, "$s$h$c"));
     //Basics
-    listcards.push(new Carte("none","Fast heal", 0, "$h","$c"));
-    listcards.push(new Carte("none","Heal & Attack", 1, "$h$h$h", "$m"));
-    listcards.push(new Carte("none","Double attack", 2,"$m$r"));
-    listcards.push(new Carte("none","Double strike", 3, "$m$m", "$p>"));
-    listcards.push(new Carte("none","Longshot", 4, "$r$r", "$p<"));
-    listcards.push(new Carte("none","Run forward", 5,"$c", "$p1"));
+    listcards.push(new Carte("none","Fast heal", 1, "$h","$c"));
+    listcards.push(new Carte("none","Heal & Attack", 2, "$h$h$h", "$m"));
+    listcards.push(new Carte("none","Double attack", 3,"$m$r"));
+    listcards.push(new Carte("none","Double strike", 4, "$m$m", "$p>"));
+    listcards.push(new Carte("none","Longshot", 5, "$r$r", "$p<"));
+    listcards.push(new Carte("none","Run forward", 6,"$c", "$p1"));
     //Communes
-    listcards.push(new Carte("none","Triple strike", 6,"⚔️⚔️⚔️", "🚶‍♂️1"));
-    listcards.push(new Carte("none","Long attack", 7,"⚔️⚔️🏹", "🚶‍♂️2"));
+    listcards.push(new Carte("none","Triple strike", 7,"⚔️⚔️⚔️", "🚶‍♂️1"));
+    listcards.push(new Carte("none","Long attack", 8,"⚔️⚔️🏹", "🚶‍♂️2"));
     listcards.push(new Carte("none","Small attack", 8,"⚔️🏹🏹", "🚶‍♂️3"));
     listcards.push(new Carte("none","Sniping", 9,"🏹🏹🏹", "🚶‍♂️4"));
     listcards.push(new Carte("none","Regeneration", 10,"💖💖","💖💖 to all ally", "🚶‍♂️5"));
@@ -150,16 +174,18 @@ function generatecards(){
     listcards.push(new Carte("none","Quadruple shot", 23,"🩸🩸🩸🩸", "🏹🏹🏹🏹", "🚶‍♂️4"));
 }
 function createbasicdeck(){
-    listabilities[0] = listcards[0];
-    listabilities[1] = listcards[1];
-    listabilities[2] = listcards[2];
-    listabilities[3] = listcards[3];
-    listabilities[4] = listcards[4];
-    listabilities[5] = listcards[5];
+    listabilities[0] = listcards[1];
+    listabilities[1] = listcards[2];
+    listabilities[2] = listcards[3];
+    listabilities[3] = listcards[4];
+    listabilities[4] = listcards[5];
+    listabilities[5] = listcards[6];
+    listabilities[6] = listcards[0]; //carte vide
 }
 
 /* Gameplay */
 function lancerdes() {
+    diceavailable = ["y","y","y","y","y"];
     listpersos[0].de = Math.trunc(Math.random()*6+1);
     listpersos[1].de = Math.trunc(Math.random()*6+1);
     listpersos[2].de = Math.trunc(Math.random()*6+1);
@@ -171,9 +197,9 @@ function lancerdes() {
     document.getElementById("persoetde3").children[3].textContent = listpersos[3].de;
 }
 function debutdutour() {
+    genererevents();
     lancerdes();
     afficherallperso(ordrepersos);
-    document.getElementById("messagecentral").textContent="Select a dice to play";
 }
 function findutour(){
     if(listpersos[ennemy].currenthp<1){
@@ -183,24 +209,46 @@ function findutour(){
     } else{
         listpersos[ordrepersos[0]].currenthp+=-1*listpersos[5].atkmel;
     }
-    //afficherallperso(ordrepersos);
-    for (i=0;i<5;i++){
-        if(listpersos[i].currenthp > listpersos[i].maxhp){
+    document.getElementById("messagecentral").textContent="Select a dice to play";
+    checkhps();
+    debutdutour();
+}
+function checkhps(){
+    let morts = 672;
+    let nbrheal = 0;
+    while (morts>0) {
+        morts = 0;
+        for (let i=0;i<5;i++){
+            if(listpersos[i].currenthp <1){
+                listpersos[i].currenthp+=3;
+                listpersos[0].currenthp--;
+                listpersos[1].currenthp--;
+                listpersos[2].currenthp--;
+                listpersos[3].currenthp--;
+                listpersos[4].currenthp--;
+                morts++;
+                nbrheal++;
+            }
+        }
+        if (morts == 5 ) {
+            gameover();
+        }
+    }
+    for (let i=0;i<5;i++){
+        if(listpersos[i].currenthp > listpersos[i].maxhp) {
             listpersos[i].currenthp = listpersos[i].maxhp;
         }
     }
-    debutdutour();
+    if (nbrheal >0) {
+        document.getElementById("messagecentral").textContent= "Someone took lethal damage: he got healed (*3) but everyone else took damage (" + nbrheal +" time(s)).";
+    }
 }
-for (let i=0;i<5;i++){
-    document.getElementsByClassName("de")[i].addEventListener("click",clickde);
+function genererevents (){
+    for (let i=0;i<5;i++){
+        document.getElementsByClassName("de")[i].addEventListener("click",clickde);
+    }
 }
 function clickde(event){
-    /*
-    console.log(event.target.classList);
-    console.log(event.target.classList.add("hidden"));
-    console.log(event.target.setAttribute("clickable", "false"));
-    console.log(event.target.classList);
-    */
     let player=listpersos[ordrepersos[event.target.id.replace("de","")]];
     let de=player.de;
     let carte=listabilities[de-1].id;
@@ -214,7 +262,7 @@ let cantrip=0; //check if you can chose another dice or not
 function resolveeffect(player, id){
     //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸
     cantrip=0;
-    for (let j=0;j<5;j++){        
+    for (let j=4;j>-1;j--){        
         let split;
         if (j==0){
             split = listcards[id].effect1.split("$");
@@ -247,13 +295,14 @@ function resolveeffect(player, id){
                 split="b";
             }
         }
-        for (let i=1;i<split.length;i++){
+        for (let i=0;i<split.length;i++){
             let char = split[i].charAt(0);
             if (char[0]=="h"){
                 heal(player, 1);
             }
-            if (char[0]=="h"){
+            if (char[0]=="c"){
                 cantrip=1;
+                diceavailable[player.id]="n";
             }
             if (char[0]=="m"){
                 atkmel(player,1);
@@ -270,6 +319,7 @@ function resolveeffect(player, id){
         }
         //special effect of cards
     }
+    checkhps();
     afficherallperso(ordrepersos);
 }
 function heal(player, nbr) {
@@ -315,4 +365,9 @@ function swap(nbr1, nbr2){
     i=ordrepersos[nbr1];
     ordrepersos[nbr1]=ordrepersos[nbr2];
     ordrepersos[nbr2]=i;
+}
+function gameover(){
+    afficherallperso(ordrepersos);
+    document.getElementById("messagecentral").textContent="Game over: everyone dies :(";
+    setTimeout(settimeoutwindow.stop(),200);
 }

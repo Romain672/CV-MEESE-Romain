@@ -30,6 +30,7 @@ body{
     margin:1px;
 }
 
+
 #persoetde5{
     background-color: darkred;
 }
@@ -55,7 +56,7 @@ body{
     margin:1px;
 }
 #messagecentral{
-    font-size: 50px;
+    font-size: 30px;
 }
 
 .hidden{

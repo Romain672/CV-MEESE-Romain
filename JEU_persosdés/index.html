@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./style.css">
     <title>Jeu</title>
 </head>
-<body>
+<body id="body">
     <div id="conteneurperso">
         <div id="persoetde4" class="perso">
             🚶‍♂️5
@@ -116,9 +116,10 @@
         </div>
     </div>
 
-
+    <br><br>
     Its a solo game. You have some characters in the top left in order. You have an enemy in the top right. You have some cards with effects at the bottom.<br>
     Each turn, you will be able to play one and only one of the dice you rolled (in the top left) by clicking on them. It will activate the card with the same number from your deck (bottom).<br>
+    <br>
     The effects are:<br>
      - 🔁: you can play another dice this turn<br>
      - 💖: heal the character which rolled the dice by one (up to his max hp)<br>
@@ -130,7 +131,43 @@
     <br>
     If one of your character goes to 0 hp or below, he will heal 4, then every ally will take one damage. If any ally is at 0 hp or below, you repeat until either all your characters are above 0 hp or all are below 1 hp, then you lose.<br>
     <br>
-    If you beat the 5th enemy, it should bug.<br>
+    If you beat the 10th enemy (which look impossible :p), it should bug.<br>
+    
+    
+
+    <br>
+
+    <div id="extratext">Choose a card to replace your deck:</div>
+    <div id="carteextra7" class="carte carteextra">
+        <div id="introextra7" class="intro"></div>
+        <div id="nomextra7" class="titrecarte"></div>
+        <div id="effectextra71" class="effect1"></div>
+        <div id="effectextra72" class="effect2"></div>
+        <div id="effectextra73" class="effect3"></div>
+        <div id="effectextra74" class="effect4"></div>
+        <div id="effectextra75" class="effect5"></div>
+    </div>
+    <div id="carteextra8" class="carte carteextra">
+        <div id="introextra8" class="intro"></div>
+        <div id="nomextra8" class="titrecarte"></div>
+        <div id="effectextra81" class="effect1"></div>
+        <div id="effectextra82" class="effect2"></div>
+        <div id="effectextra83" class="effect3"></div>
+        <div id="effectextra84" class="effect4"></div>
+        <div id="effectextra85" class="effect5"></div>
+    </div>
+    <div id="carteextra9" class="carte carteextra">
+        <div id="introextra9" class="intro"></div>
+        <div id="nomextra9" class="titrecarte"></div>
+        <div id="effectextra91" class="effect1"></div>
+        <div id="effectextra92" class="effect2"></div>
+        <div id="effectextra93" class="effect3"></div>
+        <div id="effectextra94" class="effect4"></div>
+        <div id="effectextra95" class="effect5"></div>
+    </div>
+
+    <div id="grayscreen"></div>
+
     <script src="./java.js"></script>
 </body>
 </html>

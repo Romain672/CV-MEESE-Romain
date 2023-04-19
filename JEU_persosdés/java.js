@@ -187,8 +187,8 @@ function generatecards(){
     listcards.push(new Carte("none","Quadruple shot", 17,"$s$s$s$s", "$r$r$r$r", "$p4"));
     listcards.push(new Carte("none","Heal & Retreat", 18,"$h$h", "$c", "$p5"));
     //Rares
-    listcards.push(new Carte("none","Quick draw", 19,"🩸🩸", "🏹", "🔁"));
-    listcards.push(new Carte("none","Quick attack", 20,"🩸🩸", "⚔️", "🔁"));
+    listcards.push(new Carte("none","Quick draw", 19,"$s$s", "$r", "$c"));
+    listcards.push(new Carte("none","Quick attack", 20,"$s$s", "$m", "$c"));
     listcards.push(new Carte("none","Regeneration", 117,"$h$h","💖💖 to all ally"));
     listcards.push(new Carte("none","Perfect spot", 115,"⚔️🏹", "🔁 if 🚶‍♂️3", "🚶‍♂️3"));
     //Epic

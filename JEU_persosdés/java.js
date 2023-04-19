@@ -220,7 +220,7 @@ function checkhps(){
         morts = 0;
         for (let i=0;i<5;i++){
             if(listpersos[i].currenthp <1){
-                listpersos[i].currenthp+=3;
+                listpersos[i].currenthp+=4;
                 listpersos[0].currenthp--;
                 listpersos[1].currenthp--;
                 listpersos[2].currenthp--;

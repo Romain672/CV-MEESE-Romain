@@ -57,6 +57,7 @@ body{
 }
 #messagecentral{
     font-size: 30px;
+    position:relative;
 }
 
 .hidden{
@@ -72,15 +73,15 @@ body{
 }
 #carteextra7{
     left:20%;
-    top:20%;
+    top:25%;
 }
 #carteextra8{
     left:40%;
-    top:20%;
+    top:25%;
 }
 #carteextra9{
     left:60%;
-    top:20%;
+    top:25%;
 }
 #extratext{
     font-size: 50px;
@@ -99,4 +100,9 @@ body{
     z-index:50;
     visibility: hidden;
     background-color:#808080c0;
+}
+
+.deperso{
+    position: relative;
+    z-index:40;
 }

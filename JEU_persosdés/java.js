@@ -11,8 +11,10 @@ function onload() {
     generatecards();
     createbasicdeck();
     afficherallcarte();
-    document.getElementById("messagecentral").textContent="Select a dice to play";
-
+    document.getElementById("grayscreen").style.visibility = "visible";
+    document.getElementById("grayscreen").style.zIndex = "35";
+    document.getElementById("messagecentral").textContent="Select a dice to play, the corresponding card below will take effect";
+    document.getElementById("messagecentral").style.zIndex = "40";
 
     debutdutour();
 }
@@ -279,11 +281,19 @@ function genererevents (){
     }
 }
 function clickde(event){
+    document.getElementById("grayscreen").style.visibility = "hidden";
+    document.getElementById("grayscreen").style.zIndex = "35";
+    document.getElementById("grayscreen").style.zIndex = "35";
+    document.getElementById("messagecentral").style.zIndex = "0";
+    for (let i=0;i<5;i++){
+        document.getElementsByClassName("deperso")[i].style.zIndex = "0";
+    }
+
     let player=listpersos[ordrepersos[event.target.id.replace("de","")]];
     let de=player.de;
     let carte=listabilities[de-1].id;
     resolveeffect(player, carte);
-    if (cantrip==0){
+    if (cantrip==0 || diceavailable == ["n","n","n","n","n"]){ //cas particulier 5x cantrip
         afficherallperso(ordrepersos);
         findutour();
     }

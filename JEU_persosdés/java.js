@@ -3,6 +3,7 @@ let listabilities = [10]; //7ème card is empty, 8/9/10ème are for choices
 let listcards = [];
 let ordrepersos = [0,1,2,3,4,5];
 let diceavailable = ["y","y","y","y","y"];
+let turndelay = [0,0,0,0,0,0];
 let ennemy=5;
 
 window.addEventListener("load", onload);
@@ -60,13 +61,38 @@ function afficherperso(element, id) {
     }
     children[0].textContent = listpersos[id].nom;
     children[2].textContent = "💖".concat((listpersos[id].currenthp.toString()).concat("/").concat(listpersos[id].maxhp.toString()));
+    
     if (id<5){
-        if(diceavailable[id]=="n"){
-                children[1].textContent = des[6];
+        if (turndelay[id]!=0){
+            let nbr=turndelay[id];
+            if (nbr==2){
+                children[1].textContent = "⌛";
+            }
+            if (nbr==3){
+                children[1].textContent = "⌛²";
+            }
+            if (nbr==4){
+                children[1].textContent = "⌛³";
+            }
+            if (nbr==5){
+                children[1].textContent = "⌛⁴";
+            }
+            if (nbr==6){
+                children[1].textContent = "⌛⁵";
+            }
+            if (nbr>6){
+                children[1].textContent = "⌛?";
+            }
+            listpersos[ordrepersos[ordrepersos.indexOf(id)]].de = "7" ;
+        }  else {
+            if(diceavailable[id]=="n"){
+                children[1].textContent = "🔁";
                 listpersos[ordrepersos[ordrepersos.indexOf(id)]].de = "7" ;
             } else {
                 children[1].textContent = des[listpersos[id].de-1];
-         }
+            }
+        }        
+
         children[3].textContent = "⚔️".concat(listpersos[id].atkmel).concat(" - ").concat("🏹".concat(listpersos[id].atkran));
     } else{
         //ennemi
@@ -124,7 +150,7 @@ function Carte(a, b, c, d, e, f, g, h) {
     this.effect5 = h;
 }
 function affichercarte(id) {
-    //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸
+    //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
     let children;
     if(document.getElementById("carte"+id) != null){
         children = document.getElementById("carte"+id).children;
@@ -133,24 +159,24 @@ function affichercarte(id) {
     }
     //children[0]: intro
     children[1].textContent = listabilities[id].nom;
-    children[2].textContent = listabilities[id].effect1.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸");
+    children[2].textContent = listabilities[id].effect1.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     if(listabilities[id].effect2 != undefined){
-        children[3].textContent = listabilities[id].effect2.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸");
+        children[3].textContent = listabilities[id].effect2.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     } else {
         children[3].textContent = "";
     }
     if(listabilities[id].effect3 != undefined){
-        children[4].textContent = listabilities[id].effect3.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸");
+        children[4].textContent = listabilities[id].effect3.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     } else {
         children[4].textContent = "";
     }
     if(listabilities[id].effect4 != undefined){
-        children[5].textContent = listabilities[id].effect4.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸");
+        children[5].textContent = listabilities[id].effect4.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     } else {
         children[5].textContent = "";
     }
     if(listabilities[id].effect5 != undefined){
-        children[6].textContent = listabilities[id].effect5.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸");
+        children[6].textContent = listabilities[id].effect5.replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     } else {
         children[6].textContent = "";
     }
@@ -164,7 +190,7 @@ function afficherallcarte(){
     affichercarte(5);
 }
 function generatecards(){
-    //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸
+    //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
     //Trash
     listcards.push(new Carte("none","none", 0, "$s$h$c"));
     //Basics
@@ -179,19 +205,38 @@ function generatecards(){
     listcards.push(new Carte("none","Long attack", 8,"$m$m$r", "$p>"));
     listcards.push(new Carte("none","Small attack", 9,"$m$r$r"));
     listcards.push(new Carte("none","Sniping", 10,"$r$r$r", "$p<"));
-    listcards.push(new Carte("none","Strike & Heal", 11,"$m$m","$h$h", "$p>"));
-    listcards.push(new Carte("none","Attack & Heal", 12,"$m$r","$h$h"));
-    listcards.push(new Carte("none","Snipe & Heal", 13,"$r$r","$h$h", "$p<"));
-    listcards.push(new Carte("none","Drain life", 14,"$m","$h$h$h$h", "$p>"));
-    listcards.push(new Carte("none","Boomerang heal", 15,"$r","$h$h$h$h", "$p5"));
-    listcards.push(new Carte("none","Big heal", 16,"$h$h$h$h$h$h"));
+    listcards.push(new Carte("none","Strike & Heal", 11,"$m$m","$h$h$h", "$p>"));
+    listcards.push(new Carte("none","Attack & Heal", 12,"$m$r","$h$h$h"));
+    listcards.push(new Carte("none","Snipe & Heal", 13,"$r$r","$h$h$h", "$p<"));
+    listcards.push(new Carte("none","Drain life", 14,"$m","$h$h$h$h$h$h", "$p>"));
+    listcards.push(new Carte("none","Boomerang heal", 15,"$r","$h$h$h$h$h$h", "$p5"));
+    listcards.push(new Carte("none","Big heal", 16,"$h$h$h$h$h$h$h$h$h"));
     //
-    listcards.push(new Carte("none","Quadruple shot", 17,"$s$s$s$s", "$r$r$r$r", "$p4"));
-    listcards.push(new Carte("none","Heal & Retreat", 18,"$h$h", "$c", "$p5"));
+    listcards.push(new Carte("none","Quadruple shot", 17,"$s$s$s", "$r$r$r$r", "$p4"));
+    listcards.push(new Carte("none","Heal & Retreat", 18,"$h$h$h", "$c", "$p5"));
     //Rares
-    listcards.push(new Carte("none","Quick draw", 19,"$s$s", "$r", "$c"));
-    listcards.push(new Carte("none","Quick attack", 20,"$s$s", "$m", "$c"));
-    listcards.push(new Carte("none","Regeneration", 117,"$h$h","💖💖 to all ally"));
+    listcards.push(new Carte("none","Quick draw", 19,"$s", "$r", "$c"));
+    listcards.push(new Carte("none","Quick attack", 20,"$s", "$m", "$c"));
+    //$t
+    listcards.push(new Carte("none","Quadruple strike", 21,"$s", "$m$m$m$m", "$t", "$p>"));
+    listcards.push(new Carte("none","Longest attack", 22,"$s", "$m$m$m$r", "$t", "$p>"));
+    listcards.push(new Carte("none","Heavy attack", 23,"$s", "$m$m$r$r", "$t"));
+    listcards.push(new Carte("none","Great shot", 24,"$s", "$m$r$r$r", "$t", "$p<"));
+    listcards.push(new Carte("none","Sniping hard", 25,"$s", "$r$r$r$r", "$t", "$p<"));
+    listcards.push(new Carte("none","Timeal strike", 26, "$m$m$m", "$h$h", "$t", "$p>"));
+    listcards.push(new Carte("none","Timeal long attack", 27, "$m$m$r", "$h$h", "$t"));
+    listcards.push(new Carte("none","Timeal attack", 28, "$m$r$r", "$h$h", "$t"));
+    listcards.push(new Carte("none","Timeal snipe", 29, "$r$r$r", "$h$h", "$t", "$p<"));
+    //$t$t
+    listcards.push(new Carte("none","Sixtuple strike", 30,"$m$m$m$m$m$m", "$t$t$t"));
+    listcards.push(new Carte("none","Arrow of the century", 31,"$r$r$r$r$r$r", "$t$t$t"));
+    listcards.push(new Carte("none","Exhausting strike", 32, "$m", "$c", "$t")); //-1
+    listcards.push(new Carte("none","Exhausting snipe", 33, "$r", "$c", "$t")); //-1
+    listcards.push(new Carte("none","Exhausting heal", 34, "$h$h$h$h", "$c", "$t"));
+    listcards.push(new Carte("none","Melting pot", 35, "$s", "$m$r", "$c", "$t", "$p<"));
+
+    /*
+    listcards.push(new Carte("none","Regeneration", 117,"$h$h$h","💖💖 to all ally"));
     listcards.push(new Carte("none","Perfect spot", 115,"⚔️🏹", "🔁 if 🚶‍♂️3", "🚶‍♂️3"));
     //Epic
     listcards.push(new Carte("none","Balanced attack", 116,"⚔️⚔️⚔️ if 🚶‍♂️1 or 🚶‍♂️2", "🏹🏹🏹 if 🚶‍♂️4 or 🚶‍♂️5"));
@@ -203,6 +248,7 @@ function generatecards(){
     listcards.push(new Carte("none","Increase", 121,"🩸🩸", "Add 1 to another dice", "🔁"));
     listcards.push(new Carte("none","Copycat", 122,"🩸", "Apply the 1️⃣ effect"));
     listcards.push(new Carte("none","Duplicate", 124,"🩸🩸🩸🩸🩸🩸", "The next ability (non duplicate) trigger twice", "🔁"));
+    */
 }
 function createbasicdeck(){
     listabilities[0] = listcards[1];
@@ -217,15 +263,10 @@ function createbasicdeck(){
 /* Gameplay */
 function lancerdes() {
     diceavailable = ["y","y","y","y","y"];
-    listpersos[0].de = Math.trunc(Math.random()*6+1);
-    listpersos[1].de = Math.trunc(Math.random()*6+1);
-    listpersos[2].de = Math.trunc(Math.random()*6+1);
-    listpersos[3].de = Math.trunc(Math.random()*6+1);
-    listpersos[4].de = Math.trunc(Math.random()*6+1);
-    document.getElementById("persoetde0").children[0].textContent = listpersos[0].de;
-    document.getElementById("persoetde1").children[1].textContent = listpersos[1].de;
-    document.getElementById("persoetde2").children[2].textContent = listpersos[2].de;
-    document.getElementById("persoetde3").children[3].textContent = listpersos[3].de;
+    for (let i=0;i<5;i++){
+        listpersos[i].de = Math.trunc(Math.random()*6+1);
+        //document.getElementById("persoetde"+i).children[1].textContent = listpersos[i].de;
+    }
 }
 function debutdutour() {
     genererevents();
@@ -244,6 +285,13 @@ function findutour(){
     document.getElementById("messagecentral").textContent="Select a dice to play";
     checkhps();
     debutdutour();
+}
+function turndelaydecrease(){
+    for(i=0;i<5;i++){
+        if (turndelay[i]>0){
+            turndelay[i]--;
+        }
+    }
 }
 function checkhps(){
     let morts = 672;
@@ -293,14 +341,15 @@ function clickde(event){
     let de=player.de;
     let carte=listabilities[de-1].id;
     resolveeffect(player, carte);
-    if (cantrip==0 || diceavailable == ["n","n","n","n","n"]){ //cas particulier 5x cantrip
+    if (cantrip==0){
         afficherallperso(ordrepersos);
+        turndelaydecrease();
         findutour();
     }
 }
 let cantrip=0; //check if you can chose another dice or not
 function resolveeffect(player, id){
-    //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸
+    //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
     cantrip=0;
     for (let j=4;j>-1;j--){        
         let split;
@@ -355,6 +404,12 @@ function resolveeffect(player, id){
             }
             if (char[0]=="s"){
                 heal(player, -1);
+            }
+            if (char[0]=="t"){
+                if(turndelay[player.id]==0){
+                    turndelay[player.id]++;    
+                }
+                turndelay[player.id]++;
             }
         }
         //special effect of cards
@@ -416,9 +471,9 @@ function gameover(){
 let cardchosen = 0;
 function choosenewcard(){
     document.getElementById("messagecentral").textContent="Choose a card to add to your deck";
-    listabilities[7] = listcards[7+Math.trunc(Math.random()*13)];
-    listabilities[8] = listcards[7+Math.trunc(Math.random()*13)];
-    listabilities[9] = listcards[7+Math.trunc(Math.random()*13)];  
+    listabilities[7] = listcards[7+Math.trunc(Math.random()*28)];
+    listabilities[8] = listcards[7+Math.trunc(Math.random()*28)];
+    listabilities[9] = listcards[7+Math.trunc(Math.random()*28)];  
     
     document.getElementById("extratext").style.visibility = "visible";
     document.getElementById("grayscreen").style.visibility = "visible";
@@ -426,7 +481,7 @@ function choosenewcard(){
     for (let i=1;i<4;i++){
         let element=document.getElementsByClassName("carteextra")[i-1];
         document.getElementsByClassName("carteextra")[i-1].style.visibility = "visible";
-        element.style.backgroundColor="darkgoldenrod";
+        element.style.backgroundColor="darkslategray";
         if (i==1){
             element.addEventListener("click",newcard1);
         }
@@ -465,6 +520,7 @@ function extrahidden(){
 }
 function messageapreschoix(){
     document.getElementById("messagecentral").textContent="Now choose a card in your deck (bottom) to replace it";
+    document.getElementById("messagecentral").style.zIndex = "40";
 }
 
 document.getElementsByClassName("carte")[0].addEventListener("click",deck1);
@@ -528,4 +584,11 @@ function changecarddeck(nbr){
         listabilities[i].effect4="";
         listabilities[i].effect5="";
     }
+}
+
+// Skip turn
+document.getElementById("skip").addEventListener("click",skipturn);
+function skipturn(){
+    turndelaydecrease();
+    findutour();
 }

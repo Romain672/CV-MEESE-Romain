@@ -21,14 +21,18 @@ body{
     width:100px;
     height:200px;
     margin:1px;
+    border: white 1px solid;
+    border-radius: 20px;
 }
 
 .carte{
     background-color: darkslategray;
     width:150px;
-    height:200px;
+    height:220px;
     margin:1px;
     z-index: 30;
+    border: white 1px solid;
+    border-radius: 20px;
 }
 
 #persoetde5{
@@ -54,6 +58,10 @@ body{
     width:80px;
     height:200px;
     margin:1px;
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+    justify-content:center;
 }
 #messagecentral{
     font-size: 30px;
@@ -105,4 +113,17 @@ body{
 .deperso{
     position: relative;
     z-index:40;
+}
+
+#skip{
+    background-color:darkslategrey;
+    border: white 1px solid;
+    border-radius:3px;
+    font-size: 10px;
+    width:40px;
+    height:12px;
+}
+
+#hp5, #atkmel5{
+    font-size:27px;
 }

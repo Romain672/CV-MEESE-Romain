@@ -280,6 +280,7 @@ function lancerdes() {
     }
 }
 function debutdutour() {
+    console.log(turndelay);
     genererevents();
     lancerdes();
     afficherallperso(ordrepersos);
@@ -418,19 +419,19 @@ function resolveeffect(player, id){
                 heal(player, -1);
             }
             if (char[0]=="t"){
-                increaseturndelay=1;
+                increaseturndelay++;
             }
         }
         //special effect of cards
     }
-    if (increaseturndelay==1){
+    if (increaseturndelay>0){
         if (cantrip==0){
-            turndelay[player.id]++;
+            turndelay[player.id]=increaseturndelay;
         } else {
-            turndelay[player.id]++;
-            turndelay[player.id]++;
+            turndelay[player.id]=increaseturndelay+1;
         }
     }
+    console.log(turndelay);
     checkhps();
     afficherallperso(ordrepersos);
 }

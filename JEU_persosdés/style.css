@@ -66,6 +66,10 @@ body{
 #messagecentral{
     font-size: 30px;
     position:relative;
+    background-color:darksalmon;
+    color:black;
+    border: black 1px solid;
+    border-radius:20px;
 }
 
 .hidden{
@@ -96,6 +100,9 @@ body{
     color:white;
     left:20%;
     top:50px;
+    background-color:darkblue;
+    border: white 1px solid;
+    border-radius:20px;
 }
 
 #grayscreen{

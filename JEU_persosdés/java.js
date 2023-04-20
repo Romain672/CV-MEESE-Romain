@@ -65,22 +65,22 @@ function afficherperso(element, id) {
     if (id<5){
         if (turndelay[id]!=0){
             let nbr=turndelay[id];
-            if (nbr==2){
+            if (nbr==1){
                 children[1].textContent = "⌛";
             }
-            if (nbr==3){
+            if (nbr==2){
                 children[1].textContent = "⌛²";
             }
-            if (nbr==4){
+            if (nbr==3){
                 children[1].textContent = "⌛³";
             }
-            if (nbr==5){
+            if (nbr==4){
                 children[1].textContent = "⌛⁴";
             }
-            if (nbr==6){
+            if (nbr==5){
                 children[1].textContent = "⌛⁵";
             }
-            if (nbr>6){
+            if (nbr>5){
                 children[1].textContent = "⌛?";
             }
             listpersos[ordrepersos[ordrepersos.indexOf(id)]].de = "7" ;
@@ -271,6 +271,7 @@ function lancerdes() {
 function debutdutour() {
     genererevents();
     lancerdes();
+    console.log("tour:" + turndelay);
     afficherallperso(ordrepersos);
 }
 function findutour(){
@@ -351,6 +352,7 @@ let cantrip=0; //check if you can chose another dice or not
 function resolveeffect(player, id){
     //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
     cantrip=0;
+    let increaseturndelay=0;
     for (let j=4;j>-1;j--){        
         let split;
         if (j==0){
@@ -406,13 +408,18 @@ function resolveeffect(player, id){
                 heal(player, -1);
             }
             if (char[0]=="t"){
-                if(turndelay[player.id]==0){
-                    turndelay[player.id]++;    
-                }
-                turndelay[player.id]++;
+                increaseturndelay=1;
             }
         }
         //special effect of cards
+    }
+    if (increaseturndelay==1){
+        if (cantrip==0){
+            turndelay[player.id]++;
+        } else {
+            turndelay[player.id]++;
+            turndelay[player.id]++;
+        }
     }
     checkhps();
     afficherallperso(ordrepersos);

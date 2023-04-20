@@ -585,6 +585,7 @@ function deck6(){
 function changecarddeck(nbr){
     listabilities[nbr]=listabilities[6+cardchosen];
     afficherallperso(ordrepersos);
+    affichercarte(0);
     affichercarte(1);
     affichercarte(2);
     affichercarte(3);

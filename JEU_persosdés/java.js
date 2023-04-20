@@ -353,11 +353,13 @@ function clickde(event){
     let de=player.de;
     let carte=listabilities[de-1].id;
     resolveeffect(player, carte);
+    
     if (cantrip==0){
         afficherallperso(ordrepersos);
         turndelaydecrease();
         findutour();
     }
+      
 }
 let cantrip=0; //check if you can chose another dice or not
 function resolveeffect(player, id){
@@ -425,11 +427,7 @@ function resolveeffect(player, id){
         //special effect of cards
     }
     if (increaseturndelay>0){
-        if (cantrip==0){
-            turndelay[player.id]=increaseturndelay;
-        } else {
             turndelay[player.id]=increaseturndelay+1;
-        }
     }
     console.log(turndelay);
     checkhps();

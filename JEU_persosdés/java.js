@@ -193,14 +193,14 @@ function generatecards(){
     //$h=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
     //Trash
     listcards.push(new Carte("none","none", 0, "$s$h$c"));
-    //Basics
+    //Starting deck
     listcards.push(new Carte("none","Fast heal", 1, "$h","$c"));
     listcards.push(new Carte("none","Heal & Attack", 2, "$h$h$h", "$m"));
     listcards.push(new Carte("none","Double attack", 3,"$m$r"));
     listcards.push(new Carte("none","Double strike", 4, "$m$m", "$p>"));
     listcards.push(new Carte("none","Longshot", 5, "$r$r", "$p<"));
     listcards.push(new Carte("none","Run forward", 6,"$c", "$p1"));
-    //Communes
+    //Normal: triples
     listcards.push(new Carte("none","Triple strike", 7,"$m$m$m", "$p>"));
     listcards.push(new Carte("none","Long attack", 8,"$m$m$r", "$p>"));
     listcards.push(new Carte("none","Small attack", 9,"$m$r$r"));
@@ -211,13 +211,12 @@ function generatecards(){
     listcards.push(new Carte("none","Drain life", 14,"$m","$h$h$h$h$h$h", "$p>"));
     listcards.push(new Carte("none","Boomerang heal", 15,"$r","$h$h$h$h$h$h", "$p5"));
     listcards.push(new Carte("none","Big heal", 16,"$h$h$h$h$h$h$h$h$h"));
-    //
+    //Weird
     listcards.push(new Carte("none","Quadruple shot", 17,"$s$s$s", "$r$r$r$r", "$p4"));
     listcards.push(new Carte("none","Heal & Retreat", 18,"$h$h$h", "$c", "$p5"));
-    //Rares
     listcards.push(new Carte("none","Quick draw", 19,"$s", "$r", "$c"));
     listcards.push(new Carte("none","Quick attack", 20,"$s", "$m", "$c"));
-    //$t
+    //Delay normal
     listcards.push(new Carte("none","Quadruple strike", 21,"$s", "$m$m$m$m", "$t", "$p>"));
     listcards.push(new Carte("none","Longest attack", 22,"$s", "$m$m$m$r", "$t", "$p>"));
     listcards.push(new Carte("none","Heavy attack", 23,"$s", "$m$m$r$r", "$t"));
@@ -227,13 +226,25 @@ function generatecards(){
     listcards.push(new Carte("none","Timeal long attack", 27, "$m$m$r", "$h$h", "$t"));
     listcards.push(new Carte("none","Timeal attack", 28, "$m$r$r", "$h$h", "$t"));
     listcards.push(new Carte("none","Timeal snipe", 29, "$r$r$r", "$h$h", "$t", "$p<"));
-    //$t$t
+    //Delay weird
     listcards.push(new Carte("none","Sixtuple strike", 30,"$m$m$m$m$m$m", "$t$t$t"));
     listcards.push(new Carte("none","Arrow of the century", 31,"$r$r$r$r$r$r", "$t$t$t"));
     listcards.push(new Carte("none","Exhausting strike", 32, "$m", "$c", "$t")); //-1
     listcards.push(new Carte("none","Exhausting snipe", 33, "$r", "$c", "$t")); //-1
     listcards.push(new Carte("none","Exhausting heal", 34, "$h$h$h$h", "$c", "$t"));
     listcards.push(new Carte("none","Melting pot", 35, "$s", "$m$r", "$c", "$t", "$p<"));
+    //Simple copy:
+    listcards.push(new Carte("none","Triple strike", 36,"$m$m$m", "$p>"));
+    listcards.push(new Carte("none","Long attack", 37,"$m$m$r", "$p>"));
+    listcards.push(new Carte("none","Small attack", 38,"$m$r$r"));
+    listcards.push(new Carte("none","Sniping", 39,"$r$r$r", "$p<"));
+    listcards.push(new Carte("none","Strike & Heal", 40,"$m$m","$h$h$h", "$p>"));
+    listcards.push(new Carte("none","Attack & Heal", 41,"$m$r","$h$h$h"));
+    listcards.push(new Carte("none","Snipe & Heal", 42,"$r$r","$h$h$h", "$p<"));
+    listcards.push(new Carte("none","Drain life", 43,"$m","$h$h$h$h$h$h", "$p>"));
+    listcards.push(new Carte("none","Boomerang heal", 44,"$r","$h$h$h$h$h$h", "$p5"));
+    listcards.push(new Carte("none","Big heal", 45,"$h$h$h$h$h$h$h$h$h"));
+
 
     /*
     listcards.push(new Carte("none","Regeneration", 117,"$h$h$h","💖💖 to all ally"));
@@ -271,7 +282,6 @@ function lancerdes() {
 function debutdutour() {
     genererevents();
     lancerdes();
-    console.log("tour:" + turndelay);
     afficherallperso(ordrepersos);
 }
 function findutour(){
@@ -478,9 +488,9 @@ function gameover(){
 let cardchosen = 0;
 function choosenewcard(){
     document.getElementById("messagecentral").textContent="Choose a card to add to your deck";
-    listabilities[7] = listcards[7+Math.trunc(Math.random()*28)];
-    listabilities[8] = listcards[7+Math.trunc(Math.random()*28)];
-    listabilities[9] = listcards[7+Math.trunc(Math.random()*28)];  
+    listabilities[7] = listcards[7+Math.trunc(Math.random()*38)];
+    listabilities[8] = listcards[7+Math.trunc(Math.random()*38)];
+    listabilities[9] = listcards[7+Math.trunc(Math.random()*38)];  
     
     document.getElementById("extratext").style.visibility = "visible";
     document.getElementById("grayscreen").style.visibility = "visible";

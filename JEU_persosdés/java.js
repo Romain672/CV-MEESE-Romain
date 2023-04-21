@@ -199,7 +199,7 @@ function afficherallcarte(){
     affichercarte(4);
     affichercarte(5);
 }
-let maxidcard = 48;
+let maxidcard = 56;
 function generatecards(){
     //$h=💖 |$ha=💕 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
     //+1    |  +4    |  +6   |   +3  |   +3   |   0    |  -1   |  -2   =  +9
@@ -220,6 +220,7 @@ function generatecards(){
     listcards.push(new Carte("none","Strike & Heal", 11,"$m$m","$h$h$h", "$p>")); //+9
     listcards.push(new Carte("none","Attack & Heal", 12,"$m$r","$h$h$h")); //+9
     listcards.push(new Carte("none","Snipe & Heal", 13,"$r$r","$h$h$h", "$p<")); //+9
+    //Normal extras
     listcards.push(new Carte("none","Drain life", 14,"$m","$h$h$h$h$h$h$h", "$p>")); //+10
     listcards.push(new Carte("none","Boomerang heal", 15,"$r","$h$h$h$h$h$h$h", "$p5")); //+10
     listcards.push(new Carte("none","Big heal", 16,"$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
@@ -248,20 +249,28 @@ function generatecards(){
     listcards.push(new Carte("none","Exhausting heal", 34, "$h$h$h$h$h$h$h$h", "$c", "$t")); //+10
     listcards.push(new Carte("none","Melting pot", 35, "$m$r", "$s", "$c", "$t", "$p<")); //+9
     //$ha
-    listcards.push(new Carte("none","Heal impact", 36,"$m$m", "$ha")); //+10
+    listcards.push(new Carte("none","Heal impact", 36,"$m$m", "$ha", "$p>")); //+10
     listcards.push(new Carte("none","Heal polyvalent", 37,"$m$r","$ha")); //+10
-    listcards.push(new Carte("none","Heal meteor", 38,"$r$r", "$ha")); //+10
+    listcards.push(new Carte("none","Heal meteor", 38,"$r$r", "$ha", "$p<")); //+10
     listcards.push(new Carte("none","Regeneration attack", 39,"$m", "$h$h","$ha")); //+9
     listcards.push(new Carte("none","Regeneration snipe ", 40,"$r", "$h$h","$ha")); //+9
     listcards.push(new Carte("none","Rejuvenation", 41,"$h$h$h$h$h","$ha")); //+9
     listcards.push(new Carte("none","Regeneration", 42,"$h","$ha$ha")); //+9
     listcards.push(new Carte("none","Triple reparation", 43,"$s$s$s", "$ha$ha$ha")); //+9
     listcards.push(new Carte("none","Fast medic", 44,"$ha","$c")); //+10
-    listcards.push(new Carte("none","Fast sacrificial medic", 45,"$s$s$s$s$s", "$ha$ha","$c")); //+9
-    listcards.push(new Carte("none","Sacrificial medic", 46,"$s$s$s$s$s$s$s$s$s", "$ha$ha$ha","$c")); //+9
+    listcards.push(new Carte("none","Fast sacrificial medic", 45,"$s$s$s$s$s", "$ha$ha", "$c", "$p>")); //+9
+    listcards.push(new Carte("none","Sacrificial medic", 46,"$s$s$s$s$s$s$s$s$s", "$ha$ha$ha","$c", "$p>")); //+9
     listcards.push(new Carte("none","Waiting heal", 47,"$ha$ha$ha", "$t")); //+10
-    listcards.push(new Carte("none","Heal and sleep", 47,"$ha$ha$ha$ha", "$t$t$t")); //+10
-    listcards.push(new Carte("none","Heal before rest", 48,"$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
+    listcards.push(new Carte("none","Heal and sleep", 48,"$ha$ha$ha$ha", "$t$t$t")); //+10
+    listcards.push(new Carte("none","Heal before rest", 49,"$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
+    //Normal triple copied:
+    listcards.push(new Carte("none","Triple strike", 50,"$m$m$m", "$p>")); //+9
+    listcards.push(new Carte("none","Long attack", 51,"$m$m$r", "$p>")); //+9
+    listcards.push(new Carte("none","Small attack", 52,"$m$r$r")); //+9
+    listcards.push(new Carte("none","Sniping", 53,"$r$r$r", "$p<")); //+9
+    listcards.push(new Carte("none","Strike & Heal", 54,"$m$m","$h$h$h", "$p>")); //+9
+    listcards.push(new Carte("none","Attack & Heal", 55,"$m$r","$h$h$h")); //+9
+    listcards.push(new Carte("none","Snipe & Heal", 56,"$r$r","$h$h$h", "$p<")); //+9
     
     //$h=💖 |$ha=💕 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
     //+1    |  +4    |  +6   |   +3  |   +3   |   0    |  -1   |  -2   =  +9

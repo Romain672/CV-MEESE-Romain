@@ -136,6 +136,11 @@ function generatepersos(){
     listpersos[12] = new Personnage("🐎","Pégase",12,0,36,36,10);
     listpersos[13] = new Personnage("🐻","Teddy",13,0,40,40,11);
     listpersos[14] = new Personnage("🐘","Dumbo",14,0,44,44,12);
+    listpersos[15] = new Personnage("🚗","Rac",15,0,48,48,13);
+    listpersos[16] = new Personnage("🚚","Kcurt",16,0,52,52,14);
+    listpersos[17] = new Personnage("🚅","Niart",17,0,56,56,15);
+    listpersos[18] = new Personnage("🚢","Pihs",18,0,60,60,16);
+    listpersos[19] = new Personnage("🚀","Tekcor",19,0,64,64,17);
 }
 
 /* Cartes */
@@ -207,7 +212,7 @@ function generatecards(){
     listcards.push(new Carte("none","none", 0, "$s$h$c"));
     //Starting deck (=+6 instead of +9)
     listcards.push(new Carte("none","Fast heal", 1, "$h","$c")); //+7
-    listcards.push(new Carte("none","Heal & Attack", 2, "$h$h$h", "$m")); //+6
+    listcards.push(new Carte("none","Heal & Attack", 2, "$m", "$h$h$h")); //+6
     listcards.push(new Carte("none","Double attack", 3,"$m$r")); //+6
     listcards.push(new Carte("none","Double strike", 4, "$m$m", "$p>")); //+6
     listcards.push(new Carte("none","Longshot", 5, "$r$r", "$p<")); //+6
@@ -533,7 +538,8 @@ function gameover(){
 function reload() {
     location.reload();
 }
-//Replace a card in your deck:
+
+/* Replace a card in your deck: */
 let cardchosen = 0;
 function choosenewcard(){
     document.getElementById("messagecentral").textContent="Choose a card to add to your deck";
@@ -669,7 +675,7 @@ function changecarddeck(nbr){
     }
 }
 
-// Skip turn
+/* Skip turn */
 document.getElementById("skip").addEventListener("click",skipturn);
 function skipturn(){
     turndelaydecrease();

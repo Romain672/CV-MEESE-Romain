@@ -125,11 +125,12 @@
     <br>
     The effects are:<br>
      - 🔁: you can play another dice this turn<br>
-     - 💖: heal the character which rolled the dice by 1 (up to his max hp)(🩸: lose 1 instead)<br>
-     - ⚔️🏹 deal the ⚔️🏹 damage of the character which rolled the dice to the enemy<br>
+     - 💖: heal the character which rolled the dice by 1 (up to his max hp)(🩸: lose 1 instead)(💕: all other players instead)<br>
+     - ⚔️ (🏹): deal the ⚔️(🏹) damage of the character which rolled the dice to the enemy<br>
      - 🚶‍♂️: move the character to a certain position or to one spot to the left or right<br>
      - ⌛: the dice is disabled for one extra turn<br>
-     Then, if you kill the enemy, a new one will appear and all your dices are rerolled.<br>
+    <br>
+    Then, if you kill the enemy, a new one will appear and all your dices are rerolled.<br>
     If you dont, the character in the first/rightmost position will take damage equal to the enemy attack, then all your dices will be rerolled.<br>
     <br>
     If one of your character goes to 0 hp or below, he will heal 4, then every ally will take one damage. If any ally is at 0 hp or below, you repeat until either all your characters are above 0 hp or all are below 1 hp, then you lose.<br>
@@ -140,7 +141,7 @@
 
     <br>
 
-    <div id="extratext">You killed :) Choose a card to replace your deck:</div>
+    <div id="extratext">You killed. Choose a card to replace your deck:</div>
     <div id="carteextra7" class="carte carteextra">
         <div id="introextra7" class="intro"></div>
         <div id="nomextra7" class="titrecarte"></div>
@@ -168,8 +169,10 @@
         <div id="effectextra94" class="effect4"></div>
         <div id="effectextra95" class="effect5"></div>
     </div>
+    <div id="skipcard">Skip card</div>
 
     <div id="grayscreen"></div>
+    <div id="playagain"><br>Play again</div>
 
     <script src="./java.js"></script>
 </body>

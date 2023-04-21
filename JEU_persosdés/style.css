@@ -111,7 +111,7 @@ body{
     left:0px;
     top:0px;
     width:100%;
-    height:100%;
+    height: 100%; /*changed in top of js*/
     z-index:50;
     visibility: hidden;
     background-color:#808080c0;
@@ -133,4 +133,32 @@ body{
 
 #hp5, #atkmel5{
     font-size:27px;
+}
+
+#playagain{
+    background-color:darkred;
+    border: white 1px solid;
+    border-radius:50px;
+    font-size: 30px;
+    width:250px;
+    height:100px;
+    visibility: hidden;
+    top:60%;
+    left:42%;
+    z-index:50;
+    position:absolute;
+}
+
+#skipcard{
+    background-color:darkred;
+    border: white 1px solid;
+    border-radius:10px;
+    font-size: 20px;
+    width:100px;
+    height:25px;
+    left:42%;
+    top:70%;
+    position:absolute;
+    z-index: 60;
+    visibility: hidden;
 }

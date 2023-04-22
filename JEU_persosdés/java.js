@@ -5,6 +5,7 @@ let ordrepersos = [0,1,2,3,4,5];
 let diceavailable = ["y","y","y","y","y"];
 let turndelay = [0,0,0,0,0,0];
 let ennemy=5;
+let skipnextmessage = 0;
 
 window.addEventListener("load", onload);
 function onload() {
@@ -15,9 +16,8 @@ function onload() {
     document.getElementById("grayscreen").style.height = document.body.scrollHeight + 20 + "px";
     document.getElementById("grayscreen").style.visibility = "visible";
     document.getElementById("grayscreen").style.zIndex = "35";
-    document.getElementById("messagecentral").textContent="Select a dice to play, the corresponding card below will take effect";
     document.getElementById("messagecentral").style.zIndex = "40";
-
+    document.getElementById("messagecentral").textContent="Select a dice to play, the corresponding card below will take effect";
     debutdutour();
 }
 
@@ -126,21 +126,17 @@ function generatepersos(){
     listpersos[3] = new Personnage("none","Derick",3,0,6,6,4,4);
     listpersos[4] = new Personnage("none","Elise",4,0,6,6,1,6);
     //ennemy
-    listpersos[5] = new Personnage("🐀","Ratatouille",5,0,8,8,3);
-    listpersos[6] = new Personnage("🐤","Piou",6,0,12,12,4);
-    listpersos[7] = new Personnage("🐧","Siffli",7,0,16,16,5);
-    listpersos[8] = new Personnage("🐈","Garfield",8,0,20,20,6);
-    listpersos[9] = new Personnage("🐒","Abu",9,0,24,24,7);
-    listpersos[10] = new Personnage("🐺","Fenrir",10,0,28,28,8);
-    listpersos[11] = new Personnage("🐄","Abigaëlle",11,0,32,32,9);
-    listpersos[12] = new Personnage("🐎","Pégase",12,0,36,36,10);
-    listpersos[13] = new Personnage("🐻","Teddy",13,0,40,40,11);
-    listpersos[14] = new Personnage("🐘","Dumbo",14,0,44,44,12);
-    listpersos[15] = new Personnage("🚗","Rac",15,0,48,48,13);
-    listpersos[16] = new Personnage("🚚","Kcurt",16,0,52,52,14);
-    listpersos[17] = new Personnage("🚅","Niart",17,0,56,56,15);
-    listpersos[18] = new Personnage("🚢","Pihs",18,0,60,60,16);
-    listpersos[19] = new Personnage("🚀","Tekcor",19,0,64,64,17);
+    listpersos[5] = new Personnage("🐀","Ratatouille",5,0,9,9,4);
+    listpersos[6] = new Personnage("🐤","Piou",6,0,9,9,5);
+    listpersos[7] = new Personnage("🐧","Siffli",7,0,14,14,5);
+    listpersos[8] = new Personnage("🐈","Garfield",8,0,14,14,6);
+    listpersos[9] = new Personnage("🐒","Abu",9,0,19,19,6);
+    listpersos[10] = new Personnage("🐺","Fenrir",10,0,19,19,7);
+    listpersos[11] = new Personnage("🐄","Abigaëlle",11,0,23,23,7);
+    listpersos[12] = new Personnage("🐎","Pégase",12,0,23,23,8);
+    listpersos[13] = new Personnage("🐻","Teddy",13,0,27,27,8);
+    listpersos[14] = new Personnage("🐘","Dumbo",14,0,27,27,9);
+    listpersos[15] = new Personnage("👨","The developper",15,0,30,30,9);
 }
 
 /* Cartes */
@@ -154,10 +150,10 @@ let carte = {
     effect4:"",
     effect5:"",
 }
-function Carte(a, b, c, d, e, f, g, h) {
+function Carte(a, b, d, e, f, g, h) {
     this.avatar = a;
     this.nom = b;
-    this.id = c;
+    this.id = listcards.length;
     this.effect1 = d;
     this.effect2 = e;
     this.effect3 = f;
@@ -174,24 +170,24 @@ function affichercarte(id) {
     }
     //children[0]: intro
     children[1].textContent = listabilities[id].nom;
-    children[2].textContent = listabilities[id].effect1.replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
+    children[2].textContent = listabilities[id].effect1.replaceAll("$z","$").replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$cc","🔁🔁").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     if(listabilities[id].effect2 != undefined){
-        children[3].textContent = listabilities[id].effect2.replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
+        children[3].textContent = listabilities[id].effect2.replaceAll("$z","$").replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$cc","🔁🔁").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     } else {
         children[3].textContent = "";
     }
     if(listabilities[id].effect3 != undefined){
-        children[4].textContent = listabilities[id].effect3.replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
+        children[4].textContent = listabilities[id].effect3.replaceAll("$z","$").replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$cc","🔁🔁").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     } else {
         children[4].textContent = "";
     }
     if(listabilities[id].effect4 != undefined){
-        children[5].textContent = listabilities[id].effect4.replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
+        children[5].textContent = listabilities[id].effect4.replaceAll("$z","$").replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$cc","🔁🔁").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     } else {
         children[5].textContent = "";
     }
     if(listabilities[id].effect5 != undefined){
-        children[6].textContent = listabilities[id].effect5.replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
+        children[6].textContent = listabilities[id].effect5.replaceAll("$z","$").replaceAll("$ha","💕").replaceAll("$h","💖").replaceAll("$cc","🔁🔁").replaceAll("$c","🔁").replaceAll("$m","⚔️").replaceAll("$r","🏹").replaceAll("$p","🚶‍♂️").replaceAll("$s","🩸").replaceAll("$t","⌛");
     } else {
         children[6].textContent = "";
     }
@@ -204,93 +200,119 @@ function afficherallcarte(){
     affichercarte(4);
     affichercarte(5);
 }
-let maxidcard = 56;
 function generatecards(){
-    //$h=💖 |$ha=💕 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
-    //+1    |  +4    |  +6   |   +3  |   +3   |   0    |  -1   |  -2   =  +9
+    //$h=💖 |$ha=💕 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
+    //+1    |  +4    |  +6   |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
     //Trash
-    listcards.push(new Carte("none","none", 0, "$s$h$c"));
+    listcards.push(new Carte("none","none", "$s$h$c"));
     //Starting deck (=+6 instead of +9)
-    listcards.push(new Carte("none","Fast heal", 1, "$h","$c")); //+7
-    listcards.push(new Carte("none","Heal & Attack", 2, "$m", "$h$h$h")); //+6
-    listcards.push(new Carte("none","Double attack", 3,"$m$r")); //+6
-    listcards.push(new Carte("none","Double strike", 4, "$m$m", "$p>")); //+6
-    listcards.push(new Carte("none","Longshot", 5, "$r$r", "$p<")); //+6
-    listcards.push(new Carte("none","Run forward", 6,"$c", "$p1")); //+6
+    listcards.push(new Carte("none","Fast heal", "$h","$c")); //+7
+    listcards.push(new Carte("none","Heal & Attack", "$m", "$h$h$h")); //+6
+    listcards.push(new Carte("none","Double attack","$m$r")); //+6
+    listcards.push(new Carte("none","Double strike", "$m$m", "$p>")); //+6
+    listcards.push(new Carte("none","Longshot", "$r$r", "$p<")); //+6
+    listcards.push(new Carte("none","Run forward", "$c", "$p1")); //+7
     //Normal: triples
-    listcards.push(new Carte("none","Triple strike", 7,"$m$m$m", "$p>")); //+9
-    listcards.push(new Carte("none","Long attack", 8,"$m$m$r", "$p>")); //+9
-    listcards.push(new Carte("none","Small attack", 9,"$m$r$r")); //+9
-    listcards.push(new Carte("none","Sniping", 10,"$r$r$r", "$p<")); //+9
-    listcards.push(new Carte("none","Strike & Heal", 11,"$m$m","$h$h$h", "$p>")); //+9
-    listcards.push(new Carte("none","Attack & Heal", 12,"$m$r","$h$h$h")); //+9
-    listcards.push(new Carte("none","Snipe & Heal", 13,"$r$r","$h$h$h", "$p<")); //+9
+    listcards.push(new Carte("none","Triple strike", "$m$m$m", "$p>")); //+9
+    listcards.push(new Carte("none","Long attack", "$m$m$r", "$p>")); //+9
+    listcards.push(new Carte("none","Small attack", "$m$r$r")); //+9
+    listcards.push(new Carte("none","Sniping", "$r$r$r", "$p<")); //+9
+    listcards.push(new Carte("none","Strike & Heal", "$m$m","$h$h$h", "$p>")); //+9
+    listcards.push(new Carte("none","Attack & Heal", "$m$r","$h$h$h")); //+9
+    listcards.push(new Carte("none","Snipe & Heal", "$r$r","$h$h$h", "$p<")); //+9
     //Normal extras
-    listcards.push(new Carte("none","Drain life", 14,"$m","$h$h$h$h$h$h$h", "$p>")); //+10
-    listcards.push(new Carte("none","Boomerang heal", 15,"$r","$h$h$h$h$h$h$h", "$p5")); //+10
-    listcards.push(new Carte("none","Big heal", 16,"$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
+    listcards.push(new Carte("none","Drain life", "$m","$h$h$h$h$h$h$h", "$p>")); //+10
+    listcards.push(new Carte("none","Boomerang heal", "$r","$h$h$h$h$h$h$h", "$p5")); //+11
+    listcards.push(new Carte("none","Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
     //Self sacrifice
-    listcards.push(new Carte("none","Quadruple shot", 17,"$r$r$r$r","$s$s$s","$p4")); //+9
+    listcards.push(new Carte("none","Quadruple shot", "$r$r$r$r","$s$s$s","$p4")); //+10
     //$c
-    listcards.push(new Carte("none","Heal & Retreat", 18,"$h$h$h", "$c", "$p5")); //+9
-    listcards.push(new Carte("none","Quick draw", 19,"$r", "$c")); //+9
-    listcards.push(new Carte("none","Quick attack", 20,"$m", "$c")); //+9
+    listcards.push(new Carte("none","Heal & Retreat", "$h$h$h", "$c", "$p5")); //+10
+    listcards.push(new Carte("none","Quick draw", "$r", "$c")); //+9
+    listcards.push(new Carte("none","Quick attack", "$m", "$c")); //+9
     //Delay damage
-    listcards.push(new Carte("none","Quadruple strike", 21,"$m$m$m$m", "$t", "$p>")); //+10
-    listcards.push(new Carte("none","Longest attack", 22,"$m$m$m$r", "$t", "$p>")); //+10
-    listcards.push(new Carte("none","Heavy attack", 23,"$m$m$r$r", "$t")); //+10
-    listcards.push(new Carte("none","Great shot", 24,"$m$r$r$r", "$t", "$p<")); //+10
-    listcards.push(new Carte("none","Sniping hard", 25,"$r$r$r$r", "$t", "$p<")); //+10
+    listcards.push(new Carte("none","Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
+    listcards.push(new Carte("none","Longest attack", "$m$m$m$r", "$t", "$p>")); //+10
+    listcards.push(new Carte("none","Heavy attack", "$m$m$r$r", "$t")); //+10
+    listcards.push(new Carte("none","Great shot", "$m$r$r$r", "$t", "$p<")); //+10
+    listcards.push(new Carte("none","Sniping hard", "$r$r$r$r", "$t", "$p<")); //+10
     //Delay damage+heal
-    listcards.push(new Carte("none","Timeal strike", 26, "$m$m$m", "$h$h", "$t", "$p>")); //+9
-    listcards.push(new Carte("none","Timeal long attack", 27, "$m$m$r", "$h$h", "$t")); //+9
-    listcards.push(new Carte("none","Timeal attack", 28, "$m$r$r", "$h$h", "$t")); //+9
-    listcards.push(new Carte("none","Timeal snipe", 29, "$r$r$r", "$h$h", "$t", "$p<")); //+9
+    listcards.push(new Carte("none","Timeal strike",  "$m$m$m", "$h$h", "$t", "$p>")); //+9
+    listcards.push(new Carte("none","Timeal long attack",  "$m$m$r", "$h$h", "$t")); //+9
+    listcards.push(new Carte("none","Timeal attack",  "$m$r$r", "$h$h", "$t")); //+9
+    listcards.push(new Carte("none","Timeal snipe",  "$r$r$r", "$h$h", "$t", "$p<")); //+9
     //Delay weird
-    listcards.push(new Carte("none","Sixtuple strike", 30,"$m$m$m$m$m$m", "$t$t$t$t")); //+10
-    listcards.push(new Carte("none","Arrow of the year", 31,"$r$r$r$r$r$r", "$t$t$t$t")); //+10
-    listcards.push(new Carte("none","Exhausting strike", 32, "$m$m", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Exhausting snipe", 33, "$r$r", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Exhausting heal", 34, "$h$h$h$h$h$h$h$h", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Melting pot", 35, "$m$r", "$s", "$c", "$t", "$p<")); //+9
+    listcards.push(new Carte("none","Sixtuple strike", "$m$m$m$m$m$m", "$t$t$t$t")); //+10
+    listcards.push(new Carte("none","Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
+    listcards.push(new Carte("none","Exhausting strike",  "$m$m", "$c", "$t")); //+10
+    listcards.push(new Carte("none","Exhausting snipe",  "$r$r", "$c", "$t")); //+10
+    listcards.push(new Carte("none","Exhausting heal",  "$h$h$h$h$h$h", "$c", "$t")); //+10
+    listcards.push(new Carte("none","Melting pot",  "$m$r", "$s", "$c", "$t", "$p<")); //+9
     //$ha
-    listcards.push(new Carte("none","Heal impact", 36,"$m$m", "$ha", "$p>")); //+10
-    listcards.push(new Carte("none","Heal polyvalent", 37,"$m$r","$ha")); //+10
-    listcards.push(new Carte("none","Heal meteor", 38,"$r$r", "$ha", "$p<")); //+10
-    listcards.push(new Carte("none","Regeneration attack", 39,"$m", "$h$h","$ha")); //+9
-    listcards.push(new Carte("none","Regeneration snipe ", 40,"$r", "$h$h","$ha")); //+9
-    listcards.push(new Carte("none","Rejuvenation", 41,"$h$h$h$h$h","$ha")); //+9
-    listcards.push(new Carte("none","Regeneration", 42,"$h","$ha$ha")); //+9
-    listcards.push(new Carte("none","Triple reparation", 43,"$s$s$s", "$ha$ha$ha")); //+9
-    listcards.push(new Carte("none","Fast medic", 44,"$ha","$c")); //+10
-    listcards.push(new Carte("none","Fast sacrificial medic", 45,"$s$s$s$s$s", "$ha$ha", "$c", "$p>")); //+9
-    listcards.push(new Carte("none","Sacrificial medic", 46,"$s$s$s$s$s$s$s$s$s", "$ha$ha$ha","$c", "$p>")); //+9
-    listcards.push(new Carte("none","Waiting heal", 47,"$ha$ha$ha", "$t")); //+10
-    listcards.push(new Carte("none","Heal and sleep", 48,"$ha$ha$ha$ha", "$t$t$t")); //+10
-    listcards.push(new Carte("none","Heal before rest", 49,"$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
-    //Normal triple copied:
-    listcards.push(new Carte("none","Triple strike", 50,"$m$m$m", "$p>")); //+9
-    listcards.push(new Carte("none","Long attack", 51,"$m$m$r", "$p>")); //+9
-    listcards.push(new Carte("none","Small attack", 52,"$m$r$r")); //+9
-    listcards.push(new Carte("none","Sniping", 53,"$r$r$r", "$p<")); //+9
-    listcards.push(new Carte("none","Strike & Heal", 54,"$m$m","$h$h$h", "$p>")); //+9
-    listcards.push(new Carte("none","Attack & Heal", 55,"$m$r","$h$h$h")); //+9
-    listcards.push(new Carte("none","Snipe & Heal", 56,"$r$r","$h$h$h", "$p<")); //+9
+    listcards.push(new Carte("none","Heal impact", "$m$m", "$ha", "$p>")); //+10
+    listcards.push(new Carte("none","Heal polyvalent", "$m$r","$ha")); //+10
+    listcards.push(new Carte("none","Heal meteor", "$r$r", "$ha", "$p<")); //+10
+    listcards.push(new Carte("none","Regeneration attack", "$m", "$h$h","$ha")); //+9
+    listcards.push(new Carte("none","Regeneration snipe ", "$r", "$h$h","$ha")); //+9
+    listcards.push(new Carte("none","Rejuvenation", "$h$h$h$h$h","$ha")); //+9
+    listcards.push(new Carte("none","Regeneration", "$h","$ha$ha")); //+9
+    listcards.push(new Carte("none","Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
+    listcards.push(new Carte("none","Fast medic", "$ha","$c")); //+10
+    listcards.push(new Carte("none","Fast sacrificial medic", "$s$s$s$s$s", "$ha$ha", "$c", "$p>")); //+9
+    listcards.push(new Carte("none","Sacrificial medic", "$s$s$s$s$s$s$s$s$s", "$ha$ha$ha","$c", "$p>")); //+9
+    listcards.push(new Carte("none","Waiting heal", "$ha$ha$ha", "$t")); //+10
+    listcards.push(new Carte("none","Heal and sleep", "$ha$ha$ha$ha", "$t$t$t")); //+10
+    listcards.push(new Carte("none","Heal before rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
+    //Movement
+    listcards.push(new Carte("none","Run attack", "$m", "$s", "$c", "$p1")); //+9
+    listcards.push(new Carte("none","Flee snipe", "$r", "$s", "$c", "$p5")); //+9
+    listcards.push(new Carte("none","Reversed snipe", "$r$r$r", "$p1")); //+10
+    listcards.push(new Carte("none","Reversed attack", "$m$m$m", "$p5")); //+10
+    //Double $cc
+    listcards.push(new Carte("none","Instant heal", "$h", "$cc")); //+10
+    listcards.push(new Carte("none","Instant attack", "$m", "$s$s", "$cc")); //+10
+    listcards.push(new Carte("none","Instant snipe", "$c", "$s$s", "$cc")); //+10
+    listcards.push(new Carte("none","Teleport forward", "$cc", "$p1")); //+10
+    listcards.push(new Carte("none","Teleport behind", "$cc", "$p<")); //+9
+
+    //Normal triple copied
+    listcards.push(new Carte("none","Triple strike", "$m$m$m", "$p>")); //+9
+    listcards.push(new Carte("none","Long attack", "$m$m$r", "$p>")); //+9
+    listcards.push(new Carte("none","Small attack", "$m$r$r")); //+9
+    listcards.push(new Carte("none","Sniping", "$r$r$r", "$p<")); //+9
+    listcards.push(new Carte("none","Strike & Heal", "$m$m","$h$h$h", "$p>")); //+9
+    listcards.push(new Carte("none","Attack & Heal", "$m$r","$h$h$h")); //+9
+    listcards.push(new Carte("none","Snipe & Heal", "$r$r","$h$h$h", "$p<")); //+9
     
-    //$h=💖 |$ha=💕 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
-    //+1    |  +4    |  +6   |   +3  |   +3   |   0    |  -1   |  -2   =  +9
+    //UNIQUE EFFECTS
+    //Positionnal bonus
+    listcards.push(new Carte("none","Perfect spot", "$m$r$h", "$zh$zc if $zp3", "$p3")); //+8.4
+    listcards.push(new Carte("none","Balanced attack", "$zm$zm$zm if $zp1 or $zp2", "$zr$zr$zr if $zp4 or $zp5")); //+7.2
+    listcards.push(new Carte("none","Central fight", "$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4")); //+8.4
+    //Position of others
+    listcards.push(new Carte("none","Crowd", "Swap randomly 2 by 2 others characters", "$cc"));
+    //Chage of atkmel/atkran
+    listcards.push(new Carte("none","Switch", "Swap your $m & $r", "$c"));
+    //Reroll/support
+    listcards.push(new Carte("none","Reroll", "$h", "Reroll all unused dices", "$c"));
+    listcards.push(new Carte("none","Return", "Return all unused dice", "$c"));
+    listcards.push(new Carte("none","Chaos", "$ha", "Trigger a random other ability"));
+    listcards.push(new Carte("none","Copycat", "Apply the 1️⃣ effect"));
+    
+    //$h=💖 |$ha=💕 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
+    //+1    |  +4    |  +6   |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
     /*
-    //listcards.push(new Carte("none","Exhausting heal", 34, "$ha$ha", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Perfect spot", 115,"⚔️🏹", "🔁 if 🚶‍♂️3", "🚶‍♂️3"));
-    listcards.push(new Carte("none","Balanced attack", 116,"⚔️⚔️⚔️ if 🚶‍♂️1 or 🚶‍♂️2", "🏹🏹🏹 if 🚶‍♂️4 or 🚶‍♂️5"));
-    listcards.push(new Carte("none","Central fight", 117,"⚔️🏹", "⚔️🏹 if 🚶‍♂️2 or 🚶‍♂️3 or 🚶‍♂️4"));
-    listcards.push(new Carte("none","Command", 118,"Choose another ally to 🚶‍♂️1", "🔁"));
-    listcards.push(new Carte("none","Switch", 119,"Swap your ⚔️ & 🏹", "🔁"));
-    listcards.push(new Carte("none","Reroll", 120,"🩸","Reroll all unused dices", "🔁"));
-    listcards.push(new Carte("none","Increase", 121,"🩸🩸", "Add 1 to another dice", "🔁"));
-    listcards.push(new Carte("none","Copycat", 122,"🩸", "Apply the 1️⃣ effect"));
-    listcards.push(new Carte("none","Duplicate", 124,"🩸🩸🩸🩸🩸🩸", "The next ability (non duplicate) trigger twice", "🔁"));
+    listcards.push(new Carte("none","Duplicate", "🩸🩸🩸🩸🩸🩸", "The next ability (non duplicate) trigger twice", "🔁"));
     */
+   /*
+    Hard mode (coming soon) extra effect: +3atk for the enemy and:
+    1:🩸⌛🔁
+    2:🩸💕
+    3:💖💖💖
+    4:⚔️
+    5:🏹
+    6:🚶‍♂️1
+   */
 }
 function createbasicdeck(){
     listabilities[0] = listcards[1];
@@ -321,10 +343,17 @@ function findutour(){
         ennemy++;
         listpersos[5]=listpersos[ennemy];
         choosenewcard();
+        if (ennemy==16){
+            youwin();
+            return;
+        }
     } else{
         listpersos[ordrepersos[0]].currenthp+=-1*listpersos[5].atkmel;
     }
-    document.getElementById("messagecentral").textContent="Select a dice to play";
+    if (skipnextmessage==0){
+        document.getElementById("messagecentral").textContent="Select a dice to play";
+    }
+    skipnextmessage = 0;
     checkhps();
     debutdutour();
 }
@@ -403,6 +432,8 @@ function resolveeffect(player, id){
     //$h|$ha=💖 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛
     cantrip=0;
     let increaseturndelay=0;
+    id=specialsffectsbeforebefore(player, id);
+    id=specialsffectsbefore(player, id);
     for (let j=4;j>-1;j--){        
         let split;
         if (j==0){
@@ -450,7 +481,15 @@ function resolveeffect(player, id){
             }
             if (char[0]=="c"){
                 cantrip=1;
-                diceavailable[player.id]="n";
+                if(split[i].charAt(1)!="c"){ //🔁🔁
+                    diceavailable[player.id]="n";
+                } else {
+                    let previousde = listpersos[player.id].de;
+                    listpersos[player.id].de = Math.trunc(Math.random()*5+1);
+                    if (listpersos[player.id].de>=previousde){
+                        listpersos[player.id].de++;
+                    }
+                }
             }
             if (char[0]=="m"){
                 atkmel(player,1);
@@ -468,13 +507,113 @@ function resolveeffect(player, id){
                 increaseturndelay++;
             }
         }
-        //special effect of cards
     }
+    specialsffectsafter(player, id);
     if (increaseturndelay>0){
-            turndelay[player.id]=increaseturndelay+1;
+        turndelay[player.id]=increaseturndelay+1;
     }
     checkhps();
     afficherallperso(ordrepersos);
+}
+function specialsffectsbeforebefore(player, id){
+    if (listcards[id].nom == "Copycat"){
+        //Apply the 1️⃣ effect
+        if (listabilities[0].nom != "Copycat"){
+            return listabilities[0].id;
+        } else {
+            console.log("Copycat ability used in 1");
+            skipnextmessage=1;
+            document.getElementById("messagecentral").textContent="Effect skipped: copycat ability used in 1";
+            return "0";
+        }
+    }
+    return id;
+}
+function specialsffectsbefore(player, id){
+    if (listcards[id].nom == "Perfect spot"){
+        //"$m$r$h", "$zh$zc if $zp3", "$p3" //+8.4
+        console.log("ps");
+        if(ordrepersos[player.id]==2){
+            heal(player, 1);
+            cantrip=1;
+            diceavailable[player.id]="n";
+        }
+    }
+    if (listcards[id].nom == "Balanced attack"){
+        //"$zm$zm$zm if $zp1 or $zp2", "$zr$zr$zr if $zp4 or $zp5" //+7.2
+        console.log("ba");
+        if(ordrepersos[player.id]==0 || ordrepersos[player.id]==1){
+            atkmel(player,3);
+        }
+        if(ordrepersos[player.id]==3 || ordrepersos[player.id]==4){
+            atkran(player,3);
+        }
+    }
+    if (listcards[id].nom == "Central fight"){
+        //"$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4" //+8.4
+        console.log("cf");
+        if(ordrepersos[player.id]==1 || ordrepersos[player.id]==2 || ordrepersos[player.id]==3){
+            atkmel(player,1);
+            atkran(player,2);
+        }
+    }
+    if (listcards[id].nom == "Chaos"){
+        //"$ha", "Trigger a random other ability"
+        console.log("c");
+        let newid = Math.trunc(Math.random()*5+1);
+        if (newid>=id){
+            newid++;
+        }
+        console.log(newid);
+        document.getElementById("messagecentral").textContent="Effect " + newid + " done.";
+        skipnextmessage=1;
+        return newid;
+    }
+    return id;
+}
+function specialsffectsafter(player, id){
+    if (listcards[id].nom == "Crowd"){
+        //"Change randomly the place of all characters", "$cc"
+        console.log("c");
+        let nbrs = [0,1,2,3,4];
+        nbrs.splice(ordrepersos.indexOf(player.id),1);
+        let alea=Math.trunc(Math.random()*3+1);
+        swap(nbrs[0],nbrs[alea]);
+        nbrs.splice(alea,1);
+        nbrs.splice(0,1);
+        swap(nbrs[0], nbrs[1]);
+        afficherallperso(ordrepersos);
+    }
+    if (listcards[id].nom == "Switch"){
+        //"Swap your $m & $r", "$c"
+        console.log("s");
+        let i = listpersos[player.id].atkmel;
+        listpersos[player.id].atkmel = listpersos[player.id].atkran;
+        listpersos[player.id].atkran = i;
+        afficherperso(document.getElementById("persoetde" + player.id), ordrepersos[player.id]);
+    }
+    if (listcards[id].nom == "Reroll"){
+        //"$h", "Reroll all unused dices", "$c"
+        console.log("r");
+        for (let i=0;i<5;i++){
+            if (listpersos[i].de < 7 && listpersos[i].de > 0){
+                listpersos[i].de = Math.trunc(Math.random()*6+1);
+            }
+        }
+        listpersos[player.id].de = 7;
+        afficherallperso(ordrepersos);
+    }
+    if (listcards[id].nom == "Return"){
+        //"Return all unused dice", "$c"
+        console.log("i");
+        for (let i=0;i<5;i++){
+            if (listpersos[i].de < 7 && listpersos[i].de > 0){
+                listpersos[i].de = 7-listpersos[i].de;
+            }
+        }
+        listpersos[player.id].de = 7;
+        afficherallperso(ordrepersos);
+    }
 }
 function heal(player, nbr) {
     player.currenthp+=nbr;
@@ -535,6 +674,18 @@ function gameover(){
     document.getElementById("playagain").style.visibility = "visible";
     document.getElementById("playagain").addEventListener("click", reload);
 }
+function youwin(){
+    afficherallperso(ordrepersos);
+    document.getElementById("messagecentral").textContent="Congratulation you won :)";
+    setTimeout(() => {
+        for (let i=0;i<5;i++){
+            document.getElementsByClassName("de")[i].removeEventListener("click",clickde);
+        }
+        document.getElementById("skip").removeEventListener("click",skipturn);
+    }, 1000);
+    document.getElementById("playagain").style.visibility = "visible";
+    document.getElementById("playagain").addEventListener("click", reload);
+}
 function reload() {
     location.reload();
 }
@@ -546,9 +697,9 @@ function choosenewcard(){
     listabilities[7] = 0;
     listabilities[8] = 0;
     while(listabilities[7]==listabilities[8] || listabilities[7]==listabilities[9] || listabilities[8]==listabilities[9]){
-        listabilities[7] = listcards[7+Math.trunc(Math.random()*(maxidcard-7))];
-        listabilities[8] = listcards[7+Math.trunc(Math.random()*(maxidcard-7))];
-        listabilities[9] = listcards[7+Math.trunc(Math.random()*(maxidcard-7))];
+        listabilities[7] = listcards[7+Math.trunc(Math.random()*(listcards.length-7))];
+        listabilities[8] = listcards[7+Math.trunc(Math.random()*(listcards.length-7))];
+        listabilities[9] = listcards[7+Math.trunc(Math.random()*(listcards.length-7))];
     }
     
     document.getElementById("extratext").style.visibility = "visible";

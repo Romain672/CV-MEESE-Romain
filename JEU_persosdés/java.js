@@ -32,15 +32,15 @@ let personnage = {
     atkmel: 3,
     atkran: 3,
 }
-function Personnage(a, b, c, d, e, f, g, h) {
+function Personnage(a, b, c, d, e, f) {
     this.avatar = a;
     this.nom = b;
-    this.id = c;
-    this.de = d;
-    this.currenthp = e;
-    this.maxhp = f;
-    this.atkmel = g;
-    this.atkran = h;
+    this.id = listpersos.length;
+    this.de = c;
+    this.currenthp = d;
+    this.maxhp = d;
+    this.atkmel = e;
+    this.atkran = f;
 }
 var des = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "🔁"]; //1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣🔀🔢🔁
 function afficherperso(element, id) {
@@ -120,23 +120,23 @@ function afficherallperso(array) {
 }
 function generatepersos(){
     //ally
-    listpersos[0] = new Personnage("none","Albert",0,0,14,14,2,1);
-    listpersos[1] = new Personnage("none","Bernard",1,0,10,10,4,1);
-    listpersos[2] = new Personnage("none","Catherine",2,0,10,10,3,2);
-    listpersos[3] = new Personnage("none","Derick",3,0,6,6,4,4);
-    listpersos[4] = new Personnage("none","Elise",4,0,6,6,1,6);
+    listpersos[0] = new Personnage("none","Albert",0,14,2,1);
+    listpersos[1] = new Personnage("none","Bernard",0,10,4,1);
+    listpersos[2] = new Personnage("none","Catherine",0,10,3,2);
+    listpersos[3] = new Personnage("none","Derick",0,6,4,4);
+    listpersos[4] = new Personnage("none","Elise",0,6,1,6);
     //ennemy
-    listpersos[5] = new Personnage("🐀","Ratatouille",5,0,9,9,4);
-    listpersos[6] = new Personnage("🐤","Piou",6,0,9,9,5);
-    listpersos[7] = new Personnage("🐧","Siffli",7,0,14,14,5);
-    listpersos[8] = new Personnage("🐈","Garfield",8,0,14,14,6);
-    listpersos[9] = new Personnage("🐒","Abu",9,0,19,19,6);
-    listpersos[10] = new Personnage("🐺","Fenrir",10,0,19,19,7);
-    listpersos[11] = new Personnage("🐄","Abigaëlle",11,0,23,23,7);
-    listpersos[12] = new Personnage("🐎","Pégase",12,0,23,23,8);
-    listpersos[13] = new Personnage("🐻","Teddy",13,0,27,27,8);
-    listpersos[14] = new Personnage("🐘","Dumbo",14,0,27,27,9);
-    listpersos[15] = new Personnage("👨","The developper",15,0,30,30,9);
+    listpersos[5] = new Personnage("🐀","Ratatouille",0,8,3);
+    listpersos[6] = new Personnage("🐤","Piou",0,12,4);
+    listpersos[7] = new Personnage("🐧","Siffli",0,16,5);
+    listpersos[8] = new Personnage("🐈","Garfield",0,20,6);
+    listpersos[9] = new Personnage("🐒","Abu",0,24,7);
+    listpersos[10] = new Personnage("🐺","Fenrir",0,28,8);
+    listpersos[11] = new Personnage("🐄","Abigaëlle",0,32,9);
+    listpersos[12] = new Personnage("🐎","Pégase",0,36,10);
+    listpersos[13] = new Personnage("🐻","Teddy",0,40,11);
+    listpersos[14] = new Personnage("🐘","Dumbo",0,44,12);
+    listpersos[15] = new Personnage("👨","The developper",0,48,13);
 }
 
 /* Cartes */
@@ -298,7 +298,7 @@ function generatecards(){
     listcards.push(new Carte("none","Return", "Return all unused dice", "$c"));
     listcards.push(new Carte("none","Chaos", "$ha", "Trigger a random other ability"));
     listcards.push(new Carte("none","Copycat", "Apply the 1️⃣ effect"));
-    
+
     //$h=💖 |$ha=💕 | $c=🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
     //+1    |  +4    |  +6   |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
     /*

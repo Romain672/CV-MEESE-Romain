@@ -424,7 +424,14 @@ function clickde(event){
         afficherallperso(ordrepersos);
         turndelaydecrease();
         findutour();
+    } else {
+        if (listpersos[5].currenthp <1){
+            listpersos[5].currenthp=0;
+            afficherallperso(ordrepersos);
+            document.getElementById("messagecentral").textContent="Enemy killed. You must do an extra action (like skip turn) before fighting the next enemy.";
+        }
     }
+    console.log(listpersos[5].currenthp);
       
 }
 let cantrip=0; //check if you can chose another dice or not

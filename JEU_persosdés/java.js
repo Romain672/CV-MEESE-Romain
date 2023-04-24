@@ -164,22 +164,30 @@ let carte = {
 };
 function Carte(a, b, c, d, e, f, g, h) {
   this.avatar = a;
-  //              0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
-  //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "cyan", "brown", "black", "indigo", "mediumvioletred", "black"];
-  //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "", "brown", "darksalmon", "indigo", "", ""];
-  let color = [
-    "darkgreen",
-    "darkblue",
-    "darkcyan",
-    "darkcyan",
-    "darkred",
-    "brown",
-    "darkblue",
-    "black",
-    "brown",
-    "mediumvioletred",
-    "indigo",
-  ];
+//              0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
+//let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "cyan", "brown", "black", "indigo", "mediumvioletred", "black"];
+let color = ["darkgreen", "darkgreen", "darkcyan", "darkcyan", "darkred", "brown", "darkgreen", "indigo", "brown", "brown", "indigo"];
+/*
+darkgreen19
+darkcyan15
+darkred14
+brown18
+indigo22
+*/
+   //  easy    delay    medic   move+permanentup+positionalup bomb+unique
+   //darkgreen darkcyan darkred          brown                 indigo
+
+//let color = ["darkgreen", "darkblue", "darkcyan", "darkcyan", "darkred", "brown", "darkblue", "black", "brown", "mediumvioletred", "indigo"];
+/*
+darkgreen11
+darkblue8
+darkcyan15
+darkred14
+brown15
+black6
+mediumvioletred3
+indigo16
+*/
   this.color = color[b];
   this.nom = c;
   this.id = listcards.length;
@@ -896,6 +904,7 @@ function resolveeffect(player, id) {
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   cantrip = 0;
   let increaseturndelay = 0;
+  id = specialseffectsbeforebeforebefore(player, id);
   id = specialseffectsbeforebefore(player, id);
   id = specialseffectsbefore(player, id);
 
@@ -1049,19 +1058,7 @@ function resolveeffect(player, id) {
   checkhps();
   afficherallperso(ordrepersos);
 }
-function specialseffectsbeforebefore(player, id) {
-  if (listcards[id].nom == "Copycat") {
-    //Apply the 1️⃣ effect
-    if (listabilities[0].nom != "Copycat") {
-      return listabilities[0].id;
-    } else {
-      console.log("Copycat ability used in 1");
-      skipnextmessage = 1;
-      document.getElementById("messagecentral").textContent =
-        "Effect skipped: copycat ability used in 1";
-      return "0";
-    }
-  }
+function specialseffectsbeforebeforebefore(player, id) {
   if (listcards[id].nom == "Chaos") {
     //"$ha", "Trigger a random other ability (non Chaos)"
     console.log("c");
@@ -1082,6 +1079,21 @@ function specialseffectsbeforebefore(player, id) {
     heal(player, -1); //heal all other ally
 
     return newid;
+  }
+  return id;
+}
+function specialseffectsbeforebefore(player, id) {
+  if (listcards[id].nom == "Copycat") {
+    //Apply the 1️⃣ effect
+    if (listabilities[0].nom != "Copycat") {
+      return listabilities[0].id;
+    } else {
+      console.log("Copycat ability used in 1");
+      skipnextmessage = 1;
+      document.getElementById("messagecentral").textContent =
+        "Effect skipped: copycat ability used in 1";
+      return "0";
+    }
   }
   return id;
 }
@@ -1261,6 +1273,7 @@ let cardchosen = 0;
 function choosenewcard() {
   document.getElementById("messagecentral").textContent =
     "Choose a card to add to your deck";
+    /*
   let numberalreadyrolled = [];
   while (numberalreadyrolled.length < 5) {
     let i = 7 + Math.trunc(Math.random() * (listcards.length - 7));
@@ -1268,11 +1281,27 @@ function choosenewcard() {
       numberalreadyrolled.push(i);
     }
   }
+  */
+  //$$$$$$$$
+  let lister;
+  let rand;
+  for (let j=0;j<5;j++){
+    if (j==0){lister = listcards.filter(x => x.color == "darkgreen");}
+    if (j==1){lister = listcards.filter(x => x.color == "darkcyan");}
+    if (j==2){lister = listcards.filter(x => x.color == "darkred");}
+    if (j==3){lister = listcards.filter(x => x.color == "brown");}
+    if (j==4){lister = listcards.filter(x => x.color == "indigo");}
+    rand = Math.floor(Math.random() * lister.length);
+    listabilities[j+7] = lister[rand];
+  }
+  /*
   listabilities[7] = listcards[numberalreadyrolled[0]];
   listabilities[8] = listcards[numberalreadyrolled[1]];
   listabilities[9] = listcards[numberalreadyrolled[2]];
   listabilities[10] = listcards[numberalreadyrolled[3]];
   listabilities[11] = listcards[numberalreadyrolled[4]];
+  */
+  //$$$$$$$$$$$
 
   document.getElementById("extratext").style.visibility = "visible";
   document.getElementById("grayscreen").style.visibility = "visible";

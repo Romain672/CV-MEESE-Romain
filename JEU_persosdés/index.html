@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <title>Romain's game</title>
+    <link rel="icon" href="site.svg" type="image/icon type">
 </head>
 <body id="body">
     <div id="conteneurperso">
@@ -129,6 +130,7 @@
      - ⚔️ (🏹): deal the ⚔️(🏹) damage of the character which rolled the dice to the enemy<br>
      - 🚶‍♂️: move the character to a certain position or to one spot to the left or right<br>
      - ⌛: the dice is disabled for one extra turn<br>
+     - 💣: lose one after each use. When none are left, remove all effects of the card<br>
     <br>
     Then, if you kill the enemy, a new one will appear and all your dices are rerolled.<br>
     If you dont, the character in the first/rightmost position will take damage equal to the enemy attack, then all your dices will be rerolled.<br>
@@ -137,11 +139,13 @@
     <br>
     Winning is really hard. With that patch, I believe it's impossible<br>
     <br>
-    (make sure to hard refresh the page (ctrl+f5) for the last update if it's not the first time you play)<br>
+    Extras:
+    Make sure to hard refresh the page (ctrl+f5) for the last update if it's not the first time you play.<br>
+    You can't have 0 max💖, -1⚔️, or -1🏹. If it should happen, the last action is cancelled.<br>
     <br>
     Balance:<br>
     Starting deck cards have about 6 points. Cards proposed have between 9 and 10 points.<br>
-    💖 cost 1 | 💕 cost 4 | 🔁 cost 6 | 🔁🔁 cost 9 | ⚔️🏹 each cost 3 | 🚶‍♂️> is free | 🚶‍♂️1 cost 1 | 🩸 cost -1 | ⌛ cost -2<br>
+    💖 cost 1 | 💕 cost 4 | 🔁 cost 6 | 🔁🔁 cost 9 | ⚔️🏹 each cost 3 | 🚶‍♂️> is free | 🚶‍♂️1 cost 1 | 🩸 cost -1 | ⌛ cost -2 | 💣s gives +16 value | permanent buff cost 12<br>
     Some cards can have above this amount if they are too much specialised or have a 🚶‍♂️ which is actively bad.<br>
     <br>
 

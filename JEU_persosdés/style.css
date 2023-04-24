@@ -26,7 +26,7 @@ body{
 }
 
 .carte{
-    background-color: darkslategray;
+    background-color: darkslateblue;
     width:150px;
     height:220px;
     margin:1px;
@@ -86,14 +86,17 @@ body{
 #carteextra7{
     left:20%;
     top:25%;
+    width:200px;
 }
 #carteextra8{
     left:40%;
     top:25%;
+    width:200px;
 }
 #carteextra9{
     left:60%;
     top:25%;
+    width:200px;
 }
 #extratext{
     font-size: 50px;

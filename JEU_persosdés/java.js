@@ -167,7 +167,19 @@ function Carte(a, b, c, d, e, f, g, h) {
   //              0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
   //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "cyan", "brown", "black", "indigo", "mediumvioletred", "black"];
   //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "", "brown", "darksalmon", "indigo", "", ""];
-  let color = ["darkgreen", "darkblue", "darkcyan", "darkcyan", "darkred", "brown", "darkblue", "black", "mediumvioletred", "brown", "indigo"];
+  let color = [
+    "darkgreen",
+    "darkblue",
+    "darkcyan",
+    "darkcyan",
+    "darkred",
+    "brown",
+    "darkblue",
+    "black",
+    "brown",
+    "mediumvioletred",
+    "indigo",
+  ];
   this.color = color[b];
   this.nom = c;
   this.id = listcards.length;
@@ -189,14 +201,23 @@ function affichercarte(id) {
   }
   //children[0]: intro
 
-if (disablecolors == 0){
-try{document.getElementById("carte" + id).style.backgroundColor = listabilities[id].color;}
-catch{document.getElementById("carteextra" + id).style.backgroundColor = listabilities[id].color;}
-
-} else {
-  try{document.getElementById("carte" + id).style.backgroundColor = "darkslateblue";}
-  catch{document.getElementById("carteextra" + id).style.backgroundColor = "darkslateblue";}
-}
+  if (disablecolors == 0) {
+    try {
+      document.getElementById("carte" + id).style.backgroundColor =
+        listabilities[id].color;
+    } catch {
+      document.getElementById("carteextra" + id).style.backgroundColor =
+        listabilities[id].color;
+    }
+  } else {
+    try {
+      document.getElementById("carte" + id).style.backgroundColor =
+        "darkslateblue";
+    } catch {
+      document.getElementById("carteextra" + id).style.backgroundColor =
+        "darkslateblue";
+    }
+  }
 
   children[1].textContent = listabilities[id].nom;
   children[2].textContent = listabilities[id].effect1
@@ -403,32 +424,46 @@ function generatecards() {
   listcards.push(new Carte("none", 0, "Long attack", "$m$m$r", "$p>")); //+9
   listcards.push(new Carte("none", 0, "Small attack", "$m$r$r")); //+9
   listcards.push(new Carte("none", 0, "Sniping", "$r$r$r", "$p<")); //+9
-  listcards.push(new Carte("none", 0, "Strike & Heal", "$m$m", "$h$h$h", "$p>")); //+9
+  listcards.push(
+    new Carte("none", 0, "Strike & Heal", "$m$m", "$h$h$h", "$p>")
+  ); //+9
   listcards.push(new Carte("none", 0, "Attack & Heal", "$m$r", "$h$h$h")); //+9
   listcards.push(new Carte("none", 0, "Snipe & Heal", "$r$r", "$h$h$h", "$p<")); //+9
   //Normal extras
   listcards.push(
     new Carte("none", 0, "Drain life", "$m", "$h$h$h$h$h$h$h", "$p>")
   ); //+10
-  listcards.push(new Carte("none", 0, "Boomerang heal", "$r", "$h$h$h$h$h$h$h", "$p5")
+  listcards.push(
+    new Carte("none", 0, "Boomerang heal", "$r", "$h$h$h$h$h$h$h", "$p5")
   ); //+11
-  listcards.push(new Carte("none", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
+  listcards.push(
+    new Carte("none", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h")
+  ); //+14
   //Self sacrifice
-  listcards.push(new Carte("none", 0, "Quadruple shot",  "$r$r$r$r", "$s$s$s", "$p4")
+  listcards.push(
+    new Carte("none", 0, "Quadruple shot", "$r$r$r$r", "$s$s$s", "$p4")
   ); //+10
   //$c
   listcards.push(new Carte("none", 1, "Heal & Retreat", "$h$h$h", "$c", "$p5")); //+10
   listcards.push(new Carte("none", 1, "Quick draw", "$r", "$c")); //+9
   listcards.push(new Carte("none", 1, "Quick attack", "$m", "$c")); //+9
   //Delay damage
-  listcards.push(new Carte("none", 2, "Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
-  listcards.push(new Carte("none", 2, "Longest attack", "$m$m$m$r", "$t", "$p>")); //+10
+  listcards.push(
+    new Carte("none", 2, "Quadruple strike", "$m$m$m$m", "$t", "$p>")
+  ); //+10
+  listcards.push(
+    new Carte("none", 2, "Longest attack", "$m$m$m$r", "$t", "$p>")
+  ); //+10
   listcards.push(new Carte("none", 2, "Heavy attack", "$m$m$r$r", "$t")); //+10
   listcards.push(new Carte("none", 2, "Great shot", "$m$r$r$r", "$t", "$p<")); //+10
   listcards.push(new Carte("none", 2, "Sniping hard", "$r$r$r$r", "$t", "$p<")); //+10
   //Delay damage+heal
-  listcards.push(new Carte("none", 2, "Timeal strike", "$m$m$m", "$h$h", "$t", "$p>")); //+9
-  listcards.push(new Carte("none", 2, "Timeal long attack", "$m$m$r", "$h$h", "$t")); //+9
+  listcards.push(
+    new Carte("none", 2, "Timeal strike", "$m$m$m", "$h$h", "$t", "$p>")
+  ); //+9
+  listcards.push(
+    new Carte("none", 2, "Timeal long attack", "$m$m$r", "$h$h", "$t")
+  ); //+9
   listcards.push(new Carte("none", 2, "Timeal attack", "$m$r$r", "$h$h", "$t")); //+9
   listcards.push(
     new Carte("none", 2, "Timeal snipe", "$r$r$r", "$h$h", "$t", "$p<")
@@ -442,21 +477,32 @@ function generatecards() {
   ); //+10
   listcards.push(new Carte("none", 3, "Exhausting strike", "$m$m", "$c", "$t")); //+10
   listcards.push(new Carte("none", 3, "Exhausting snipe", "$r$r", "$c", "$t")); //+10
-  listcards.push(new Carte("none", 3, "Exhausting heal", "$h$h$h$h$h$h", "$c", "$t")); //+10
-  listcards.push(new Carte("none", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
+  listcards.push(
+    new Carte("none", 3, "Exhausting heal", "$h$h$h$h$h$h", "$c", "$t")
+  ); //+10
+  listcards.push(
+    new Carte("none", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")
+  ); //+9
   //$ha
   listcards.push(new Carte("none", 4, "Heal impact", "$m$m", "$ha", "$p>")); //+10
   listcards.push(new Carte("none", 4, "Heal polyvalent", "$m$r", "$ha")); //+10
   listcards.push(new Carte("none", 4, "Heal meteor", "$r$r", "$ha", "$p<")); //+10
-  listcards.push(new Carte("none", 4, "Regeneration attack", "$m", "$h$h", "$ha")); //+9
-  listcards.push(new Carte("none", 4, "Regeneration snipe ", "$r", "$h$h", "$ha")); //+9
+  listcards.push(
+    new Carte("none", 4, "Regeneration attack", "$m", "$h$h", "$ha")
+  ); //+9
+  listcards.push(
+    new Carte("none", 4, "Regeneration snipe ", "$r", "$h$h", "$ha")
+  ); //+9
   listcards.push(new Carte("none", 4, "Rejuvenation", "$h$h$h$h$h", "$ha")); //+9
   listcards.push(new Carte("none", 4, "Regeneration", "$h", "$ha$ha")); //+9
-  listcards.push(new Carte("none", 4, "Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
+  listcards.push(
+    new Carte("none", 4, "Triple reparation", "$s$s$s", "$ha$ha$ha")
+  ); //+9
   listcards.push(new Carte("none", 4, "Fast medic", "$ha", "$c")); //+10
   listcards.push(
     new Carte(
-      "none", 4,
+      "none",
+      4,
       "Fast sacrificial medic",
       "$s$s$s$s$s",
       "$ha$ha",
@@ -466,7 +512,8 @@ function generatecards() {
   ); //+9
   listcards.push(
     new Carte(
-      "none", 4,
+      "none",
+      4,
       "Sacrificial medic",
       "$s$s$s$s$s$s$s$s$s",
       "$ha$ha$ha",
@@ -475,7 +522,9 @@ function generatecards() {
     )
   ); //+9
   listcards.push(new Carte("none", 4, "Waiting heal", "$ha$ha$ha", "$t")); //+10
-  listcards.push(new Carte("none", 4, "Heal and sleep", "$ha$ha$ha$ha", "$t$t$t")); //+10
+  listcards.push(
+    new Carte("none", 4, "Heal and sleep", "$ha$ha$ha$ha", "$t$t$t")
+  ); //+10
   listcards.push(
     new Carte("none", 4, "Heal before rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")
   ); //+10
@@ -483,7 +532,9 @@ function generatecards() {
   listcards.push(new Carte("none", 5, "Run attack", "$m", "$s", "$c", "$p1")); //+9
   listcards.push(new Carte("none", 5, "Flee snipe", "$r", "$s", "$c", "$p5")); //+9
   listcards.push(new Carte("none", 5, "Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
-  listcards.push(new Carte("none", 5, "Reversed attack", "$m$m$m", "$h", "$p5")); //+10
+  listcards.push(
+    new Carte("none", 5, "Reversed attack", "$m$m$m", "$h", "$p5")
+  ); //+10
   //Double $cc
   listcards.push(new Carte("none", 6, "Instant heal", "$h", "$cc")); //+10
   listcards.push(new Carte("none", 6, "Instant attack", "$m", "$s$s", "$cc")); //+10
@@ -493,7 +544,9 @@ function generatecards() {
 
   //Bomb $b
   listcards.push(new Carte("none", 7, "Extra attacks", "$m$m$r$r", "$bbbbb")); //+9 3*5
-  listcards.push(new Carte("none", 7, "Instable strikes", "$m$m$m$m$m$m", "$p>", "$bb")); //+9 9*2
+  listcards.push(
+    new Carte("none", 7, "Instable strikes", "$m$m$m$m$m$m", "$p>", "$bb")
+  ); //+9 9*2
   listcards.push(
     new Carte("none", 7, "Instant difficult blow", "$m", "$cc", "$bbb")
   ); //+9 3*3
@@ -507,7 +560,8 @@ function generatecards() {
   //Permanent upgrades $b
   listcards.push(
     new Carte(
-      "none", 8,
+      "none",
+      8,
       "Demonic strength",
       "Gain permanently $+m",
       "Loses permanently     $-h$-h",
@@ -516,7 +570,8 @@ function generatecards() {
   );
   listcards.push(
     new Carte(
-      "none", 8,
+      "none",
+      8,
       "Demonic range",
       "Gain permanently $+r",
       "Loses permanently     $-h$-h",
@@ -525,17 +580,21 @@ function generatecards() {
   );
   listcards.push(
     new Carte(
-      "none", 8,
+      "none",
+      8,
       "Demonic health",
       "Gain permanently $+h$+h$+h$+h",
       "Loses permanently     $-m$-r",
       "$c"
     )
   );
-  listcards.push(new Carte("none", 8, "Hp buff", "Gain permanently $+h", "$bbb")); //+1
+  listcards.push(
+    new Carte("none", 8, "Hp buff", "Gain permanently $+h", "$bbb")
+  ); //+1
   listcards.push(
     new Carte(
-      "none", 8,
+      "none",
+      8,
       "Melee buff",
       "Gain permanently $+m",
       "Loses permanently $-h",
@@ -544,7 +603,8 @@ function generatecards() {
   ); //+0
   listcards.push(
     new Carte(
-      "none", 8,
+      "none",
+      8,
       "Ranged buff",
       "Gain permanently $+r",
       "Loses permanently $-h",
@@ -553,7 +613,8 @@ function generatecards() {
   ); //+1
   listcards.push(
     new Carte(
-      "none", 8,
+      "none",
+      8,
       "Attack buff",
       "Gain permanently $+m",
       "Loses permanently $-h",
@@ -562,7 +623,8 @@ function generatecards() {
   ); //+1
   listcards.push(
     new Carte(
-      "none", 8, 
+      "none",
+      8,
       "Demonic attack",
       "$p>",
       "$m$m$m$m$m",
@@ -571,7 +633,8 @@ function generatecards() {
   ); //+15
   listcards.push(
     new Carte(
-      "none",8,
+      "none",
+      8,
       "Demonic snipe",
       "$p<",
       "$r$r$r$r$r",
@@ -580,7 +643,8 @@ function generatecards() {
   ); //+15
   listcards.push(
     new Carte(
-      "none",8,
+      "none",
+      8,
       "Demonic fast attack",
       "$p>",
       "$m$m$m",
@@ -590,7 +654,8 @@ function generatecards() {
   ); //+12
   listcards.push(
     new Carte(
-      "none",8,
+      "none",
+      8,
       "Demonic fast snipe",
       "$p<",
       "$r$r$r",
@@ -618,7 +683,8 @@ function generatecards() {
   ); //+8.4
   listcards.push(
     new Carte(
-      "none",9, 
+      "none",
+      9,
       "Balanced attack",
       "$zm$zm$zm if $zp1 or $zp2",
       "$zr$zr$zr if $zp4 or $zp5"
@@ -626,7 +692,8 @@ function generatecards() {
   ); //+7.2
   listcards.push(
     new Carte(
-      "none",9, 
+      "none",
+      9,
       "Central fight",
       "$m",
       "$zm$zr$zr if $zp2 or $zp3 or $zp4"
@@ -634,22 +701,37 @@ function generatecards() {
   ); //+8.4
   //Position of others
   listcards.push(
-    new Carte("none", 10, "Crowd", "Swap randomly 2 by 2 others characters", "$cc")
+    new Carte(
+      "none",
+      10,
+      "Crowd",
+      "Swap randomly 2 by 2 others characters",
+      "$cc"
+    )
   ); //+9
   //Change of atkmel/atkran
-  listcards.push(new Carte("none",10,  "Switch", "Swap your $m & $r", "$c")); //+6
+  listcards.push(new Carte("none", 10, "Switch", "Swap your $m & $r", "$c")); //+6
   //Reroll/support
   listcards.push(
     new Carte("none", 10, "Reroll", "$h", "Reroll all unused dices", "$c")
   ); //+6
-  listcards.push(new Carte("none", 10, "Return", "Return all unused dice", "$c")); //+6
   listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+    new Carte("none", 10, "Return", "Return all unused dice", "$c")
+  ); //+6
+  listcards.push(
+    new Carte(
+      "none",
+      10,
+      "Chaos",
+      "$ha",
+      "Trigger a random other ability (non Chaos)"
+    )
   ); //+13
   listcards.push(new Carte("none", 10, "Copycat", "Apply the 1️⃣ effect")); //+9.5
   listcards.push(
     new Carte(
-      "none",10, 
+      "none",
+      10,
       "Feed from allies",
       "$h$h$h$h$h",
       "All other allies take one damage",
@@ -666,6 +748,34 @@ function generatecards() {
     Hard mode (coming soon) extra effect: +3atk for the enemy and:
     1:🩸⌛🔁 | 2:🩸💕 | 3:💖💖💖 | 4:⚔️ | 5:🏹 | 6:🚶‍♂️1
    */
+
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
 }
 function createbasicdeck() {
   listabilities[0] = listcards[1];
@@ -814,8 +924,8 @@ function resolveeffect(player, id) {
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   cantrip = 0;
   let increaseturndelay = 0;
-  id = specialsffectsbeforebefore(player, id);
-  id = specialsffectsbefore(player, id);
+  id = specialseffectsbeforebefore(player, id);
+  id = specialseffectsbefore(player, id);
 
   //bombs
   if (nbrbombs[listpersos[player.id].de - 1] == 1) {
@@ -960,14 +1070,14 @@ function resolveeffect(player, id) {
 
   afficherallcarte();
 
-  specialsffectsafter(player, id);
+  specialseffectsafter(player, id);
   if (increaseturndelay > 0) {
     turndelay[player.id] = increaseturndelay + 1;
   }
   checkhps();
   afficherallperso(ordrepersos);
 }
-function specialsffectsbeforebefore(player, id) {
+function specialseffectsbeforebefore(player, id) {
   if (listcards[id].nom == "Copycat") {
     //Apply the 1️⃣ effect
     if (listabilities[0].nom != "Copycat") {
@@ -980,9 +1090,30 @@ function specialsffectsbeforebefore(player, id) {
       return "0";
     }
   }
+  if (listcards[id].nom == "Chaos") {
+    //"$ha", "Trigger a random other ability (non Chaos)"
+    console.log("c");
+    let rand;
+    let newid = id;
+    while (listcards[newid].nom == "Chaos") {
+      rand = Math.trunc(Math.random() * 6);
+      newid = listabilities[rand].id;
+    }
+    console.log("Effect chosen randomly:" + newid);
+    document.getElementById("messagecentral").textContent =
+      "Effect " + newid + " done.";
+    skipnextmessage = 1;
+    //$ha
+    for (let k = 0; k < 5; k++) {
+      heal(listpersos[k], 1);
+    }
+    heal(player, -1); //heal all other ally
+
+    return newid;
+  }
   return id;
 }
-function specialsffectsbefore(player, id) {
+function specialseffectsbefore(player, id) {
   if (listcards[id].nom == "Perfect spot") {
     //"$m$r", "$h", "$zh$zc if $zp3", "$p3" //+8.4
     console.log("ps");
@@ -1014,28 +1145,9 @@ function specialsffectsbefore(player, id) {
       atkran(player, 2);
     }
   }
-  if (listcards[id].nom == "Chaos") {
-    //"$ha", "Trigger a random other ability"
-    console.log("c");
-    let newid = Math.trunc(Math.random() * 5 + 1);
-    if (newid >= id) {
-      newid++;
-    }
-    console.log(newid);
-    document.getElementById("messagecentral").textContent =
-      "Effect " + newid + " done.";
-    skipnextmessage = 1;
-    //$ha
-    for (let k = 0; k < 5; k++) {
-      heal(listpersos[k], 1);
-    }
-    heal(player, -1); //heal all other ally
-
-    return newid;
-  }
   return id;
 }
-function specialsffectsafter(player, id) {
+function specialseffectsafter(player, id) {
   if (listcards[id].nom == "Crowd") {
     //"Change randomly the place of all characters", "$cc"
     console.log("c");
@@ -1387,8 +1499,10 @@ function skipturn() {
 
 /* Disable colors */
 let disablecolors = 0;
-document.getElementById("disablecolors").addEventListener("click", disablecolor);
-function disablecolor(){
+document
+  .getElementById("disablecolors")
+  .addEventListener("click", disablecolor);
+function disablecolor() {
   disablecolors = 1;
   document.getElementById("disablecolors").style.visibility = "hidden";
   afficherallcarte();

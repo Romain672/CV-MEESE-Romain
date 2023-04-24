@@ -429,10 +429,10 @@ function generatecards() {
     //Delay weird
     listcards.push(new Carte("none","Sixtuple strike", "$m$m$m$m$m$m", "$t$t$t$t")); //+10
     listcards.push(new Carte("none","Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
-    listcards.push(new Carte("none","Exhausting strike",  "$m$m", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Exhausting snipe",  "$r$r", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Exhausting heal",  "$h$h$h$h$h$h", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Melting pot",  "$m$r", "$s", "$c", "$t", "$p<")); //+9
+    listcards.push(new Carte("none","Exhausting strike", "$m$m", "$c", "$t")); //+10
+    listcards.push(new Carte("none","Exhausting snipe", "$r$r", "$c", "$t")); //+10
+    listcards.push(new Carte("none","Exhausting heal", "$h$h$h$h$h$h", "$c", "$t")); //+10
+    listcards.push(new Carte("none","Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
     //$ha
     listcards.push(new Carte("none","Heal impact", "$m$m", "$ha", "$p>")); //+10
     listcards.push(new Carte("none","Heal polyvalent", "$m$r","$ha")); //+10

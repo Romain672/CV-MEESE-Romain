@@ -456,7 +456,7 @@ function generatecards() {
     //Double $cc
     listcards.push(new Carte("none","Instant heal", "$h", "$cc")); //+10
     listcards.push(new Carte("none","Instant attack", "$m", "$s$s", "$cc")); //+10
-    listcards.push(new Carte("none","Instant snipe", "$c", "$s$s", "$cc")); //+10
+    listcards.push(new Carte("none","Instant snipe", "$r", "$s$s", "$cc")); //+10
     listcards.push(new Carte("none","Teleport forward", "$cc", "$p1")); //+10
     listcards.push(new Carte("none","Teleport behind", "$cc", "$p<")); //+9
     

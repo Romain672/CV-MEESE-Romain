@@ -84,19 +84,24 @@ body{
     z-index:100;
 }
 #carteextra7{
-    left:20%;
+    left:10%;
     top:25%;
-    width:200px;
 }
 #carteextra8{
-    left:40%;
+    left:27%;
     top:25%;
-    width:200px;
 }
 #carteextra9{
-    left:60%;
+    left:44%;
     top:25%;
-    width:200px;
+}
+#carteextra10{
+    left:61%;
+    top:25%;
+}
+#carteextra11{
+    left:78%;
+    top:25%;
 }
 #extratext{
     font-size: 50px;

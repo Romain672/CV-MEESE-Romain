@@ -1,10 +1,10 @@
 let listpersos = [];
-let listabilities = [11]; //7ème card is empty, 8/9/10ème are for choices, 11ème is explosed
+let listabilities = [12]; //7ème card is empty, 8/9/10/11/12ème are for choices
 let listcards = [];
 let ordrepersos = [0, 1, 2, 3, 4, 5];
 let diceavailable = ["y", "y", "y", "y", "y"];
 let turndelay = [0, 0, 0, 0, 0, 0];
-let nbrbombs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let nbrbombs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let ennemy = 5;
 let skipnextmessage = 0;
 
@@ -483,10 +483,10 @@ function generatecards() {
   listcards.push(new Carte("none","Melee buff","Gain permanently $+m","Loses permanently $-h","$bbb")); //+0
   listcards.push(new Carte("none","Ranged buff","Gain permanently $+r","Loses permanently $-h","$bbb")); //+1
   listcards.push(new Carte("none","Attack buff","Gain permanently $+m","Loses permanently $-h","$bbb")); //+1
-  listcards.push(new Carte("none","Demonic attack","p>","$m$m$m$m$m","Loses permanently $-r")); //+15
-  listcards.push(new Carte("none","Demonic snipe","p<", "$r$r$r$r$r","Loses permanently $-m")); //+15
-  listcards.push(new Carte("none","Demonic fast attack","p>","$m$m$m","Loses permanently $-r","$c")); //+12
-  listcards.push(new Carte("none","Demonic fast snipe","p<", "$r$r$r","Loses permanently $-m","$c")); //+12
+  listcards.push(new Carte("none","Demonic attack","$p>","$m$m$m$m$m","Loses permanently $-r")); //+15
+  listcards.push(new Carte("none","Demonic snipe","$p<", "$r$r$r$r$r","Loses permanently $-m")); //+15
+  listcards.push(new Carte("none","Demonic fast attack","$p>","$m$m$m","Loses permanently $-r","$c")); //+12
+  listcards.push(new Carte("none","Demonic fast snipe","$p<", "$r$r$r","Loses permanently $-m","$c")); //+12
 
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
@@ -1033,29 +1033,26 @@ function reload() {
 
 /* Replace a card in your deck: */
 let cardchosen = 0;
-let random = [0, 0, 0];
 function choosenewcard() {
   document.getElementById("messagecentral").textContent =
     "Choose a card to add to your deck";
-  listabilities[7] = 0;
-  listabilities[8] = 0;
-  while (
-    listabilities[7] == listabilities[8] ||
-    listabilities[7] == listabilities[9] ||
-    listabilities[8] == listabilities[9]
-  ) {
-    random[0] = 7 + Math.trunc(Math.random() * (listcards.length - 7));
-    random[1] = 7 + Math.trunc(Math.random() * (listcards.length - 7));
-    random[2] = 7 + Math.trunc(Math.random() * (listcards.length - 7));
-    listabilities[7] = listcards[random[0]];
-    listabilities[8] = listcards[random[1]];
-    listabilities[9] = listcards[random[2]];
+  let numberalreadyrolled = [];
+  while (numberalreadyrolled.length<5){
+    let i = 7 + Math.trunc(Math.random() * (listcards.length - 7));
+    if (numberalreadyrolled.indexOf(i) === -1){
+      numberalreadyrolled.push(i);
+    }
   }
+    listabilities[7] = listcards[numberalreadyrolled[0]];
+    listabilities[8] = listcards[numberalreadyrolled[1]];
+    listabilities[9] = listcards[numberalreadyrolled[2]];
+    listabilities[10] = listcards[numberalreadyrolled[3]];
+    listabilities[11] = listcards[numberalreadyrolled[4]];
 
   document.getElementById("extratext").style.visibility = "visible";
   document.getElementById("grayscreen").style.visibility = "visible";
   document.getElementById("grayscreen").style.zIndex = "50";
-  for (let i = 1; i < 4; i++) {
+  for (let i = 1; i < 6; i++) {
     let element = document.getElementsByClassName("carteextra")[i - 1];
     document.getElementsByClassName("carteextra")[i - 1].style.visibility =
       "visible";
@@ -1069,6 +1066,12 @@ function choosenewcard() {
     if (i == 3) {
       element.addEventListener("click", newcard3);
     }
+    if (i == 4) {
+      element.addEventListener("click", newcard4);
+    }
+    if (i == 5) {
+      element.addEventListener("click", newcard5);
+    }
   }
 
   //skip
@@ -1078,6 +1081,8 @@ function choosenewcard() {
   affichercarte(7);
   affichercarte(8);
   affichercarte(9);
+  affichercarte(10);
+  affichercarte(11);
 }
 function skipcard() {
   extrahidden();
@@ -1099,10 +1104,22 @@ function newcard3() {
   messageapreschoix();
   cardchosen = 3;
 }
+function newcard4() {
+  extrahidden();
+  messageapreschoix();
+  cardchosen = 4;
+}
+function newcard5() {
+  extrahidden();
+  messageapreschoix();
+  cardchosen = 5;
+}
 function extrahidden() {
   document.getElementsByClassName("carteextra")[0].style.visibility = "hidden";
   document.getElementsByClassName("carteextra")[1].style.visibility = "hidden";
   document.getElementsByClassName("carteextra")[2].style.visibility = "hidden";
+  document.getElementsByClassName("carteextra")[3].style.visibility = "hidden";
+  document.getElementsByClassName("carteextra")[4].style.visibility = "hidden";
   //
   document.getElementById("skipcard").style.visibility = "hidden";
   document.getElementById("extratext").style.visibility = "hidden";

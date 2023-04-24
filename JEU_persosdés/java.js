@@ -748,34 +748,6 @@ function generatecards() {
     Hard mode (coming soon) extra effect: +3atk for the enemy and:
     1:🩸⌛🔁 | 2:🩸💕 | 3:💖💖💖 | 4:⚔️ | 5:🏹 | 6:🚶‍♂️1
    */
-
-  listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
-  ); //+13
-  listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
-  ); //+13
-  listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
-  ); //+13
-  listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
-  ); //+13
-  listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
-  ); //+13
-  listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
-  ); //+13
-  listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
-  ); //+13
-  listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
-  ); //+13
-  listcards.push(
-    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
-  ); //+13
 }
 function createbasicdeck() {
   listabilities[0] = listcards[1];

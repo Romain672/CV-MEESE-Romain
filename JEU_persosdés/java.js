@@ -478,7 +478,7 @@ function generatecards() {
   //Permanent upgrades $b
   listcards.push(new Carte("none","Demonic strength","Gain permanently $+m","Loses permanently     $-h$-h", "$c"));
   listcards.push(new Carte("none","Demonic range","Gain permanently $+r","Loses permanently     $-h$-h", "$c"));
-  listcards.push(new Carte("none","Demonic health","Gain permanently $+h$+h","Loses permanently     $-m$-r", "$c"));
+  listcards.push(new Carte("none","Demonic health","Gain permanently $+h$+h$+h$+h","Loses permanently     $-m$-r", "$c"));
   listcards.push(new Carte("none","Hp buff","Gain permanently $+h","$bbb")); //+1
   listcards.push(new Carte("none","Melee buff","Gain permanently $+m","Loses permanently $-h","$bbb")); //+0
   listcards.push(new Carte("none","Ranged buff","Gain permanently $+r","Loses permanently $-h","$bbb")); //+1
@@ -1178,7 +1178,7 @@ function changecarddeck(nbr) {
 
   //bombs
   let carte = listabilities[6 + cardchosen];
-  let split = "start";
+  let split = "";
   try {
     split = carte.effect1.split("$b");
   } catch {}
@@ -1197,18 +1197,37 @@ function changecarddeck(nbr) {
 
   //WEIRD 'BUG'
   //console.log(split);
+  /*
   try {
     nbrbombs[nbr] = split[1].length + 1;
   } catch {
+    try{
     nbrbombs[nbr] = split[0].length + 1;
   }
+  catch{
+    nbrbombs[nbr] = 0;
+  }
+  }*/
+  /*
+  console.log("#")
+  console.log(split)
+  console.log(nbrbombs)
+  try {
+    split[1];
+    nbrbombs[nbr] = split[1].length + 1;
+  }
+  catch{
+    nbrbombs[nbr] = 0;
+  }
+  console.log(nbrbombs)*/
+
   //WEIRD 'BUG'
   afficherallperso(ordrepersos);
   afficherallcarte();
   cardchosen = 0;
   document.getElementById("grayscreen").style.visibility = "hidden";
   document.getElementById("messagecentral").textContent = "Next fight";
-  for (i = 7; i < 10; i++) {
+  for (i = 7; i < 12; i++) {
     listabilities[i] = listabilities[6];
     listabilities[i].effect1 = "";
     listabilities[i].effect2 = "";

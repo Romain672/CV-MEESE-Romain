@@ -153,6 +153,7 @@ function generatepersos() {
 /* Cartes */
 let carte = {
   avatar: "none",
+  color: "darkslateblue",
   nom: "none",
   id: 0,
   effect1: "",
@@ -161,9 +162,14 @@ let carte = {
   effect4: "",
   effect5: "",
 };
-function Carte(a, b, d, e, f, g, h) {
+function Carte(a, b, c, d, e, f, g, h) {
   this.avatar = a;
-  this.nom = b;
+  //              0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
+  //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "cyan", "brown", "black", "indigo", "mediumvioletred", "black"];
+  //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "", "brown", "darksalmon", "indigo", "", ""];
+  let color = ["darkgreen", "darkblue", "darkcyan", "darkcyan", "darkred", "brown", "darkblue", "black", "mediumvioletred", "brown", "indigo"];
+  this.color = color[b];
+  this.nom = c;
   this.id = listcards.length;
   this.effect1 = d;
   this.effect2 = e;
@@ -182,6 +188,16 @@ function affichercarte(id) {
     children = document.getElementById("carteextra" + id).children;
   }
   //children[0]: intro
+
+if (disablecolors == 0){
+try{document.getElementById("carte" + id).style.backgroundColor = listabilities[id].color;}
+catch{document.getElementById("carteextra" + id).style.backgroundColor = listabilities[id].color;}
+
+} else {
+  try{document.getElementById("carte" + id).style.backgroundColor = "darkslateblue";}
+  catch{document.getElementById("carteextra" + id).style.backgroundColor = "darkslateblue";}
+}
+
   children[1].textContent = listabilities[id].nom;
   children[2].textContent = listabilities[id].effect1
     .replaceAll("$+", "$")
@@ -266,9 +282,6 @@ function affichercarte(id) {
     children[6].textContent = "";
   }
 
-  //3 5 => 3
-  //0 5 => 5
-  //displaybombs(nbrbombs[id-1])
   try {
     if (listabilities[id].effect1[1] == "b") {
       //if there is some bombs
@@ -357,17 +370,6 @@ function affichercarte(id) {
     children[5].textContent = "";
     children[6].textContent = "";
   }
-  //console.log("display:");
-  //console.log(nbrbombs[id - 1]);
-  /*try{
-   // console.log(listabilities[player.id]);
-    console.log(id);
-  console.log(nbrbombs);
-    }catch{}*/
-
-  //console.log(nbrbombs[id - 1]);
-  //console.log(nbrbombs);
-  //.replaceAll("$bbbbb","💣💣💣💣💣").replaceAll("$bbbb","💣💣💣💣").replaceAll("$bbb","💣💣💣").replaceAll("$bb","💣💣").replaceAll("$b","💣")
 }
 function displaybombs(nbr) {
   let string = "";
@@ -388,110 +390,218 @@ function generatecards() {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //Trash
-  listcards.push(new Carte("none", "none", "$s$h$c"));
+  listcards.push(new Carte("none", "black", "none", "$s$h$c"));
   //Starting deck (=+6 instead of +9)
-  listcards.push(new Carte("none", "Fast heal", "$h", "$c")); //+7
-  listcards.push(new Carte("none", "Heal & Attack", "$m", "$h$h$h")); //+6
-  listcards.push(new Carte("none", "Double attack", "$m$r")); //+6
-  listcards.push(new Carte("none", "Double strike", "$m$m", "$p>")); //+6
-  listcards.push(new Carte("none", "Longshot", "$r$r", "$p<")); //+6
-  listcards.push(new Carte("none", "Run forward", "$c", "$p1")); //+7
+  listcards.push(new Carte("none", "", "Fast heal", "$h", "$c")); //+7
+  listcards.push(new Carte("none", "", "Heal & Attack", "$m", "$h$h$h")); //+6
+  listcards.push(new Carte("none", "", "Double attack", "$m$r")); //+6
+  listcards.push(new Carte("none", "", "Double strike", "$m$m", "$p>")); //+6
+  listcards.push(new Carte("none", "", "Longshot", "$r$r", "$p<")); //+6
+  listcards.push(new Carte("none", "", "Run forward", "$c", "$p1")); //+7
   //Normal: triples
-  
-    listcards.push(new Carte("none","Triple strike", "$m$m$m", "$p>")); //+9
-    listcards.push(new Carte("none","Long attack", "$m$m$r", "$p>")); //+9
-    listcards.push(new Carte("none","Small attack", "$m$r$r")); //+9
-    listcards.push(new Carte("none","Sniping", "$r$r$r", "$p<")); //+9
-    listcards.push(new Carte("none","Strike & Heal", "$m$m","$h$h$h", "$p>")); //+9
-    listcards.push(new Carte("none","Attack & Heal", "$m$r","$h$h$h")); //+9
-    listcards.push(new Carte("none","Snipe & Heal", "$r$r","$h$h$h", "$p<")); //+9
-    //Normal extras
-    listcards.push(new Carte("none","Drain life", "$m","$h$h$h$h$h$h$h", "$p>")); //+10
-    listcards.push(new Carte("none","Boomerang heal", "$r","$h$h$h$h$h$h$h", "$p5")); //+11
-    listcards.push(new Carte("none","Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
-    //Self sacrifice
-    listcards.push(new Carte("none","Quadruple shot", "$r$r$r$r","$s$s$s","$p4")); //+10
-    //$c
-    listcards.push(new Carte("none","Heal & Retreat", "$h$h$h", "$c", "$p5")); //+10
-    listcards.push(new Carte("none","Quick draw", "$r", "$c")); //+9
-    listcards.push(new Carte("none","Quick attack", "$m", "$c")); //+9
-    //Delay damage
-    listcards.push(new Carte("none","Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
-    listcards.push(new Carte("none","Longest attack", "$m$m$m$r", "$t", "$p>")); //+10
-    listcards.push(new Carte("none","Heavy attack", "$m$m$r$r", "$t")); //+10
-    listcards.push(new Carte("none","Great shot", "$m$r$r$r", "$t", "$p<")); //+10
-    listcards.push(new Carte("none","Sniping hard", "$r$r$r$r", "$t", "$p<")); //+10
-    //Delay damage+heal
-    listcards.push(new Carte("none","Timeal strike",  "$m$m$m", "$h$h", "$t", "$p>")); //+9
-    listcards.push(new Carte("none","Timeal long attack",  "$m$m$r", "$h$h", "$t")); //+9
-    listcards.push(new Carte("none","Timeal attack",  "$m$r$r", "$h$h", "$t")); //+9
-    listcards.push(new Carte("none","Timeal snipe",  "$r$r$r", "$h$h", "$t", "$p<")); //+9
-    //Delay weird
-    listcards.push(new Carte("none","Sixtuple strike", "$m$m$m$m$m$m", "$t$t$t$t")); //+10
-    listcards.push(new Carte("none","Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
-    listcards.push(new Carte("none","Exhausting strike", "$m$m", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Exhausting snipe", "$r$r", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Exhausting heal", "$h$h$h$h$h$h", "$c", "$t")); //+10
-    listcards.push(new Carte("none","Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
-    //$ha
-    listcards.push(new Carte("none","Heal impact", "$m$m", "$ha", "$p>")); //+10
-    listcards.push(new Carte("none","Heal polyvalent", "$m$r","$ha")); //+10
-    listcards.push(new Carte("none","Heal meteor", "$r$r", "$ha", "$p<")); //+10
-    listcards.push(new Carte("none","Regeneration attack", "$m", "$h$h","$ha")); //+9
-    listcards.push(new Carte("none","Regeneration snipe ", "$r", "$h$h","$ha")); //+9
-    listcards.push(new Carte("none","Rejuvenation", "$h$h$h$h$h","$ha")); //+9
-    listcards.push(new Carte("none","Regeneration", "$h","$ha$ha")); //+9
-    listcards.push(new Carte("none","Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
-    listcards.push(new Carte("none","Fast medic", "$ha","$c")); //+10
-    listcards.push(new Carte("none","Fast sacrificial medic", "$s$s$s$s$s", "$ha$ha", "$c", "$p>")); //+9
-    listcards.push(new Carte("none","Sacrificial medic", "$s$s$s$s$s$s$s$s$s", "$ha$ha$ha","$c", "$p>")); //+9
-    listcards.push(new Carte("none","Waiting heal", "$ha$ha$ha", "$t")); //+10
-    listcards.push(new Carte("none","Heal and sleep", "$ha$ha$ha$ha", "$t$t$t")); //+10
-    listcards.push(new Carte("none","Heal before rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
-    //Movement
-    listcards.push(new Carte("none","Run attack", "$m", "$s", "$c", "$p1")); //+9
-    listcards.push(new Carte("none","Flee snipe", "$r", "$s", "$c", "$p5")); //+9
-    listcards.push(new Carte("none","Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
-    listcards.push(new Carte("none","Reversed attack", "$m$m$m", "$h", "$p5")); //+10
-    //Double $cc
-    listcards.push(new Carte("none","Instant heal", "$h", "$cc")); //+10
-    listcards.push(new Carte("none","Instant attack", "$m", "$s$s", "$cc")); //+10
-    listcards.push(new Carte("none","Instant snipe", "$r", "$s$s", "$cc")); //+10
-    listcards.push(new Carte("none","Teleport forward", "$cc", "$p1")); //+10
-    listcards.push(new Carte("none","Teleport behind", "$cc", "$p<")); //+9
-    
+  listcards.push(new Carte("none", 0, "Triple strike", "$m$m$m", "$p>")); //+9
+  listcards.push(new Carte("none", 0, "Long attack", "$m$m$r", "$p>")); //+9
+  listcards.push(new Carte("none", 0, "Small attack", "$m$r$r")); //+9
+  listcards.push(new Carte("none", 0, "Sniping", "$r$r$r", "$p<")); //+9
+  listcards.push(new Carte("none", 0, "Strike & Heal", "$m$m", "$h$h$h", "$p>")); //+9
+  listcards.push(new Carte("none", 0, "Attack & Heal", "$m$r", "$h$h$h")); //+9
+  listcards.push(new Carte("none", 0, "Snipe & Heal", "$r$r", "$h$h$h", "$p<")); //+9
+  //Normal extras
+  listcards.push(
+    new Carte("none", 0, "Drain life", "$m", "$h$h$h$h$h$h$h", "$p>")
+  ); //+10
+  listcards.push(new Carte("none", 0, "Boomerang heal", "$r", "$h$h$h$h$h$h$h", "$p5")
+  ); //+11
+  listcards.push(new Carte("none", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
+  //Self sacrifice
+  listcards.push(
+    new Carte("none", "Quadruple shot", 0, "$r$r$r$r", "$s$s$s", "$p4")
+  ); //+10
+  //$c
+  listcards.push(new Carte("none", 1, "Heal & Retreat", "$h$h$h", "$c", "$p5")); //+10
+  listcards.push(new Carte("none", 1, "Quick draw", "$r", "$c")); //+9
+  listcards.push(new Carte("none", 1, "Quick attack", "$m", "$c")); //+9
+  //Delay damage
+  listcards.push(new Carte("none", 2, "Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
+  listcards.push(new Carte("none", 2, "Longest attack", "$m$m$m$r", "$t", "$p>")); //+10
+  listcards.push(new Carte("none", 2, "Heavy attack", "$m$m$r$r", "$t")); //+10
+  listcards.push(new Carte("none", 2, "Great shot", "$m$r$r$r", "$t", "$p<")); //+10
+  listcards.push(new Carte("none", 2, "Sniping hard", "$r$r$r$r", "$t", "$p<")); //+10
+  //Delay damage+heal
+  listcards.push(new Carte("none", 2, "Timeal strike", "$m$m$m", "$h$h", "$t", "$p>")); //+9
+  listcards.push(new Carte("none", 2, "Timeal long attack", "$m$m$r", "$h$h", "$t")); //+9
+  listcards.push(new Carte("none", 2, "Timeal attack", "$m$r$r", "$h$h", "$t")); //+9
+  listcards.push(
+    new Carte("none", 2, "Timeal snipe", "$r$r$r", "$h$h", "$t", "$p<")
+  ); //+9
+  //Delay weird
+  listcards.push(
+    new Carte("none", 3, "Sixtuple strike", "$m$m$m$m$m$m", "$t$t$t$t")
+  ); //+10
+  listcards.push(
+    new Carte("none", 3, "Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")
+  ); //+10
+  listcards.push(new Carte("none", 3, "Exhausting strike", "$m$m", "$c", "$t")); //+10
+  listcards.push(new Carte("none", 3, "Exhausting snipe", "$r$r", "$c", "$t")); //+10
+  listcards.push(new Carte("none", 3, "Exhausting heal", "$h$h$h$h$h$h", "$c", "$t")); //+10
+  listcards.push(new Carte("none", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
+  //$ha
+  listcards.push(new Carte("none", 4, "Heal impact", "$m$m", "$ha", "$p>")); //+10
+  listcards.push(new Carte("none", 4, "Heal polyvalent", "$m$r", "$ha")); //+10
+  listcards.push(new Carte("none", 4, "Heal meteor", "$r$r", "$ha", "$p<")); //+10
+  listcards.push(new Carte("none", 4, "Regeneration attack", "$m", "$h$h", "$ha")); //+9
+  listcards.push(new Carte("none", 4, "Regeneration snipe ", "$r", "$h$h", "$ha")); //+9
+  listcards.push(new Carte("none", 4, "Rejuvenation", "$h$h$h$h$h", "$ha")); //+9
+  listcards.push(new Carte("none", 4, "Regeneration", "$h", "$ha$ha")); //+9
+  listcards.push(new Carte("none", 4, "Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
+  listcards.push(new Carte("none", 4, "Fast medic", "$ha", "$c")); //+10
+  listcards.push(
+    new Carte(
+      "none", 4,
+      "Fast sacrificial medic",
+      "$s$s$s$s$s",
+      "$ha$ha",
+      "$c",
+      "$p>"
+    )
+  ); //+9
+  listcards.push(
+    new Carte(
+      "none", 4,
+      "Sacrificial medic",
+      "$s$s$s$s$s$s$s$s$s",
+      "$ha$ha$ha",
+      "$c",
+      "$p>"
+    )
+  ); //+9
+  listcards.push(new Carte("none", 4, "Waiting heal", "$ha$ha$ha", "$t")); //+10
+  listcards.push(new Carte("none", 4, "Heal and sleep", "$ha$ha$ha$ha", "$t$t$t")); //+10
+  listcards.push(
+    new Carte("none", 4, "Heal before rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")
+  ); //+10
+  //Movement
+  listcards.push(new Carte("none", 5, "Run attack", "$m", "$s", "$c", "$p1")); //+9
+  listcards.push(new Carte("none", 5, "Flee snipe", "$r", "$s", "$c", "$p5")); //+9
+  listcards.push(new Carte("none", 5, "Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
+  listcards.push(new Carte("none", 5, "Reversed attack", "$m$m$m", "$h", "$p5")); //+10
+  //Double $cc
+  listcards.push(new Carte("none", 6, "Instant heal", "$h", "$cc")); //+10
+  listcards.push(new Carte("none", 6, "Instant attack", "$m", "$s$s", "$cc")); //+10
+  listcards.push(new Carte("none", 6, "Instant snipe", "$r", "$s$s", "$cc")); //+10
+  listcards.push(new Carte("none", 6, "Teleport forward", "$cc", "$p1")); //+10
+  listcards.push(new Carte("none", 6, "Teleport behind", "$cc", "$p<")); //+9
+
   //Bomb $b
-  listcards.push(new Carte("none", "Extra attacks", "$m$m$r$r", "$bbbbb")); //+9 3*5
+  listcards.push(new Carte("none", 7, "Extra attacks", "$m$m$r$r", "$bbbbb")); //+9 3*5
+  listcards.push(new Carte("none", 7, "Instable strikes", "$m$m$m$m$m$m", "$p>", "$bb")); //+9 9*2
   listcards.push(
-    new Carte("none", "Instable strikes", "$m$m$m$m$m$m", "$p>", "$bb")
-  ); //+9 9*2
-  listcards.push(
-    new Carte("none", "Instant difficult blow", "$m", "$cc", "$bbb")
+    new Carte("none", 7, "Instant difficult blow", "$m", "$cc", "$bbb")
   ); //+9 3*3
-  listcards.push(new Carte("none", "Instant medic", "$ha", "$cc", "$bbbbb")); //+9 4*5
+  listcards.push(new Carte("none", 7, "Instant medic", "$ha", "$cc", "$bbbbb")); //+9 4*5
   listcards.push(
-    new Carte("none", "Fast instable attacks", "$m$r", "$c", "$bbb")
+    new Carte("none", 7, "Fast instable attacks", "$m$r", "$c", "$bbb")
   ); //+9 3*3
   listcards.push(
-    new Carte("none", "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")
+    new Carte("none", 7, "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")
   ); //+9 2*9
   //Permanent upgrades $b
-  listcards.push(new Carte("none","Demonic strength","Gain permanently $+m","Loses permanently     $-h$-h", "$c"));
-  listcards.push(new Carte("none","Demonic range","Gain permanently $+r","Loses permanently     $-h$-h", "$c"));
-  listcards.push(new Carte("none","Demonic health","Gain permanently $+h$+h$+h$+h","Loses permanently     $-m$-r", "$c"));
-  listcards.push(new Carte("none","Hp buff","Gain permanently $+h","$bbb")); //+1
-  listcards.push(new Carte("none","Melee buff","Gain permanently $+m","Loses permanently $-h","$bbb")); //+0
-  listcards.push(new Carte("none","Ranged buff","Gain permanently $+r","Loses permanently $-h","$bbb")); //+1
-  listcards.push(new Carte("none","Attack buff","Gain permanently $+m","Loses permanently $-h","$bbb")); //+1
-  listcards.push(new Carte("none","Demonic attack","$p>","$m$m$m$m$m","Loses permanently $-r")); //+15
-  listcards.push(new Carte("none","Demonic snipe","$p<", "$r$r$r$r$r","Loses permanently $-m")); //+15
-  listcards.push(new Carte("none","Demonic fast attack","$p>","$m$m$m","Loses permanently $-r","$c")); //+12
-  listcards.push(new Carte("none","Demonic fast snipe","$p<", "$r$r$r","Loses permanently $-m","$c")); //+12
-
+  listcards.push(
+    new Carte(
+      "none", 8,
+      "Demonic strength",
+      "Gain permanently $+m",
+      "Loses permanently     $-h$-h",
+      "$c"
+    )
+  );
+  listcards.push(
+    new Carte(
+      "none", 8,
+      "Demonic range",
+      "Gain permanently $+r",
+      "Loses permanently     $-h$-h",
+      "$c"
+    )
+  );
+  listcards.push(
+    new Carte(
+      "none", 8,
+      "Demonic health",
+      "Gain permanently $+h$+h$+h$+h",
+      "Loses permanently     $-m$-r",
+      "$c"
+    )
+  );
+  listcards.push(new Carte("none", 8, "Hp buff", "Gain permanently $+h", "$bbb")); //+1
+  listcards.push(
+    new Carte(
+      "none", 8,
+      "Melee buff",
+      "Gain permanently $+m",
+      "Loses permanently $-h",
+      "$bbb"
+    )
+  ); //+0
+  listcards.push(
+    new Carte(
+      "none", 8,
+      "Ranged buff",
+      "Gain permanently $+r",
+      "Loses permanently $-h",
+      "$bbb"
+    )
+  ); //+1
+  listcards.push(
+    new Carte(
+      "none", 8,
+      "Attack buff",
+      "Gain permanently $+m",
+      "Loses permanently $-h",
+      "$bbb"
+    )
+  ); //+1
+  listcards.push(
+    new Carte(
+      "none", 8, 
+      "Demonic attack",
+      "$p>",
+      "$m$m$m$m$m",
+      "Loses permanently $-r"
+    )
+  ); //+15
+  listcards.push(
+    new Carte(
+      "none",8,
+      "Demonic snipe",
+      "$p<",
+      "$r$r$r$r$r",
+      "Loses permanently $-m"
+    )
+  ); //+15
+  listcards.push(
+    new Carte(
+      "none",8,
+      "Demonic fast attack",
+      "$p>",
+      "$m$m$m",
+      "Loses permanently $-r",
+      "$c"
+    )
+  ); //+12
+  listcards.push(
+    new Carte(
+      "none",8,
+      "Demonic fast snipe",
+      "$p<",
+      "$r$r$r",
+      "Loses permanently $-m",
+      "$c"
+    )
+  ); //+12
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
-
 
   //Normal triple copied
   /*
@@ -503,21 +613,50 @@ function generatecards() {
     listcards.push(new Carte("none","Attack & Heal", "$m$r","$h$h$h")); //+9
     listcards.push(new Carte("none","Snipe & Heal", "$r$r","$h$h$h", "$p<")); //+9*/
   //UNIQUE EFFECTS
-    //Positionnal bonus
-    listcards.push(new Carte("none","Perfect spot", "$m$r", "$h", "$zh$zc if $zp3", "$p3")); //+8.4
-    listcards.push(new Carte("none","Balanced attack", "$zm$zm$zm if $zp1 or $zp2", "$zr$zr$zr if $zp4 or $zp5")); //+7.2
-    listcards.push(new Carte("none","Central fight", "$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4")); //+8.4
-    //Position of others
-    listcards.push(new Carte("none","Crowd", "Swap randomly 2 by 2 others characters", "$cc")); //+9
-    //Chage of atkmel/atkran
-    listcards.push(new Carte("none","Switch", "Swap your $m & $r", "$c")); //+6
-    //Reroll/support
-    listcards.push(new Carte("none","Reroll", "$h", "Reroll all unused dices", "$c")); //+6
-    listcards.push(new Carte("none","Return", "Return all unused dice", "$c")); //+6
-    listcards.push(new Carte("none","Chaos", "$ha", "Trigger a random other ability")); //+13
-    listcards.push(new Carte("none","Copycat", "Apply the 1️⃣ effect")); //+9.5
-    listcards.push(new Carte("none","Feed from allies", "$h$h$h$h$h", "All other allies take one damage", "$cc")); //+10
-    
+  //Positionnal bonus
+  listcards.push(
+    new Carte("none", 9, "Perfect spot", "$m$r", "$h", "$zh$zc if $zp3", "$p3")
+  ); //+8.4
+  listcards.push(
+    new Carte(
+      "none",9, 
+      "Balanced attack",
+      "$zm$zm$zm if $zp1 or $zp2",
+      "$zr$zr$zr if $zp4 or $zp5"
+    )
+  ); //+7.2
+  listcards.push(
+    new Carte(
+      "none",9, 
+      "Central fight",
+      "$m",
+      "$zm$zr$zr if $zp2 or $zp3 or $zp4"
+    )
+  ); //+8.4
+  //Position of others
+  listcards.push(
+    new Carte("none", 10, "Crowd", "Swap randomly 2 by 2 others characters", "$cc")
+  ); //+9
+  //Change of atkmel/atkran
+  listcards.push(new Carte("none",10,  "Switch", "Swap your $m & $r", "$c")); //+6
+  //Reroll/support
+  listcards.push(
+    new Carte("none", 10, "Reroll", "$h", "Reroll all unused dices", "$c")
+  ); //+6
+  listcards.push(new Carte("none", 10, "Return", "Return all unused dice", "$c")); //+6
+  listcards.push(
+    new Carte("none", 10, "Chaos", "$ha", "Trigger a random other ability")
+  ); //+13
+  listcards.push(new Carte("none", 10, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  listcards.push(
+    new Carte(
+      "none",10, 
+      "Feed from allies",
+      "$h$h$h$h$h",
+      "All other allies take one damage",
+      "$cc"
+    )
+  ); //+10
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
@@ -608,17 +747,17 @@ function checkhps() {
     }
   }
   if (nbrheal > 0) {
-    if (nbrheal ==1){
-        document.getElementById("messagecentral").textContent =
-          "Someone took lethal damage: he got healed (*3) but everyone else took damage (" +
-          nbrheal +
-          " time)";
+    if (nbrheal == 1) {
+      document.getElementById("messagecentral").textContent =
+        "Someone took lethal damage: he got healed (*3) but everyone else took damage (" +
+        nbrheal +
+        " time)";
     } else {
-    document.getElementById("messagecentral").textContent =
-      "Someone took lethal damage: he got healed (*3) but everyone else took damage (" +
-      nbrheal +
-      " times)";
-      }
+      document.getElementById("messagecentral").textContent =
+        "Someone took lethal damage: he got healed (*3) but everyone else took damage (" +
+        nbrheal +
+        " times)";
+    }
   }
 }
 function genererevents() {
@@ -666,7 +805,7 @@ function clickde(event) {
       if (skipnextmessage == 0) {
         document.getElementById("messagecentral").textContent = "Extra turn";
       }
-      skipnextmessage=0;
+      skipnextmessage = 0;
     }
   }
 }
@@ -774,44 +913,47 @@ function resolveeffect(player, id) {
       if (char[0] == "+") {
         console.log("+");
         if (split[1].charAt(1) == "m") {
-            player.atkmel++;
+          player.atkmel++;
         }
         if (split[1].charAt(1) == "r") {
-            player.atkran++;
+          player.atkran++;
         }
         if (split[1].charAt(1) == "h") {
-            player.maxhp++;
-            heal(player,1);
+          player.maxhp++;
+          heal(player, 1);
         }
       }
       if (char[0] == "-") {
         console.log("-");
         if (split[1].charAt(1) == "m") {
-            if(player.atkmel==0){
-                document.getElementById("messagecentral").textContent = "Attack too low. Action cancelled";
-                cantrip=1;
-                skipnextmessage=1;
-                return;
-            }
-            player.atkmel--;
+          if (player.atkmel == 0) {
+            document.getElementById("messagecentral").textContent =
+              "Attack too low. Action cancelled";
+            cantrip = 1;
+            skipnextmessage = 1;
+            return;
+          }
+          player.atkmel--;
         }
         if (split[1].charAt(1) == "r") {
-            if(player.atkran==0){
-                document.getElementById("messagecentral").textContent = "Range too low. Action cancelled";
-                cantrip=1;
-                skipnextmessage=1;
-                return;
-            }
-            player.atkran--;
+          if (player.atkran == 0) {
+            document.getElementById("messagecentral").textContent =
+              "Range too low. Action cancelled";
+            cantrip = 1;
+            skipnextmessage = 1;
+            return;
+          }
+          player.atkran--;
         }
         if (split[1].charAt(1) == "h") {
-            if(player.maxhp==1){
-                document.getElementById("messagecentral").textContent = "Health too low. Action cancelled";
-                cantrip=1;
-                skipnextmessage=1;
-                return;
-            }
-            player.maxhp--;
+          if (player.maxhp == 1) {
+            document.getElementById("messagecentral").textContent =
+              "Health too low. Action cancelled";
+            cantrip = 1;
+            skipnextmessage = 1;
+            return;
+          }
+          player.maxhp--;
         }
       }
     }
@@ -889,7 +1031,7 @@ function specialsffectsbefore(player, id) {
       heal(listpersos[k], 1);
     }
     heal(player, -1); //heal all other ally
-    
+
     return newid;
   }
   return id;
@@ -940,15 +1082,15 @@ function specialsffectsafter(player, id) {
     listpersos[player.id].de = 7;
     afficherallperso(ordrepersos);
   }
-  if(listcards[id].nom == "Feed from allies"){
+  if (listcards[id].nom == "Feed from allies") {
     //"$h$h$h$h$h", "All other allies take one damage", "$cc"
-        heal(player, 1);
-        heal(listpersos[0], -1);
-        heal(listpersos[1], -1);
-        heal(listpersos[2], -1);
-        heal(listpersos[3], -1);
-        heal(listpersos[4], -1);
-    }
+    heal(player, 1);
+    heal(listpersos[0], -1);
+    heal(listpersos[1], -1);
+    heal(listpersos[2], -1);
+    heal(listpersos[3], -1);
+    heal(listpersos[4], -1);
+  }
 }
 function heal(player, nbr) {
   player.currenthp += nbr;
@@ -1037,17 +1179,17 @@ function choosenewcard() {
   document.getElementById("messagecentral").textContent =
     "Choose a card to add to your deck";
   let numberalreadyrolled = [];
-  while (numberalreadyrolled.length<5){
+  while (numberalreadyrolled.length < 5) {
     let i = 7 + Math.trunc(Math.random() * (listcards.length - 7));
-    if (numberalreadyrolled.indexOf(i) === -1){
+    if (numberalreadyrolled.indexOf(i) === -1) {
       numberalreadyrolled.push(i);
     }
   }
-    listabilities[7] = listcards[numberalreadyrolled[0]];
-    listabilities[8] = listcards[numberalreadyrolled[1]];
-    listabilities[9] = listcards[numberalreadyrolled[2]];
-    listabilities[10] = listcards[numberalreadyrolled[3]];
-    listabilities[11] = listcards[numberalreadyrolled[4]];
+  listabilities[7] = listcards[numberalreadyrolled[0]];
+  listabilities[8] = listcards[numberalreadyrolled[1]];
+  listabilities[9] = listcards[numberalreadyrolled[2]];
+  listabilities[10] = listcards[numberalreadyrolled[3]];
+  listabilities[11] = listcards[numberalreadyrolled[4]];
 
   document.getElementById("extratext").style.visibility = "visible";
   document.getElementById("grayscreen").style.visibility = "visible";
@@ -1242,4 +1384,13 @@ document.getElementById("skip").addEventListener("click", skipturn);
 function skipturn() {
   turndelaydecrease();
   findutour();
+}
+
+/* Disable colors */
+let disablecolors = 0;
+document.getElementById("disablecolors").addEventListener("click", disablecolor);
+function disablecolor(){
+  disablecolors = 1;
+  document.getElementById("disablecolors").style.visibility = "hidden";
+  afficherallcarte();
 }

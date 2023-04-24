@@ -170,3 +170,18 @@ body{
     z-index: 60;
     visibility: hidden;
 }
+
+#disablecolors{
+    background-color:darkorchid;
+    border: white 1px solid;
+    border-radius:10px;
+    font-size: 20px;
+    width:200px;
+    height:50px;
+    left:42%;
+    top:70%;
+    position:absolute;
+    visibility: hidden;
+    top:1100px;
+    visibility: visible;
+}

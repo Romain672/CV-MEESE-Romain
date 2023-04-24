@@ -483,10 +483,10 @@ function generatecards() {
   listcards.push(new Carte("none","Melee buff","Gain permanently $+m","Loses permanently $-h","$bbb")); //+0
   listcards.push(new Carte("none","Ranged buff","Gain permanently $+r","Loses permanently $-h","$bbb")); //+1
   listcards.push(new Carte("none","Attack buff","Gain permanently $+m","Loses permanently $-h","$bbb")); //+1
-  listcards.push(new Carte("none","Demonic attack","$m$m$m$m$m","Loses permanently $-r")); //+15
-  listcards.push(new Carte("none","Demonic snipe","$r$r$r$r$r","Loses permanently $-m")); //+15
-  listcards.push(new Carte("none","Demonic fast attack","$m$m$m","Loses permanently $-r","$c")); //+12
-  listcards.push(new Carte("none","Demonic fast snipe","$r$r$r","Loses permanently $-m","$c")); //+12
+  listcards.push(new Carte("none","Demonic attack","p>","$m$m$m$m$m","Loses permanently $-r")); //+15
+  listcards.push(new Carte("none","Demonic snipe","p<", "$r$r$r$r$r","Loses permanently $-m")); //+15
+  listcards.push(new Carte("none","Demonic fast attack","p>","$m$m$m","Loses permanently $-r","$c")); //+12
+  listcards.push(new Carte("none","Demonic fast snipe","p<", "$r$r$r","Loses permanently $-m","$c")); //+12
 
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore

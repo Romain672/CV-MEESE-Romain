@@ -414,8 +414,7 @@ function generatecards() {
   ); //+11
   listcards.push(new Carte("none", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
   //Self sacrifice
-  listcards.push(
-    new Carte("none", "Quadruple shot", 0, "$r$r$r$r", "$s$s$s", "$p4")
+  listcards.push(new Carte("none", 0, "Quadruple shot",  "$r$r$r$r", "$s$s$s", "$p4")
   ); //+10
   //$c
   listcards.push(new Carte("none", 1, "Heal & Retreat", "$h$h$h", "$c", "$p5")); //+10

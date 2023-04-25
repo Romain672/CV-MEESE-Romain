@@ -171,17 +171,57 @@ body{
     visibility: hidden;
 }
 
-#disablecolors{
+
+#parameters{
     background-color:darkorchid;
     border: white 1px solid;
     border-radius:10px;
     font-size: 20px;
-    width:200px;
-    height:50px;
-    left:42%;
-    top:70%;
+    width:30px;
+    height:30px;
+    right:1%;
+    top:1%;
     position:absolute;
     visibility: hidden;
-    top:1100px;
     visibility: visible;
+}
+
+#iconparameter{
+    width:30px;
+    height:30px;
+}
+
+#parameters:hover {
+    width:100px;
+    height:100px;
+}
+
+.choiceparameter{
+    background-color:darkorchid;
+    border: white 1px solid;
+    border-radius:10px;
+    width:300px;
+    height:20px;
+    left:200px;
+    position:absolute;
+    visibility: hidden;
+    z-index:200;
+}
+
+#closeparameters{
+    background-color: darkred;
+    border: white 1px solid;
+    border-radius:10px;
+    font-size: 20px;
+    width:30px;
+    height:30px;
+    position:absolute;
+    z-index:200;
+    right:1%;
+    top:1%;
+    visibility: hidden;
+}
+
+#sets{
+    height:38px;
 }

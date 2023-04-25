@@ -162,23 +162,37 @@ let carte = {
   effect4: "",
   effect5: "",
 };
+let ordercolor = [
+  "darkgreen",
+  "darkgreen",
+  "darkcyan",
+  "darkcyan",
+  "darkred",
+  "brown",
+  "darkgreen",
+  "indigo",
+  "brown",
+  "brown",
+  "indigo",
+  "darkslateblue",
+  "black",
+];
 function Carte(a, b, c, d, e, f, g, h) {
   this.avatar = a;
-//              0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
-//let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "cyan", "brown", "black", "indigo", "mediumvioletred", "black"];
-let color = ["darkgreen", "darkgreen", "darkcyan", "darkcyan", "darkred", "brown", "darkgreen", "indigo", "brown", "brown", "indigo"];
-/*
+  //              0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
+  //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "cyan", "brown", "black", "indigo", "mediumvioletred", "black"];
+  /*
 darkgreen19
 darkcyan15
 darkred14
 brown18
 indigo22
 */
-   //  easy    delay    medic   move+permanentup+positionalup bomb+unique
-   //darkgreen darkcyan darkred          brown                 indigo
+  //  easy    delay    medic   move+permanentup+positionalup bomb+unique
+  //darkgreen darkcyan darkred          brown                 indigo
 
-//let color = ["darkgreen", "darkblue", "darkcyan", "darkcyan", "darkred", "brown", "darkblue", "black", "brown", "mediumvioletred", "indigo"];
-/*
+  //let color = ["darkgreen", "darkblue", "darkcyan", "darkcyan", "darkred", "brown", "darkblue", "black", "brown", "mediumvioletred", "indigo"];
+  /*
 darkgreen11
 darkblue8
 darkcyan15
@@ -188,7 +202,7 @@ black6
 mediumvioletred3
 indigo16
 */
-  this.color = color[b];
+  this.color = b;
   this.nom = c;
   this.id = listcards.length;
   this.effect1 = d;
@@ -212,10 +226,10 @@ function affichercarte(id) {
   if (disablecolors == 0) {
     try {
       document.getElementById("carte" + id).style.backgroundColor =
-        listabilities[id].color;
+        ordercolor[listabilities[id].color];
     } catch {
       document.getElementById("carteextra" + id).style.backgroundColor =
-        listabilities[id].color;
+        ordercolor[listabilities[id].color];
     }
   } else {
     try {
@@ -419,14 +433,14 @@ function generatecards() {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //Trash
-  listcards.push(new Carte("none", "black", "none", "$s$h$c"));
+  listcards.push(new Carte("none", 12, "none", "$s$h$c"));
   //Starting deck (=+6 instead of +9)
-  listcards.push(new Carte("none", "", "Fast heal", "$h", "$c")); //+7
-  listcards.push(new Carte("none", "", "Heal & Attack", "$m", "$h$h$h")); //+6
-  listcards.push(new Carte("none", "", "Double attack", "$m$r")); //+6
-  listcards.push(new Carte("none", "", "Double strike", "$m$m", "$p>")); //+6
-  listcards.push(new Carte("none", "", "Longshot", "$r$r", "$p<")); //+6
-  listcards.push(new Carte("none", "", "Run forward", "$c", "$p1")); //+7
+  listcards.push(new Carte("none", 11, "Fast heal", "$h", "$c")); //+7
+  listcards.push(new Carte("none", 11, "Heal & Attack", "$m", "$h$h$h")); //+6
+  listcards.push(new Carte("none", 11, "Double attack", "$m$r")); //+6
+  listcards.push(new Carte("none", 11, "Double strike", "$m$m", "$p>")); //+6
+  listcards.push(new Carte("none", 11, "Longshot", "$r$r", "$p<")); //+6
+  listcards.push(new Carte("none", 11, "Run forward", "$c", "$p1")); //+7
   //Normal: triples
   listcards.push(new Carte("none", 0, "Triple strike", "$m$m$m", "$p>")); //+9
   listcards.push(new Carte("none", 0, "Long attack", "$m$m$r", "$p>")); //+9
@@ -1273,40 +1287,69 @@ let cardchosen = 0;
 function choosenewcard() {
   document.getElementById("messagecentral").textContent =
     "Choose a card to add to your deck";
-    /*
-  let numberalreadyrolled = [];
-  while (numberalreadyrolled.length < 5) {
-    let i = 7 + Math.trunc(Math.random() * (listcards.length - 7));
-    if (numberalreadyrolled.indexOf(i) === -1) {
-      numberalreadyrolled.push(i);
+  
+  if(cardporposed=="set"){
+    //generate 5 randoms cards: 1 in each set
+    let lister;
+    let rand;
+    for (let j = 0; j < 5; j++) {
+      if (j == 0) {
+        lister = listcards.filter((x) => ordercolor[x.color] == "darkgreen");
+      }
+      if (j == 1) {
+        lister = listcards.filter((x) => ordercolor[x.color] == "darkcyan");
+      }
+      if (j == 2) {
+        lister = listcards.filter((x) => ordercolor[x.color] == "darkred");
+      }
+      if (j == 3) {
+        lister = listcards.filter((x) => ordercolor[x.color] == "brown");
+      }
+      if (j == 4) {
+        lister = listcards.filter((x) => ordercolor[x.color] == "indigo");
+      }
+      let l=-1;
+      let length = lister.length
+      console.log("=");
+      for (let k=0; k < length;k++){
+        l++;
+        if(set[lister[l].color]=="n"){
+          console.log("+1");
+          lister.splice(l,1);
+          l--;
+          console.log(lister);
+        }
+      }
+      console.log(lister);
+      if(lister.length==0){
+        console.log("error: too much options removed");
+        listabilities[j + 7] = lister[7];
+      } else {
+        rand = Math.floor(Math.random() * lister.length);
+        listabilities[j + 7] = lister[rand];
+      }
     }
+  } else {
+    //generate 5 randoms cards: randomly
+    let numberalreadyrolled = [];
+    while (numberalreadyrolled.length < 5) {
+      let i = 7 + Math.trunc(Math.random() * (listcards.length - 7));
+      console.log(i + "|"+ set[listcards[i].color]);
+      if (set[listcards[i].color]=="y" && numberalreadyrolled.indexOf(i) === -1) {
+        numberalreadyrolled.push(i);
+      }
+    }
+    listabilities[7] = listcards[numberalreadyrolled[0]];
+    listabilities[8] = listcards[numberalreadyrolled[1]];
+    listabilities[9] = listcards[numberalreadyrolled[2]];
+    listabilities[10] = listcards[numberalreadyrolled[3]];
+    listabilities[11] = listcards[numberalreadyrolled[4]];
   }
-  */
-  //$$$$$$$$
-  let lister;
-  let rand;
-  for (let j=0;j<5;j++){
-    if (j==0){lister = listcards.filter(x => x.color == "darkgreen");}
-    if (j==1){lister = listcards.filter(x => x.color == "darkcyan");}
-    if (j==2){lister = listcards.filter(x => x.color == "darkred");}
-    if (j==3){lister = listcards.filter(x => x.color == "brown");}
-    if (j==4){lister = listcards.filter(x => x.color == "indigo");}
-    rand = Math.floor(Math.random() * lister.length);
-    listabilities[j+7] = lister[rand];
-  }
-  /*
-  listabilities[7] = listcards[numberalreadyrolled[0]];
-  listabilities[8] = listcards[numberalreadyrolled[1]];
-  listabilities[9] = listcards[numberalreadyrolled[2]];
-  listabilities[10] = listcards[numberalreadyrolled[3]];
-  listabilities[11] = listcards[numberalreadyrolled[4]];
-  */
-  //$$$$$$$$$$$
 
   document.getElementById("extratext").style.visibility = "visible";
   document.getElementById("grayscreen").style.visibility = "visible";
   document.getElementById("grayscreen").style.zIndex = "50";
-  for (let i = 1; i < 6; i++) {
+  for (let i = 1; i < choicesonkill+1; i++) {
     let element = document.getElementsByClassName("carteextra")[i - 1];
     document.getElementsByClassName("carteextra")[i - 1].style.visibility =
       "visible";
@@ -1332,11 +1375,16 @@ function choosenewcard() {
   document.getElementById("skipcard").style.visibility = "visible";
   document.getElementById("skipcard").addEventListener("click", skipcard);
 
+
   affichercarte(7);
   affichercarte(8);
   affichercarte(9);
-  affichercarte(10);
-  affichercarte(11);
+  if(choicesonkill>3){
+    affichercarte(10);
+    if(choicesonkill>4){
+      affichercarte(11);
+    }
+  }
 }
 function skipcard() {
   extrahidden();
@@ -1498,13 +1546,217 @@ function skipturn() {
   findutour();
 }
 
-/* Disable colors */
+/* Parameters */
+document.getElementById("parameters").addEventListener("click", openparameters);
+function openparameters() {
+  document.getElementById("grayscreen").style.visibility = "visible";
+  document.getElementById("grayscreen").style.zIndex = "100";
+
+  document.getElementById("closeparameters").addEventListener("click",closeparameter);
+  document.getElementById("closeparameters").style.visibility = "visible";
+
+  let selector = document.getElementsByClassName("choiceparameter");
+  for (let i = 0; i < selector.length; i++) {
+    selector[i].style.visibility = "visible";
+    if (i < 4) {
+      selector[i].style.top = 25 + i * 25 + "px";
+    } else {
+      selector[i].style.top = 62 + i * 25 + "px";
+      try{document.getElementById("disableset" + [i-4]).style.backgroundColor = ordercolor[i-4];
+      }catch{}
+    }
+  }
+
+  selector[0].addEventListener("click",setting0);
+  selector[1].addEventListener("click",setting1);
+  selector[2].addEventListener("click",setting2);
+  selector[3].addEventListener("click",setting3);
+  selector[4].addEventListener("click",setting4);
+  selector[5].addEventListener("click",setting5);
+  selector[6].addEventListener("click",setting6);
+  selector[7].addEventListener("click",setting7);
+  selector[8].addEventListener("click",setting8);
+  selector[9].addEventListener("click",setting9);
+  selector[10].addEventListener("click",setting10);
+  selector[11].addEventListener("click",setting11);
+  selector[12].addEventListener("click",setting12);
+  selector[13].addEventListener("click",setting13);
+  selector[14].addEventListener("click",setting14);
+  selector[15].addEventListener("click",setting15);
+}
+function closeparameter(){ 
+  let selector = document.getElementsByClassName("choiceparameter");
+  for (let i = 0; i < selector.length; i++) {
+    selector[i].style.visibility = "hidden";
+  }
+  document.getElementById("grayscreen").style.visibility = "hidden";
+  document.getElementById("closeparameters").style.visibility = "hidden";
+}
+
 let disablecolors = 0;
-document
-  .getElementById("disablecolors")
-  .addEventListener("click", disablecolor);
-function disablecolor() {
-  disablecolors = 1;
-  document.getElementById("disablecolors").style.visibility = "hidden";
+function setting0(){
+  let element = document.getElementById("disablecolors");
+  if (disablecolors==0){
+    element.innerHTML = "Colors: less";
+    disablecolors = 1;
+  }else{
+    element.innerHTML = "Colors: all";
+    disablecolors = 0;
+  }
   afficherallcarte();
+}
+
+function setting1(){
+  let element = document.getElementById("content");
+  element.innerHTML = "not done atm D:"
+}
+
+let choicesonkill = 5;
+function setting2(){
+  let element = document.getElementById("cardproposedonkill");
+  choicesonkill++;
+  if (choicesonkill==6){
+    choicesonkill = 3;
+  }
+  element.innerHTML = "Choices on kill: " + choicesonkill;
+}
+
+let cardporposed = "set";
+function setting3(){
+  let element = document.getElementById("sets");
+  if (cardporposed=="set"){
+    element.innerHTML = "Cards proposed: full random";
+    cardporposed = "random";
+  }else{
+    element.innerHTML = "Cards proposed: by set (choose random if you change most of others options)";
+    cardporposed = "set";
+  }
+}
+
+let set = ["y", "y", "y", "y", "y", "y", "y", "y", "y", "y", "y"]
+function setting4(){
+  let element = document.getElementById("disableset0");
+  if (set[0]=="y"){
+    element.innerHTML = "Set 0 Easy: disabled";
+    set[0]="n";
+  }else{
+    element.innerHTML = "Set 0 Easy: enabled";
+    set[0]="y";
+  }
+}
+function setting5(){
+  let element = document.getElementById("disableset1");
+  if (set[1]=="y"){
+    element.innerHTML = "Set 1 play again: disabled";
+    set[1]="n";
+  }else{
+    element.innerHTML = "Set 1 play again: enabled";
+    set[1]="y";
+  }
+}
+function setting6(){
+  let element = document.getElementById("disableset2");
+  if (set[2]=="y"){
+    element.innerHTML = "Set 2 Delay: disabled";
+    set[2]="n";
+  }else{
+    element.innerHTML = "Set 2 Delay: enabled";
+    set[2]="y";
+  }
+}
+function setting7(){
+  let element = document.getElementById("disableset3");
+  if (set[3]=="y"){
+    element.innerHTML = "Set 3 Delayweird: disabled";
+    set[3]="n";
+  }else{
+    element.innerHTML = "Set 3 Delayweird: enabled";
+    set[3]="y";
+  }
+}
+function setting8(){
+  let element = document.getElementById("disableset4");
+  if (set[4]=="y"){
+    element.innerHTML = "Set 4 Medic: disabled";
+    set[4]="n";
+  }else{
+    element.innerHTML = "Set 4 Medic: enabled";
+    set[4]="y";
+  }
+}
+function setting9(){
+  let element = document.getElementById("disableset5");
+  if (set[5]=="y"){
+    element.innerHTML = "Set 5 Move: disabled";
+    set[5]="n";
+  }else{
+    element.innerHTML = "Set 5 Move: enabled";
+    set[5]="y";
+  }
+}
+function setting10(){
+  let element = document.getElementById("disableset6");
+  if (set[6]=="y"){
+    element.innerHTML = "Set 6 double play again: disabled";
+    set[6]="n";
+  }else{
+    element.innerHTML = "Set 6 double play again: enabled";
+    set[6]="y";
+  }
+}
+function setting11(){
+  let element = document.getElementById("disableset7");
+  if (set[7]=="y"){
+    element.innerHTML = "Set 7 Bomb: disabled";
+    set[7]="n";
+  }else{
+    element.innerHTML = "Set 7 Bomb: enabled";
+    set[7]="y";
+  }
+}
+function setting12(){
+  let element = document.getElementById("disableset8");
+  if (set[8]=="y"){
+    element.innerHTML = "Set 8 PermanentUp: disabled";
+    set[8]="n";
+  }else{
+    element.innerHTML = "Set 8 PermanentUp: enabled";
+    set[8]="y";
+  }
+}
+function setting13(){
+  let element = document.getElementById("disableset9");
+  if (set[9]=="y"){
+    element.innerHTML = "Set 9 PositionalUp: disabled";
+    set[9]="n";
+  }else{
+    element.innerHTML = "Set 9 PositionalUp: enabled";
+    set[9]="y";
+  }
+}
+function setting14(){
+  let element = document.getElementById("disableset10");
+  if (set[10]=="y"){
+    element.innerHTML = "Set 10 Unique: disabled";
+    set[10]="n";
+  }else{
+    element.innerHTML = "Set 10 Unique: enabled";
+    set[10]="y";
+  }
+}
+function setting15(){
+  let element = document.getElementById("disablesetall");
+  element.style.visibility = "hidden";
+  set = ["n","n","n","n","n","n","n","n","n","n","n"]
+  document.getElementById("disableset0").innerHTML = "Set 0 Easy: disabled";
+  document.getElementById("disableset1").innerHTML = "Set 1 $c: disabled";
+  document.getElementById("disableset2").innerHTML = "Set 2 Delay: disabled";
+  document.getElementById("disableset3").innerHTML = "Set 3 Delayweird: disabled";
+  document.getElementById("disableset4").innerHTML = "Set 4 Medic: disabled";
+  document.getElementById("disableset5").innerHTML = "Set 5 Move: disabled";
+  document.getElementById("disableset6").innerHTML = "Set 6 $cc: disabled";
+  document.getElementById("disableset7").innerHTML = "Set 7 Bomb: disabled";
+  document.getElementById("disableset8").innerHTML = "Set 8 PermanentUp: disabled";
+  document.getElementById("disableset9").innerHTML = "Set 9 PositionalUp: disabled";
+  document.getElementById("disableset10").innerHTML = "Set 10 Unique: disabled";
 }

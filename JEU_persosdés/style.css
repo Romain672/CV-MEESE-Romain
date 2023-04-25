@@ -182,8 +182,8 @@ body{
     right:1%;
     top:1%;
     position:absolute;
-    visibility: hidden;
     visibility: visible;
+    z-index: 110;
 }
 
 #iconparameter{

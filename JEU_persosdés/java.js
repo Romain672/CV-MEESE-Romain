@@ -638,9 +638,9 @@ function generatecards() {
       "none",
       8,
       "Attack buff",
-      "Gain permanently $+m",
-      "Loses permanently $-h",
-      "$bbb"
+      "Gain permanently $+m$+r",
+      "Loses permanently $-h$-h",
+      "$bb"
     )
   ); //+1
   listcards.push(
@@ -1647,10 +1647,10 @@ function setting4(){
 function setting5(){
   let element = document.getElementById("disableset1");
   if (set[1]=="y"){
-    element.innerHTML = "Set 1 play again: disabled";
+    element.innerHTML = "Set 1 Play again: disabled";
     set[1]="n";
   }else{
-    element.innerHTML = "Set 1 play again: enabled";
+    element.innerHTML = "Set 1 Play again: enabled";
     set[1]="y";
   }
 }
@@ -1697,10 +1697,10 @@ function setting9(){
 function setting10(){
   let element = document.getElementById("disableset6");
   if (set[6]=="y"){
-    element.innerHTML = "Set 6 double play again: disabled";
+    element.innerHTML = "Set 6 Double play again: disabled";
     set[6]="n";
   }else{
-    element.innerHTML = "Set 6 double play again: enabled";
+    element.innerHTML = "Set 6 Double play again: enabled";
     set[6]="y";
   }
 }

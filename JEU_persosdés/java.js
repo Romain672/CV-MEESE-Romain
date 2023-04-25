@@ -1561,7 +1561,7 @@ function openparameters() {
     if (i < 4) {
       selector[i].style.top = 25 + i * 25 + "px";
     } else {
-      selector[i].style.top = 62 + i * 25 + "px";
+      selector[i].style.top = 75 + i * 25 + "px";
       try{document.getElementById("disableset" + [i-4]).style.backgroundColor = ordercolor[i-4];
       }catch{}
     }
@@ -1628,7 +1628,7 @@ function setting3(){
     element.innerHTML = "Cards proposed: full random";
     cardporposed = "random";
   }else{
-    element.innerHTML = "Cards proposed: by set (choose random if you change most of others options)";
+    element.innerHTML = "Cards proposed: by set (choose random if you change 'Choices on kill' OR disable all of one color OR disable set 8)";
     cardporposed = "set";
   }
 }
@@ -1749,12 +1749,12 @@ function setting15(){
   element.style.visibility = "hidden";
   set = ["n","n","n","n","n","n","n","n","n","n","n"]
   document.getElementById("disableset0").innerHTML = "Set 0 Easy: disabled";
-  document.getElementById("disableset1").innerHTML = "Set 1 $c: disabled";
+  document.getElementById("disableset1").innerHTML = "Set 1 Play again: disabled";
   document.getElementById("disableset2").innerHTML = "Set 2 Delay: disabled";
   document.getElementById("disableset3").innerHTML = "Set 3 Delayweird: disabled";
   document.getElementById("disableset4").innerHTML = "Set 4 Medic: disabled";
   document.getElementById("disableset5").innerHTML = "Set 5 Move: disabled";
-  document.getElementById("disableset6").innerHTML = "Set 6 $cc: disabled";
+  document.getElementById("disableset6").innerHTML = "Set 6 Double play again: disabled";
   document.getElementById("disableset7").innerHTML = "Set 7 Bomb: disabled";
   document.getElementById("disableset8").innerHTML = "Set 8 PermanentUp: disabled";
   document.getElementById("disableset9").innerHTML = "Set 9 PositionalUp: disabled";

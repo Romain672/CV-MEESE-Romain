@@ -1138,8 +1138,8 @@ function specialseffectsbeforebefore(player, id) {
 function specialseffectsbefore(player, id) {
   if (listcards[id].nom == "Perfect spot") {
     //"$m$r", "$h", "$zh$zc if $zp3", "$p3" //+8.4
-    console.log("ps");
-    if (ordrepersos[player.id] == 2) {
+    console.log("ps" + ordrepersos.indexOf(player.id));
+    if (ordrepersos.indexOf(player.id) == 2) {
       heal(player, 1);
       cantrip = 1;
       diceavailable[player.id] = "n";
@@ -1148,10 +1148,10 @@ function specialseffectsbefore(player, id) {
   if (listcards[id].nom == "Balanced attack") {
     //"$zm$zm$zm if $zp1 or $zp2", "$zr$zr$zr if $zp4 or $zp5" //+7.2
     console.log("ba");
-    if (ordrepersos[player.id] == 0 || ordrepersos[player.id] == 1) {
+    if (ordrepersos.indexOf(player.id) == 0 || ordrepersos.indexOf(player.id) == 1) {
       atkmel(player, 3);
     }
-    if (ordrepersos[player.id] == 3 || ordrepersos[player.id] == 4) {
+    if (ordrepersos.indexOf(player.id) == 3 || ordrepersos.indexOf(player.id) == 4) {
       atkran(player, 3);
     }
   }
@@ -1159,9 +1159,9 @@ function specialseffectsbefore(player, id) {
     //"$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4" //+8.4
     console.log("cf");
     if (
-      ordrepersos[player.id] == 1 ||
-      ordrepersos[player.id] == 2 ||
-      ordrepersos[player.id] == 3
+      ordrepersos.indexOf(player.id) == 1 ||
+      ordrepersos.indexOf(player.id) == 2 ||
+      ordrepersos.indexOf(player.id) == 3
     ) {
       atkmel(player, 1);
       atkran(player, 2);

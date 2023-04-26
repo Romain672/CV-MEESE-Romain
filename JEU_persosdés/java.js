@@ -1,3 +1,9 @@
+/*Known bugs:
+ - Attack too low: action cancelled when having the atk
+ - attack too low make the dice became 🔀
+  - rare bug on choice of cards
+*/
+
 let listpersos = [];
 let listabilities = [12]; //7ème card is empty, 8/9/10/11/12ème are for choices
 let listcards = [];
@@ -7,9 +13,25 @@ let turndelay = [0, 0, 0, 0, 0, 0];
 let nbrbombs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let ennemy = 5;
 let skipnextmessage = 0;
+let ordercolor = [
+  "darkgreen",
+  "darkgreen",
+  "purple",
+  "purple",
+  "darkred",
+  "darkgoldenrod",
+  "darkgreen",
+  "indigo",
+  "darkgoldenrod",
+  "darkgoldenrod",
+  "indigo",
+  "darkslateblue",
+  "black",
+];
 
 window.addEventListener("load", onload);
 function onload() {
+  cookieonstart();
   generatepersos();
   generatecards();
   createbasicdeck();
@@ -162,21 +184,6 @@ let carte = {
   effect4: "",
   effect5: "",
 };
-let ordercolor = [
-  "darkgreen",
-  "darkgreen",
-  "darkcyan",
-  "darkcyan",
-  "darkred",
-  "brown",
-  "darkgreen",
-  "indigo",
-  "brown",
-  "brown",
-  "indigo",
-  "darkslateblue",
-  "black",
-];
 function Carte(a, b, c, d, e, f, g, h) {
   this.avatar = a;
   //              0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
@@ -606,7 +613,7 @@ function generatecards() {
       8,
       "Demonic health",
       "Gain permanently $+h$+h$+h$+h",
-      "Loses permanently     $-m$-r",
+      "Loses permanently $-m$-r",
       "$c"
     )
   );
@@ -933,6 +940,7 @@ function resolveeffect(player, id) {
     }
   }
 
+  let permanentbuff = [0,0,0]; //[m, r, h]
   for (let j = 4; j > -1; j--) {
     let split;
     if (j == 0) {
@@ -1016,52 +1024,64 @@ function resolveeffect(player, id) {
       }
       if (char[0] == "+") {
         console.log("+");
-        if (split[1].charAt(1) == "m") {
-          player.atkmel++;
+        console.log(split);
+        console.log(split[i].charAt(1));
+        if (split[i].charAt(1) == "m") {
+          permanentbuff[0]++;
         }
-        if (split[1].charAt(1) == "r") {
-          player.atkran++;
+        if (split[i].charAt(1) == "r") {
+          permanentbuff[1]++;
         }
-        if (split[1].charAt(1) == "h") {
-          player.maxhp++;
+        if (split[i].charAt(1) == "h") {
+          permanentbuff[2]++;
           heal(player, 1);
         }
       }
       if (char[0] == "-") {
         console.log("-");
-        if (split[1].charAt(1) == "m") {
-          if (player.atkmel == 0) {
+        console.log(split);
+        console.log(split[i].charAt(1));
+        if (split[i].charAt(1) == "m") {
+          if (player.atkmel-permanentbuff[0] == 0) {
             document.getElementById("messagecentral").textContent =
               "Attack too low. Action cancelled";
             cantrip = 1;
             skipnextmessage = 1;
             return;
           }
-          player.atkmel--;
+          permanentbuff[0]--;
         }
-        if (split[1].charAt(1) == "r") {
-          if (player.atkran == 0) {
+        if (split[i].charAt(1) == "r") {
+          if (player.atkran-permanentbuff[1] == 0) {
             document.getElementById("messagecentral").textContent =
               "Range too low. Action cancelled";
             cantrip = 1;
             skipnextmessage = 1;
             return;
           }
-          player.atkran--;
+          permanentbuff[1]--;
         }
-        if (split[1].charAt(1) == "h") {
-          if (player.maxhp == 1) {
+        if (split[i].charAt(1) == "h") {
+          if (player.maxhp-permanentbuff[2] == 1) {
             document.getElementById("messagecentral").textContent =
               "Health too low. Action cancelled";
             cantrip = 1;
             skipnextmessage = 1;
             return;
           }
-          player.maxhp--;
+          permanentbuff[2]--;
         }
       }
     }
   }
+
+    //permanent buff
+    player.atkmel += permanentbuff[0];
+    player.atkran += permanentbuff[1];
+    player.maxhp += permanentbuff[2];
+    if(permanentbuff[2]>0){
+      heal(player, permanentbuff[2]);
+    }
 
   afficherallcarte();
 
@@ -1287,8 +1307,8 @@ let cardchosen = 0;
 function choosenewcard() {
   document.getElementById("messagecentral").textContent =
     "Choose a card to add to your deck";
-  
-  if(cardporposed=="set"){
+
+  if (cardporposed == "set") {
     //generate 5 randoms cards: 1 in each set
     let lister;
     let rand;
@@ -1297,31 +1317,27 @@ function choosenewcard() {
         lister = listcards.filter((x) => ordercolor[x.color] == "darkgreen");
       }
       if (j == 1) {
-        lister = listcards.filter((x) => ordercolor[x.color] == "darkcyan");
+        lister = listcards.filter((x) => ordercolor[x.color] == "purple");
       }
       if (j == 2) {
         lister = listcards.filter((x) => ordercolor[x.color] == "darkred");
       }
       if (j == 3) {
-        lister = listcards.filter((x) => ordercolor[x.color] == "brown");
+        lister = listcards.filter((x) => ordercolor[x.color] == "darkgoldenrod");
       }
       if (j == 4) {
         lister = listcards.filter((x) => ordercolor[x.color] == "indigo");
       }
-      let l=-1;
-      let length = lister.length
-      console.log("=");
-      for (let k=0; k < length;k++){
+      let l = -1;
+      let length = lister.length;
+      for (let k = 0; k < length; k++) {
         l++;
-        if(set[lister[l].color]=="n"){
-          console.log("+1");
-          lister.splice(l,1);
+        if (set[lister[l].color] == "n") {
+          lister.splice(l, 1);
           l--;
-          console.log(lister);
         }
       }
-      console.log(lister);
-      if(lister.length==0){
+      if (lister.length == 0) {
         console.log("error: too much options removed");
         listabilities[j + 7] = lister[7];
       } else {
@@ -1334,8 +1350,10 @@ function choosenewcard() {
     let numberalreadyrolled = [];
     while (numberalreadyrolled.length < 5) {
       let i = 7 + Math.trunc(Math.random() * (listcards.length - 7));
-      console.log(i + "|"+ set[listcards[i].color]);
-      if (set[listcards[i].color]=="y" && numberalreadyrolled.indexOf(i) === -1) {
+      if (
+        set[listcards[i].color] == "y" &&
+        numberalreadyrolled.indexOf(i) === -1
+      ) {
         numberalreadyrolled.push(i);
       }
     }
@@ -1349,7 +1367,7 @@ function choosenewcard() {
   document.getElementById("extratext").style.visibility = "visible";
   document.getElementById("grayscreen").style.visibility = "visible";
   document.getElementById("grayscreen").style.zIndex = "50";
-  for (let i = 1; i < choicesonkill+1; i++) {
+  for (let i = 1; i < choicesonkill + 1; i++) {
     let element = document.getElementsByClassName("carteextra")[i - 1];
     document.getElementsByClassName("carteextra")[i - 1].style.visibility =
       "visible";
@@ -1375,13 +1393,12 @@ function choosenewcard() {
   document.getElementById("skipcard").style.visibility = "visible";
   document.getElementById("skipcard").addEventListener("click", skipcard);
 
-
   affichercarte(7);
   affichercarte(8);
   affichercarte(9);
-  if(choicesonkill>3){
+  if (choicesonkill > 3) {
     affichercarte(10);
-    if(choicesonkill>4){
+    if (choicesonkill > 4) {
       affichercarte(11);
     }
   }
@@ -1497,33 +1514,11 @@ function changecarddeck(nbr) {
     split = carte.effect5.split("$b");
   } catch {}
 
-  //WEIRD 'BUG'
-  //console.log(split);
-  /*
-  try {
-    nbrbombs[nbr] = split[1].length + 1;
-  } catch {
-    try{
-    nbrbombs[nbr] = split[0].length + 1;
+  if (split.length>0){
+    //there is some bombs
+    nbrbombs[nbr] = split[1].length+1;
   }
-  catch{
-    nbrbombs[nbr] = 0;
-  }
-  }*/
-  /*
-  console.log("#")
-  console.log(split)
-  console.log(nbrbombs)
-  try {
-    split[1];
-    nbrbombs[nbr] = split[1].length + 1;
-  }
-  catch{
-    nbrbombs[nbr] = 0;
-  }
-  console.log(nbrbombs)*/
-
-  //WEIRD 'BUG'
+  
   afficherallperso(ordrepersos);
   afficherallcarte();
   cardchosen = 0;
@@ -1552,7 +1547,9 @@ function openparameters() {
   document.getElementById("grayscreen").style.visibility = "visible";
   document.getElementById("grayscreen").style.zIndex = "100";
 
-  document.getElementById("closeparameters").addEventListener("click",closeparameter);
+  document
+    .getElementById("closeparameters")
+    .addEventListener("click", closeparameter);
   document.getElementById("closeparameters").style.visibility = "visible";
 
   let selector = document.getElementsByClassName("choiceparameter");
@@ -1562,201 +1559,281 @@ function openparameters() {
       selector[i].style.top = 25 + i * 25 + "px";
     } else {
       selector[i].style.top = 75 + i * 25 + "px";
-      try{document.getElementById("disableset" + [i-4]).style.backgroundColor = ordercolor[i-4];
-      }catch{}
+      try {
+        document.getElementById("disableset" + [i - 4]).style.backgroundColor =
+          ordercolor[i - 4];
+      } catch {}
     }
   }
 
-  selector[0].addEventListener("click",setting0);
-  selector[1].addEventListener("click",setting1);
-  selector[2].addEventListener("click",setting2);
-  selector[3].addEventListener("click",setting3);
-  selector[4].addEventListener("click",setting4);
-  selector[5].addEventListener("click",setting5);
-  selector[6].addEventListener("click",setting6);
-  selector[7].addEventListener("click",setting7);
-  selector[8].addEventListener("click",setting8);
-  selector[9].addEventListener("click",setting9);
-  selector[10].addEventListener("click",setting10);
-  selector[11].addEventListener("click",setting11);
-  selector[12].addEventListener("click",setting12);
-  selector[13].addEventListener("click",setting13);
-  selector[14].addEventListener("click",setting14);
-  selector[15].addEventListener("click",setting15);
+  selector[0].addEventListener("click", setting0);
+  selector[1].addEventListener("click", setting1);
+  selector[2].addEventListener("click", setting2);
+  selector[3].addEventListener("click", setting3);
+  selector[4].addEventListener("click", setting4);
+  selector[5].addEventListener("click", setting5);
+  selector[6].addEventListener("click", setting6);
+  selector[7].addEventListener("click", setting7);
+  selector[8].addEventListener("click", setting8);
+  selector[9].addEventListener("click", setting9);
+  selector[10].addEventListener("click", setting10);
+  selector[11].addEventListener("click", setting11);
+  selector[12].addEventListener("click", setting12);
+  selector[13].addEventListener("click", setting13);
+  selector[14].addEventListener("click", setting14);
+  selector[15].addEventListener("click", setting15);
 }
-function closeparameter(){ 
+function closeparameter() {
   let selector = document.getElementsByClassName("choiceparameter");
   for (let i = 0; i < selector.length; i++) {
     selector[i].style.visibility = "hidden";
   }
   document.getElementById("grayscreen").style.visibility = "hidden";
   document.getElementById("closeparameters").style.visibility = "hidden";
+
+  //cookies:
+  createcookie("disablecolors", disablecolors);
+  createcookie("choicesonkill", choicesonkill);
+  createcookie("cardporposed", cardporposed);
+  createcookie("set", set.join("|"));
 }
 
 let disablecolors = 0;
-function setting0(){
+function setting0() {
   let element = document.getElementById("disablecolors");
-  if (disablecolors==0){
+  if (disablecolors == 0) {
     element.innerHTML = "Colors: less";
     disablecolors = 1;
-  }else{
+  } else {
     element.innerHTML = "Colors: all";
     disablecolors = 0;
   }
   afficherallcarte();
 }
 
-function setting1(){
+function setting1() {
   let element = document.getElementById("content");
-  element.innerHTML = "not done atm D:"
+  element.innerHTML = "not done atm D:";
 }
 
 let choicesonkill = 5;
-function setting2(){
+function setting2() {
   let element = document.getElementById("cardproposedonkill");
   choicesonkill++;
-  if (choicesonkill==6){
+  if (choicesonkill == 6) {
     choicesonkill = 3;
   }
   element.innerHTML = "Choices on kill: " + choicesonkill;
 }
 
 let cardporposed = "set";
-function setting3(){
+function setting3() {
   let element = document.getElementById("sets");
-  if (cardporposed=="set"){
+  if (cardporposed == "set") {
     element.innerHTML = "Cards proposed: full random";
     cardporposed = "random";
-  }else{
-    element.innerHTML = "Cards proposed: by set (choose random if you change 'Choices on kill' OR disable all of one color OR disable set 8)";
+  } else {
+    element.innerHTML =
+      "Cards proposed: by set (choose random if you change 'Choices on kill' OR disable all of one color OR disable set 8)";
     cardporposed = "set";
   }
 }
 
-let set = ["y", "y", "y", "y", "y", "y", "y", "y", "y", "y", "y"]
-function setting4(){
+let set = ["y", "y", "y", "y", "y", "y", "y", "y", "y", "y", "y"];
+function setting4() {
   let element = document.getElementById("disableset0");
-  if (set[0]=="y"){
+  if (set[0] == "y") {
     element.innerHTML = "Set 0 Easy: disabled";
-    set[0]="n";
-  }else{
+    set[0] = "n";
+  } else {
     element.innerHTML = "Set 0 Easy: enabled";
-    set[0]="y";
+    set[0] = "y";
   }
 }
-function setting5(){
+function setting5() {
   let element = document.getElementById("disableset1");
-  if (set[1]=="y"){
+  if (set[1] == "y") {
     element.innerHTML = "Set 1 Play again: disabled";
-    set[1]="n";
-  }else{
+    set[1] = "n";
+  } else {
     element.innerHTML = "Set 1 Play again: enabled";
-    set[1]="y";
+    set[1] = "y";
   }
 }
-function setting6(){
+function setting6() {
   let element = document.getElementById("disableset2");
-  if (set[2]=="y"){
+  if (set[2] == "y") {
     element.innerHTML = "Set 2 Delay: disabled";
-    set[2]="n";
-  }else{
+    set[2] = "n";
+  } else {
     element.innerHTML = "Set 2 Delay: enabled";
-    set[2]="y";
+    set[2] = "y";
   }
 }
-function setting7(){
+function setting7() {
   let element = document.getElementById("disableset3");
-  if (set[3]=="y"){
+  if (set[3] == "y") {
     element.innerHTML = "Set 3 Delayweird: disabled";
-    set[3]="n";
-  }else{
+    set[3] = "n";
+  } else {
     element.innerHTML = "Set 3 Delayweird: enabled";
-    set[3]="y";
+    set[3] = "y";
   }
 }
-function setting8(){
+function setting8() {
   let element = document.getElementById("disableset4");
-  if (set[4]=="y"){
+  if (set[4] == "y") {
     element.innerHTML = "Set 4 Medic: disabled";
-    set[4]="n";
-  }else{
+    set[4] = "n";
+  } else {
     element.innerHTML = "Set 4 Medic: enabled";
-    set[4]="y";
+    set[4] = "y";
   }
 }
-function setting9(){
+function setting9() {
   let element = document.getElementById("disableset5");
-  if (set[5]=="y"){
+  if (set[5] == "y") {
     element.innerHTML = "Set 5 Move: disabled";
-    set[5]="n";
-  }else{
+    set[5] = "n";
+  } else {
     element.innerHTML = "Set 5 Move: enabled";
-    set[5]="y";
+    set[5] = "y";
   }
 }
-function setting10(){
+function setting10() {
   let element = document.getElementById("disableset6");
-  if (set[6]=="y"){
+  if (set[6] == "y") {
     element.innerHTML = "Set 6 Double play again: disabled";
-    set[6]="n";
-  }else{
+    set[6] = "n";
+  } else {
     element.innerHTML = "Set 6 Double play again: enabled";
-    set[6]="y";
+    set[6] = "y";
   }
 }
-function setting11(){
+function setting11() {
   let element = document.getElementById("disableset7");
-  if (set[7]=="y"){
+  if (set[7] == "y") {
     element.innerHTML = "Set 7 Bomb: disabled";
-    set[7]="n";
-  }else{
+    set[7] = "n";
+  } else {
     element.innerHTML = "Set 7 Bomb: enabled";
-    set[7]="y";
+    set[7] = "y";
   }
 }
-function setting12(){
+function setting12() {
   let element = document.getElementById("disableset8");
-  if (set[8]=="y"){
+  if (set[8] == "y") {
     element.innerHTML = "Set 8 PermanentUp: disabled";
-    set[8]="n";
-  }else{
+    set[8] = "n";
+  } else {
     element.innerHTML = "Set 8 PermanentUp: enabled";
-    set[8]="y";
+    set[8] = "y";
   }
 }
-function setting13(){
+function setting13() {
   let element = document.getElementById("disableset9");
-  if (set[9]=="y"){
+  if (set[9] == "y") {
     element.innerHTML = "Set 9 PositionalUp: disabled";
-    set[9]="n";
-  }else{
+    set[9] = "n";
+  } else {
     element.innerHTML = "Set 9 PositionalUp: enabled";
-    set[9]="y";
+    set[9] = "y";
   }
 }
-function setting14(){
+function setting14() {
   let element = document.getElementById("disableset10");
-  if (set[10]=="y"){
+  if (set[10] == "y") {
     element.innerHTML = "Set 10 Unique: disabled";
-    set[10]="n";
-  }else{
+    set[10] = "n";
+  } else {
     element.innerHTML = "Set 10 Unique: enabled";
-    set[10]="y";
+    set[10] = "y";
   }
 }
-function setting15(){
+function setting15() {
   let element = document.getElementById("disablesetall");
   element.style.visibility = "hidden";
-  set = ["n","n","n","n","n","n","n","n","n","n","n"]
+  set = ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n"];
   document.getElementById("disableset0").innerHTML = "Set 0 Easy: disabled";
-  document.getElementById("disableset1").innerHTML = "Set 1 Play again: disabled";
+  document.getElementById("disableset1").innerHTML =
+    "Set 1 Play again: disabled";
   document.getElementById("disableset2").innerHTML = "Set 2 Delay: disabled";
-  document.getElementById("disableset3").innerHTML = "Set 3 Delayweird: disabled";
+  document.getElementById("disableset3").innerHTML =
+    "Set 3 Delayweird: disabled";
   document.getElementById("disableset4").innerHTML = "Set 4 Medic: disabled";
   document.getElementById("disableset5").innerHTML = "Set 5 Move: disabled";
-  document.getElementById("disableset6").innerHTML = "Set 6 Double play again: disabled";
+  document.getElementById("disableset6").innerHTML =
+    "Set 6 Double play again: disabled";
   document.getElementById("disableset7").innerHTML = "Set 7 Bomb: disabled";
-  document.getElementById("disableset8").innerHTML = "Set 8 PermanentUp: disabled";
-  document.getElementById("disableset9").innerHTML = "Set 9 PositionalUp: disabled";
+  document.getElementById("disableset8").innerHTML =
+    "Set 8 PermanentUp: disabled";
+  document.getElementById("disableset9").innerHTML =
+    "Set 9 PositionalUp: disabled";
   document.getElementById("disableset10").innerHTML = "Set 10 Unique: disabled";
+}
+
+/* Cookies (first time): */
+function cookieonstart() {
+  let x = document.cookie;
+  let listcookies = x.split(";");
+  if (listcookies.length != 1){
+
+  console.log("List cookies: "  + listcookies);
+  
+  if(listcookies[0].replace("disablecolors=","")==1){
+    setting0();
+  };
+
+  if(listcookies[1].replace("choicesonkill=","")!=5){
+    setting2();
+  if(listcookies[1].replace("choicesonkill=","")==4){
+    setting2();
+  }
+  };
+
+  if(listcookies[2].replace("cardporposed=","")==" random"){ // space annoying
+    setting3();
+  };
+
+  listset = listcookies[3].replace("set=","").split("|");
+  for (let i=0;i<listset.length;i++){
+    if (listset[i] == "n" || listset[i] == " n"){ // space annoying
+      if(i==0){setting4();}
+      if(i==1){setting5();}
+      if(i==2){setting6();}
+      if(i==3){setting7();}
+      if(i==4){setting8();}
+      if(i==5){setting9();}
+      if(i==6){setting10();}
+      if(i==7){setting11();}
+      if(i==8){setting12();}
+      if(i==9){setting13();}
+      if(i==10){setting14();}
+    }
+  }
+    
+}
+}
+
+let timecookie = 7200; //2h
+function createcookie(name, value) {
+  document.cookie =
+    name + "=" + value + "; max-age=" + timecookie + "; Samesite=None; Secure";
+}
+function deletecookie(name, value) {
+  document.cookie =
+    name +
+    "=; Max-Age=0; Path=http://127.0.0.1:5500/JEU_persosd%C3%A9s/index.html/;";
+}
+
+//Copied without understanding from internet
+function deleteAllCookies() {
+  const cookies = document.cookie.split(";");
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i];
+    const eqPos = cookie.indexOf("=");
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
 }

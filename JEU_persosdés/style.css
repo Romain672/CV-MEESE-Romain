@@ -191,9 +191,14 @@ body{
     height:30px;
 }
 
-#parameters:hover {
-    width:100px;
-    height:100px;
+#parameters:hover, #closeparameters:hover{
+    -webkit-transform:scale(2); /* Safari and Chrome */
+    -moz-transform:scale(2); /* Firefox */
+    -ms-transform:scale(2); /* IE 9 */
+    -o-transform:scale(2); /* Opera */
+    transform:scale(2);
+    right:2%;
+    top:2%;
 }
 
 .choiceparameter{
@@ -225,3 +230,11 @@ body{
 #sets{
     height:55px;
 }
+/*
+.perso:hover {
+    -webkit-transform:scale(1); // Safari and Chrome
+    -moz-transform:scale(1); // Firefox
+    -ms-transform:scale(1); // IE 9
+    -o-transform:scale(1); // Opera
+    transform:scale(1);
+}*/

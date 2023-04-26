@@ -1515,6 +1515,7 @@ function changecarddeck(nbr) {
   } catch {console.log("eee");}
 
   console.log(split);
+  console.log(split.length);
   if (split.length>1){
     //there is some bombs
     nbrbombs[nbr] = split[1].length+1;

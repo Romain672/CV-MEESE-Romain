@@ -1514,11 +1514,12 @@ function changecarddeck(nbr) {
     split = carte.effect5.split("$b");
   } catch {}
 
+  console.log(split);
   if (split.length>0){
     //there is some bombs
     nbrbombs[nbr] = split[1].length+1;
   }
-  
+
   afficherallperso(ordrepersos);
   afficherallcarte();
   cardchosen = 0;
@@ -1823,7 +1824,7 @@ function createcookie(name, value) {
 function deletecookie(name, value) {
   document.cookie =
     name +
-    "=; Max-Age=0; Path=https://romain672.github.io/CV-MEESE-Romain/JEU_persosd%C3%A9s/index.html;";
+    "=; Max-Age=0; Path=http://127.0.0.1:5500/JEU_persosd%C3%A9s/index.html/;";
 }
 
 //Copied without understanding from internet

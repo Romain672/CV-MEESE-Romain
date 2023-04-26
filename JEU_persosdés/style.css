@@ -18,11 +18,16 @@ body{
 
 .perso{
     background-color: darkgreen;
-    width:110px;
+    width:150px;
     height:200px;
     margin:1px;
     border: white 1px solid;
     border-radius: 20px;
+    position: relative;
+}
+
+.ally{
+    z-index:40;
 }
 
 .carte{
@@ -123,11 +128,6 @@ body{
     z-index:50;
     visibility: hidden;
     background-color:#808080c0;
-}
-
-.deperso{
-    position: relative;
-    z-index:40;
 }
 
 #skip{

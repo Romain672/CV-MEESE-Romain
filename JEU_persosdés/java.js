@@ -42,7 +42,7 @@ function onload() {
   document.getElementById("grayscreen").style.zIndex = "35";
   document.getElementById("messagecentral").style.zIndex = "40";
   document.getElementById("messagecentral").textContent =
-    "Select a dice to play, the corresponding card below will take effect";
+    "Select a dice to play (top), the corresponding card below will take effect";
   debutdutour();
 }
 
@@ -872,19 +872,23 @@ function checkhps() {
 }
 function genererevents() {
   for (let i = 0; i < 5; i++) {
-    document.getElementsByClassName("de")[i].addEventListener("click", clickde);
+    //document.getElementsByClassName("de")[i].addEventListener("click", clickde);
+    document.getElementById("persoetde" + i).addEventListener("click", clickde);
   }
 }
 function clickde(event) {
+  let ev = event.target.id;
+  let divdeclique = document.getElementById("de" + ev.charAt(ev.length-1));
+
   document.getElementById("grayscreen").style.visibility = "hidden";
   document.getElementById("grayscreen").style.zIndex = "35";
   document.getElementById("grayscreen").style.zIndex = "35";
   document.getElementById("messagecentral").style.zIndex = "0";
   for (let i = 0; i < 5; i++) {
-    document.getElementsByClassName("deperso")[i].style.zIndex = "0";
+    document.getElementsByClassName("ally")[i].style.zIndex = "0";
   }
 
-  let player = listpersos[ordrepersos[event.target.id.replace("de", "")]];
+  let player = listpersos[ordrepersos[divdeclique.id.replace("de", "")]];
   let de = player.de;
   let carte = listabilities[de - 1].id;
 
@@ -1500,22 +1504,22 @@ function changecarddeck(nbr) {
   let split = "";
   try {
     split = carte.effect1.split("$b");
-  } catch {console.log("aaa");}
+  } catch {}
   try {
     split = carte.effect2.split("$b");
-  } catch {console.log("bbb");}
+  } catch {}
   try {
     split = carte.effect3.split("$b");
-  } catch {console.log("ccc");}
+  } catch {}
   try {
     split = carte.effect4.split("$b");
-  } catch {console.log("ddd");}
+  } catch {}
   try {
     split = carte.effect5.split("$b");
-  } catch {console.log("eee");}
-
+  } catch {}
+/*
   console.log(split);
-  console.log(split.length);
+  console.log(split.length);*/
   if (split.length>1){
     //there is some bombs
     nbrbombs[nbr] = split[1].length+1;

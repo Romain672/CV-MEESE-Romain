@@ -1500,19 +1500,19 @@ function changecarddeck(nbr) {
   let split = "";
   try {
     split = carte.effect1.split("$b");
-  } catch {}
+  } catch {console.log("aaa");}
   try {
     split = carte.effect2.split("$b");
-  } catch {}
+  } catch {console.log("bbb");}
   try {
     split = carte.effect3.split("$b");
-  } catch {}
+  } catch {console.log("ccc");}
   try {
     split = carte.effect4.split("$b");
-  } catch {}
+  } catch {console.log("ddd");}
   try {
     split = carte.effect5.split("$b");
-  } catch {}
+  } catch {console.log("eee");}
 
   console.log(split);
   if (split.length>0){

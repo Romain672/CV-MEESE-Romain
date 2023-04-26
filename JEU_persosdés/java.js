@@ -1823,7 +1823,7 @@ function createcookie(name, value) {
 function deletecookie(name, value) {
   document.cookie =
     name +
-    "=; Max-Age=0; Path=http://127.0.0.1:5500/JEU_persosd%C3%A9s/index.html/;";
+    "=; Max-Age=0; Path=https://romain672.github.io/CV-MEESE-Romain/JEU_persosd%C3%A9s/index.html;";
 }
 
 //Copied without understanding from internet

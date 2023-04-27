@@ -553,7 +553,7 @@ function generatecards() {
   listcards.push(new Carte("triplebullseyes", 7, "Extra attacks", "$m$m$r$r", "$bbbbb")); //+9 3*5
   listcards.push(new Carte("atomicbomb", 7, "Instable strikes", "$m$m$m$m$m$m", "$p>", "$bb")); //+9 9*2
   listcards.push(new Carte("timedattack", 7, "Instant difficult blow", "$m", "$cc", "$bbb")); //+9 3*3
-  listcards.push(new Carte("soapbubblee", 7, "Instant medic", "ha", "$cc"));
+  listcards.push(new Carte("soapbubblee", 7, "Instant medic", "$ha", "$cc"));
   listcards.push(new Carte("rundog", 7, "Helping dog", "$ha", "$cc", "$bbbbb")); //+9 4*5
   listcards.push(new Carte("planeexplosion", 7, "Fast instable attacks", "$m$r", "$c", "$bbb")); //+9 3*3
   listcards.push(new Carte("callbomb", 7, "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")); //+9 2*9

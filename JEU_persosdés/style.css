@@ -34,7 +34,7 @@ body{
 .carte{
     background-color: darkslateblue;
     width:170px;
-    height:260px;
+    height:280px;
     margin:1px;
     z-index: 30;
     border: white 1px solid;
@@ -57,15 +57,14 @@ body{
 .intro{
     font-size:25px;
     left:0;
+    white-space:nowrap;
 }
 
 .nom{
-    font-size: 25px;
+    font-size: 24px;
 }
 
 .titrecarte{
-    text-decoration: underline;
-    font-size:25px;
     white-space:nowrap;
 }
 
@@ -201,11 +200,6 @@ body{
     z-index: 110;
 }
 
-#iconparameter{
-    width:30px;
-    height:30px;
-}
-
 #parameters:hover, #closeparameters:hover{
     -webkit-transform:scale(2); /* Safari and Chrome */
     -moz-transform:scale(2); /* Firefox */
@@ -277,6 +271,17 @@ body{
 }
 
 img{
-    height:85px;
-    width:170px;
+    height:120px;
+    width:164px;
+    border-radius: 50px;
+    border: solid black 3px;
+    background-color:blue;
+}
+
+#iconparameter{
+    width:30px;
+    height:30px;
+    border-radius: 50px;
+    border: none;
+    background-color:darkorchid;
 }

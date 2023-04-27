@@ -255,10 +255,15 @@ function affichercarte(id) {
   }
 
   //children[0].textContent = (id+1 + ":" + listabilities[id].nom);
+  if (id==0){children[0].textContent = "1️⃣" + listabilities[id].nom;}
+  if (id==1){children[0].textContent = "2️⃣" + listabilities[id].nom;}
+  if (id==2){children[0].textContent = "3️⃣" + listabilities[id].nom;}
+  if (id==3){children[0].textContent = "4️⃣" + listabilities[id].nom;}
+  if (id==4){children[0].textContent = "5️⃣" + listabilities[id].nom;}
+  if (id==5){children[0].textContent = "6️⃣" + listabilities[id].nom;}
+  if (id>5){children[0].textContent = listabilities[id].nom;}
 
-  
-
-  children[1].textContent = listabilities[id].nom;
+  //children[1].textContent = listabilities[id].nom;
   children[2].innerHTML = "<img id='' src='Images/" + listabilities[id].avatar + ".jpg' alt=''>";
   children[3].textContent = listabilities[id].effect1
     .replaceAll("$+", "$")
@@ -432,8 +437,8 @@ function affichercarte(id) {
     }
   } catch {}
   if (explosion == 1) {
-    children[1].textContent = "Explosed";
-    children[2].innerHTML = "<img id='' src='Images/explosed.jpg' alt=''>";
+    children[1].innerHTML = "<img id='' src='Images/explosed.jpg' alt=''>";
+    children[2].textContent = "Explosed";
     children[3].textContent = "";
     children[4].textContent = "";
     children[5].textContent = "";

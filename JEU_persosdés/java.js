@@ -35,6 +35,7 @@ let ordercolor = [
   "darkslateblue",
   "black",
 ];
+let skips = 1;
 
 window.addEventListener("load", onload);
 function onload() {
@@ -504,7 +505,7 @@ function generatecards() {
   //Normal extras
   listcards.push(new Carte("drain", 0, "Drain life", "$m", "$h$h$h$h$h$h$h", "$p>")); //+10
   listcards.push(new Carte("boomerang", 0, "Boomerang heal", "$r", "$h$h$h$h$h$h$h", "$p5")); //+11
-  listcards.push(new Carte("balloonsfish", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
+  listcards.push(new Carte("balloonsfish", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
   //Self sacrifice
   listcards.push(new Carte("fourstars", 0, "Quadruple shot", "$r$r$r$r", "$s$s$s", "$p4")); //+10
   //$c
@@ -558,7 +559,7 @@ function generatecards() {
   listcards.push(new Carte("triplebullseyes", 7, "Extra attacks", "$m$m$r$r", "$bbbbb")); //+9 3*5
   listcards.push(new Carte("atomicbomb", 7, "Instable strikes", "$m$m$m$m$m$m", "$p>", "$bb")); //+9 9*2
   listcards.push(new Carte("timedattack", 7, "Instant difficult blow", "$m", "$cc", "$bbb")); //+9 3*3
-  listcards.push(new Carte("soapbubblee", 7, "Instant medic", "$ha", "$cc"));
+  listcards.push(new Carte("soapbubblee", 7, "Instant medic", "$s$s$s", "$ha", "$cc")); //+10
   listcards.push(new Carte("rundog", 7, "Helping dog", "$ha", "$cc", "$bbbbb")); //+9 4*5
   listcards.push(new Carte("planeexplosion", 7, "Fast instable attacks", "$m$r", "$c", "$bbb")); //+9 3*3
   listcards.push(new Carte("callbomb", 7, "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")); //+9 2*9
@@ -566,7 +567,7 @@ function generatecards() {
   listcards.push(new Carte("demonicstrength", 8, "Demonic strength", "Gain permanently $+m", "Loses permanently $-h$-h", "$c"));
   listcards.push(new Carte("demonicpact", 8, "Demonic's pact", "Gain permanently $+r", "Loses permanently $-h$-h", "$c"));
   listcards.push(new Carte("hellvolcano", 8, "Demonic health", "Gain permanently $+h$+h$+h$+h", "Loses permanently $-m$-r", "$c"));
-  listcards.push(new Carte("searchforheal", 8, "Hp buff", "Gain permanently $+h", "$bbb")); //+1
+  listcards.push(new Carte("searchforheal", 8, "Lifestone's search", "Gain permanently $+h", "$bbb")); //+1
   listcards.push(new Carte("purpleflower", 8, "Melee buff", "Gain permanently $+m", "Loses permanently $-h", "$bbb")); //+0
   listcards.push(new Carte("sunsetgiraffe", 8, "Ranged buff", "Gain permanently $+r", "Loses permanently $-h", "$bbb")); //+1
   listcards.push(new Carte("devilclothe", 8, "Attack buff", "Gain permanently $+m$+r", "Loses permanently $-h$-h", "$bb")); //+1
@@ -639,6 +640,9 @@ function findutour() {
     if (ennemy == 16) {
       youwin();
       return;
+    }
+    if (ennemy == 7 || ennemy == 9 || ennemy > 10){
+      skips++;
     }
   } else {
     listpersos[ordrepersos[0]].currenthp += -1 * listpersos[5].atkmel;
@@ -1247,7 +1251,7 @@ function choosenewcard() {
     element.style.height = "25px";
     element.style.left = "46%";
   } else {
-    element.textContent = "Reroll (1 left)";
+    element.textContent = "Reroll (" + skips + " left)";
     element.style.backgroundColor = "darkgreen";
     element.style.fontSize = "40px";
     element.style.width = "240px";
@@ -1294,7 +1298,6 @@ function choosenewcard() {
     }
   }
 }
-let skips = 1;
 function skipcard() {
   if (skips ==0){
     extrahidden();

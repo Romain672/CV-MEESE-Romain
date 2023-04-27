@@ -24,6 +24,7 @@ body{
     border: white 1px solid;
     border-radius: 20px;
     position: relative;
+    font-size: 20px;
 }
 
 .ally{
@@ -42,19 +43,30 @@ body{
 
 #persoetde5{
     background-color: darkred;
+    background-color: darkslategray;
 }
 
-.de, .intro, #perso5{
+.de {
     font-size: 60px;
 }
 
+#perso5{
+    font-size: 50px;
+}
+
+.intro{
+    font-size:25px;
+    left:0;
+}
+
 .nom{
-    text-decoration: underline;
+    font-size: 25px;
 }
 
 .titrecarte{
     text-decoration: underline;
-    font-size:20px;
+    font-size:25px;
+    white-space:nowrap;
 }
 
 #poing{
@@ -75,6 +87,8 @@ body{
     color:black;
     border: black 1px solid;
     border-radius:20px;
+    width:90%;
+    left:5%;
 }
 
 .hidden{
@@ -113,9 +127,10 @@ body{
     color:white;
     left:20%;
     top:50px;
-    background-color:darkblue;
+    background-color:darkslategray;
     border: white 1px solid;
     border-radius:20px;
+    padding:10px;
 }
 
 #grayscreen{
@@ -127,7 +142,7 @@ body{
     height: 100%; /*changed in top of js*/
     z-index:50;
     visibility: hidden;
-    background-color:#808080c0;
+    background-color:#80808090;
 }
 
 #skip{
@@ -238,3 +253,30 @@ body{
     -o-transform:scale(1); // Opera
     transform:scale(1);
 }*/
+
+#rules{
+    visibility: hidden;
+}
+
+#displayrules{
+    background-color:darkred;
+    border: white 1px solid;
+    border-radius:10px;
+    font-size: 80px;
+    width:500px;
+    height:100px;
+    bottom: 1%;
+    text-align:center;
+    position:absolute;
+    z-index: 60;
+}
+
+#containerrules{
+    display: flex;
+    justify-content: center;
+}
+
+img{
+    height:85px;
+    width:170px;
+}

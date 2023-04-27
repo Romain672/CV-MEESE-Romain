@@ -8,6 +8,7 @@
     <title>Romain's game</title>
     <link rel="icon" href="new.ico" type="image/icon type">
 </head>
+<!--Images from https://pixabay.com/-->
 <body id="body">
     <div id="conteneurperso">
         <div id="persoetde4" class="perso ally">
@@ -67,6 +68,7 @@
         <div id="carte0" class="carte">
             <div id="intro0" class="intro">1️⃣</div>
             <div id="nom0" class="titrecarte"></div>
+            <div id="img0" class="image"></div>
             <div id="effect01" class="effect1"></div>
             <div id="effect02" class="effect2"></div>
             <div id="effect03" class="effect3"></div>
@@ -76,6 +78,7 @@
         <div id="carte1" class="carte">
             <div id="intro1" class="intro">2️⃣</div>
             <div id="nom1" class="titrecarte"></div>
+            <div id="img1" class="image"></div>
             <div id="effect11" class="effect1"></div>
             <div id="effect12" class="effect2"></div>
             <div id="effect13" class="effect3"></div>
@@ -85,6 +88,7 @@
         <div id="carte2" class="carte">
             <div id="intro2" class="intro">3️⃣</div>
             <div id="nom2" class="titrecarte"></div>
+            <div id="img2" class="image"></div>
             <div id="effect21" class="effect1"></div>
             <div id="effect22" class="effect2"></div>
             <div id="effect23" class="effect3"></div>
@@ -94,6 +98,7 @@
         <div id="carte3" class="carte">
             <div id="intro3" class="intro">4️⃣</div>
             <div id="nom3" class="titrecarte"></div>
+            <div id="img3" class="image"></div>
             <div id="effect31" class="effect1"></div>
             <div id="effect32" class="effect2"></div>
             <div id="effect33" class="effect3"></div>
@@ -103,6 +108,7 @@
         <div id="carte4" class="carte">
             <div id="intro4" class="intro">5️⃣</div>
             <div id="nom4" class="titrecarte"></div>
+            <div id="img4" class="image"></div>
             <div id="effect41" class="effect1"></div>
             <div id="effect42" class="effect2"></div>
             <div id="effect43" class="effect3"></div>
@@ -112,6 +118,7 @@
         <div id="carte5" class="carte">
             <div id="intro5" class="intro">6️⃣</div>
             <div id="nom5" class="titrecarte"></div>
+            <div id="img5" class="image"></div>
             <div id="effect51" class="effect1"></div>
             <div id="effect52" class="effect2"></div>
             <div id="effect53" class="effect3"></div>
@@ -121,6 +128,9 @@
     </div>
 
     <br><br>
+    <div id="containerrules">
+    <div id="displayrules">Display rules</div>
+    <div id="rules">
     Its a solo game. You have some characters in the top left in order. You have an enemy in the top right. You have some cards with effects at the bottom.<br>
     Each turn, you will be able to play one and only one of the dice you rolled (in the top left) by clicking on them. It will activate the card with the same number from your deck (bottom).<br>
     <br>
@@ -130,7 +140,7 @@
      - ⚔️ (🏹): deal the ⚔️(🏹) damage of the character which rolled the dice to the enemy<br>
      - 🚶‍♂️: move the character to a certain position or to one spot to the left or right<br>
      - ⌛: the dice is disabled for one extra turn<br>
-     - 💣: lose one after each use. When none are left, remove all effects of the card<br>
+     - 💥: lose one after each use. When none are left, remove all effects of the card<br>
     <br>
     Then, if you kill the enemy, a new one will appear and all your dices are rerolled.<br>
     If you dont, the character in the first/rightmost position will take damage equal to the enemy attack, then all your dices will be rerolled.<br>
@@ -145,14 +155,15 @@
     <br>
     Balance:<br>
     Starting deck cards have about 6 points. Cards proposed have between 9 and 10 points.<br>
-    💖 cost 1 | 💕 cost 4 | 🔁 cost 6 | 🔁🔁 cost 9 | ⚔️🏹 each cost 3 | 🚶‍♂️> is free | 🚶‍♂️1 cost 1 | 🩸 cost -1 | ⌛ cost -2 | 💣s gives +16 value | permanent buff cost 12<br>
+    💖 cost 1 | 💕 cost 4 | 🔁 cost 6 | 🔁🔁 cost 9 | ⚔️🏹 each cost 3 | 🚶‍♂️> is free | 🚶‍♂️1 cost 1 | 🩸 cost -1 | ⌛ cost -2 | 💥s gives +16 value | permanent buff cost 12<br>
     Some cards can have above this amount if they are too much specialised or have a 🚶‍♂️ which is actively bad.<br>
-    <br>
+    <br></div></div>
 
     <div id="extratext">You killed. Choose a card to replace your deck:</div>
     <div id="carteextra7" class="carte carteextra">
         <div id="introextra7" class="intro"></div>
         <div id="nomextra7" class="titrecarte"></div>
+        <div id="imgextra7" class="image"></div>
         <div id="effectextra71" class="effect1"></div>
         <div id="effectextra72" class="effect2"></div>
         <div id="effectextra73" class="effect3"></div>
@@ -162,6 +173,7 @@
     <div id="carteextra8" class="carte carteextra">
         <div id="introextra8" class="intro"></div>
         <div id="nomextra8" class="titrecarte"></div>
+        <div id="imgextra8" class="image"></div>
         <div id="effectextra81" class="effect1"></div>
         <div id="effectextra82" class="effect2"></div>
         <div id="effectextra83" class="effect3"></div>
@@ -171,6 +183,7 @@
     <div id="carteextra9" class="carte carteextra">
         <div id="introextra9" class="intro"></div>
         <div id="nomextra9" class="titrecarte"></div>
+        <div id="imgextra9" class="image"></div>
         <div id="effectextra91" class="effect1"></div>
         <div id="effectextra92" class="effect2"></div>
         <div id="effectextra93" class="effect3"></div>
@@ -180,6 +193,7 @@
     <div id="carteextra10" class="carte carteextra">
         <div id="introextra10" class="intro"></div>
         <div id="nomextra10" class="titrecarte"></div>
+        <div id="imgextra10" class="image"></div>
         <div id="effectextra101" class="effect1"></div>
         <div id="effectextra102" class="effect2"></div>
         <div id="effectextra103" class="effect3"></div>
@@ -189,6 +203,7 @@
     <div id="carteextra11" class="carte carteextra">
         <div id="introextra11" class="intro"></div>
         <div id="nomextra11" class="titrecarte"></div>
+        <div id="imgextra11" class="image"></div>
         <div id="effectextra111" class="effect1"></div>
         <div id="effectextra112" class="effect2"></div>
         <div id="effectextra113" class="effect3"></div>
@@ -208,7 +223,8 @@
         <div id="disablecolors" class="choiceparameter">Colors: all</div>
         <div id="content" class="choiceparameter">Content: base game</div>
         <div id="cardproposedonkill" class="choiceparameter">Choices on kill: 5</div>
-        <div id="sets" class="choiceparameter">Cards proposed: by set (choose random if you change 'Choices on kill' OR disable all of one color OR disable set 8)</div>
+        <div id="randostartcard" class="choiceparameter">Starting random cards: 2</div>
+        <div id="sets" class="choiceparameter">Cards proposed: by set (choose random if you change 'Choices on kill' OR disable all of one color)</div>
         <div id="disableset0" class="choiceparameter">Set 0 Easy: enabled</div>
         <div id="disableset1" class="choiceparameter">Set 1 Play again: enabled</div>
         <div id="disableset2" class="choiceparameter">Set 2 Delay: enabled</div>
@@ -221,6 +237,7 @@
         <div id="disableset9" class="choiceparameter">Set 9 PositionalUp: enabled</div>
         <div id="disableset10" class="choiceparameter">Set 10 Unique: enabled</div>
         <div id="disablesetall" class="choiceparameter">Disable all</div>
+        <div id="defaultvalue" class="choiceparameter">Put to default value</div>
 
         <!--//0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
 //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "cyan", "brown", "black", "indigo", "mediumvioletred", "black"];

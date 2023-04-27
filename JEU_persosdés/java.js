@@ -488,11 +488,11 @@ function generatecards() {
   listcards.push(new Carte("bug", 12, "Bug", "$s$h$c"));
   //Starting deck (=+6 instead of +9)
   listcards.push(new Carte("run", 11, "Run forward", "$c", "$p1")); //+7
-  listcards.push(new Carte("heal", 11, "Fast heal", "$h", "$c")); //+7
   listcards.push(new Carte("magicorb", 11, "Magic orb", "$m", "$h$h$h")); //+6
   listcards.push(new Carte("dualgun", 11, "Dual gun", "$m$r")); //+6
-  listcards.push(new Carte("longlaser", 11, "Longshot", "$r$r", "$p<")); //+6
   listcards.push(new Carte("two", 11, "Double strike", "$m$m", "$p>")); //+6
+  listcards.push(new Carte("heal", 11, "Fast heal", "$h", "$c")); //+7
+  listcards.push(new Carte("longlaser", 11, "Longshot", "$r$r", "$p<")); //+6
   //Normal: triples
   listcards.push(new Carte("trident", 0, "Triple strike", "$m$m$m", "$p>")); //+9
   listcards.push(new Carte("spear", 0, "Long attack", "$m$m$r", "$p>")); //+9
@@ -538,13 +538,13 @@ function generatecards() {
   listcards.push(new Carte("island", 4, "Rejuvenation", "$h$h$h$h$h", "$ha")); //+9
   listcards.push(new Carte("letter", 4, "Regeneration", "$h", "$ha$ha")); //+9
   listcards.push(new Carte("regenerationleaf", 4, "Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
-  listcards.push(new Carte("fastdog", 4, "Fast medic", "$ha", "$c")); //+10
-  listcards.push(new Carte("bloodcell", 4, "Fast sacrificial medic", "$s$s$s$s$s", "$ha$ha","$c", "$p>")); //+9
+  listcards.push(new Carte("fastdog", 4, "Wouf", "$ha", "$c")); //+10
+  listcards.push(new Carte("bloodcell", 4, "Transfer health", "$s$s$s$s$s", "$ha$ha","$c", "$p>")); //+9
   listcards.push(new Carte("field", 4, "Waiting heal", "$ha$ha$ha", "$t")); //+10
-  listcards.push(new Carte("meditate", 4, "Heal and sleep", "$ha$ha$ha$ha", "$t$t$t")); //+10
-  listcards.push(new Carte("sleep", 4, "Heal before rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
+  listcards.push(new Carte("meditate", 4, "Mediate", "$ha$ha$ha$ha", "$t$t$t")); //+10
+  listcards.push(new Carte("sleep", 4, "Time to rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
   //Movement
-  listcards.push(new Carte("alone", 5, "Run attack", "$m", "$s", "$c", "$p1")); //+9
+  listcards.push(new Carte("alone", 5, "Lost", "$m", "$s", "$c", "$p1")); //+9
   listcards.push(new Carte("catapult", 5, "Flee snipe", "$r", "$s", "$c", "$p5")); //+9
   listcards.push(new Carte("switchrole", 5, "Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
   listcards.push(new Carte("parry", 5, "Reversed attack", "$m$m$m", "$h", "$p5")); //+10
@@ -1238,6 +1238,23 @@ function choosenewcard() {
     listabilities[11] = listcards[numberalreadyrolled[4]];
   }
 
+  let element = document.getElementById("skipcard");
+  if (skips ==0){
+    element.textContent = "Skip card (+1 reroll)";
+    element.style.backgroundColor = "darkred";
+    element.style.fontSize = "20px";
+    element.style.width = "170px";
+    element.style.height = "25px";
+    element.style.left = "46%";
+  } else {
+    element.textContent = "Reroll (1 left)";
+    element.style.backgroundColor = "darkgreen";
+    element.style.fontSize = "40px";
+    element.style.width = "240px";
+    element.style.height = "50px";
+    element.style.left = "42%";
+  }
+
   document.getElementById("extratext").style.visibility = "visible";
   document.getElementById("grayscreen").style.visibility = "visible";
   document.getElementById("grayscreen").style.zIndex = "50";
@@ -1277,10 +1294,17 @@ function choosenewcard() {
     }
   }
 }
+let skips = 1;
 function skipcard() {
-  extrahidden();
-  cardchosen = 1;
-  changecarddeck(6); //change into trash card
+  if (skips ==0){
+    extrahidden();
+    cardchosen = 1;
+    changecarddeck(6); //change into trash card
+    skips++;
+  } else {
+    skips--;
+    choosenewcard();
+  }
 }
 function newcard1() {
   extrahidden();

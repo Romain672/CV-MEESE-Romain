@@ -433,7 +433,7 @@ function affichercarte(id) {
   } catch {}
   if (explosion == 1) {
     children[1].textContent = "Explosed";
-    children[2].textContent = "";
+    children[2].innerHTML = "<img id='' src='Images/explosed.jpg' alt=''>";
     children[3].textContent = "";
     children[4].textContent = "";
     children[5].textContent = "";
@@ -480,119 +480,119 @@ function generatecards() {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //Trash
-  listcards.push(new Carte("blank card", 12, "none", "$s$h$c"));
+  listcards.push(new Carte("bug", 12, "Bug", "$s$h$c"));
   //Starting deck (=+6 instead of +9)
   listcards.push(new Carte("run", 11, "Run forward", "$c", "$p1")); //+7
   listcards.push(new Carte("heal", 11, "Fast heal", "$h", "$c")); //+7
   listcards.push(new Carte("magicorb", 11, "Magic orb", "$m", "$h$h$h")); //+6
   listcards.push(new Carte("dualgun", 11, "Dual gun", "$m$r")); //+6
-  listcards.push(new Carte("none", 11, "Longshot", "$r$r", "$p<")); //+6
-  listcards.push(new Carte("non utilisé", 11, "Double strike", "$m$m", "$p>")); //+6
+  listcards.push(new Carte("longlaser", 11, "Longshot", "$r$r", "$p<")); //+6
+  listcards.push(new Carte("two", 11, "Double strike", "$m$m", "$p>")); //+6
   //Normal: triples
   listcards.push(new Carte("trident", 0, "Triple strike", "$m$m$m", "$p>")); //+9
   listcards.push(new Carte("spear", 0, "Long attack", "$m$m$r", "$p>")); //+9
   listcards.push(new Carte("wooden weapon", 0, "Small attack", "$m$r$r")); //+9
   listcards.push(new Carte("bullet", 0, "Sniping", "$r$r$r", "$p<")); //+9
-  listcards.push(new Carte("none", 0, "Strike & Heal", "$m$m", "$h$h$h", "$p>")); //+9
-  listcards.push(new Carte("none", 0, "Attack & Heal", "$m$r", "$h$h$h")); //+9
-  listcards.push(new Carte("none", 0, "Snipe & Heal", "$r$r", "$h$h$h", "$p<")); //+9
+  listcards.push(new Carte("strikeheal", 0, "Strike & Heal", "$m$m", "$h$h$h", "$p>")); //+9
+  listcards.push(new Carte("attack", 0, "Attack & Heal", "$m$r", "$h$h$h")); //+9
+  listcards.push(new Carte("snipe", 0, "Snipe & Heal", "$r$r", "$h$h$h", "$p<")); //+9
   //Normal extras
-  listcards.push(new Carte("none", 0, "Drain life", "$m", "$h$h$h$h$h$h$h", "$p>")); //+10
-  listcards.push(new Carte("none", 0, "Boomerang heal", "$r", "$h$h$h$h$h$h$h", "$p5")); //+11
-  listcards.push(new Carte("ballonsfish", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
+  listcards.push(new Carte("drain", 0, "Drain life", "$m", "$h$h$h$h$h$h$h", "$p>")); //+10
+  listcards.push(new Carte("boomerang", 0, "Boomerang heal", "$r", "$h$h$h$h$h$h$h", "$p5")); //+11
+  listcards.push(new Carte("balloonsfish", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
   //Self sacrifice
-  listcards.push(new Carte("none", 0, "Quadruple shot", "$r$r$r$r", "$s$s$s", "$p4")); //+10
+  listcards.push(new Carte("fourstars", 0, "Quadruple shot", "$r$r$r$r", "$s$s$s", "$p4")); //+10
   //$c
   listcards.push(new Carte("bench", 1, "Heal & Retreat", "$h$h$h", "$c", "$p5")); //+10
   listcards.push(new Carte("carddeck", 1, "Quick draw", "$r", "$c")); //+9
-  listcards.push(new Carte("none", 1, "Quick attack", "$m", "$c")); //+9
+  listcards.push(new Carte("quick", 1, "Quick attack", "$m", "$c")); //+9
   //Delay damage
-  listcards.push(new Carte("none", 2, "Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
-  listcards.push(new Carte("none", 2, "Longest attack", "$m$m$m$r", "$t", "$p>")); //+10
+  listcards.push(new Carte("quadruplecard", 2, "Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
+  listcards.push(new Carte("longsnake", 2, "Longest snake", "$m$m$m$r", "$t", "$p>")); //+10
   listcards.push(new Carte("dolphin", 2, "Heavy attack", "$m$m$r$r", "$t")); //+10
-  listcards.push(new Carte("none", 2, "Great shot", "$m$r$r$r", "$t", "$p<")); //+10
-  listcards.push(new Carte("none", 2, "Sniping hard", "$r$r$r$r", "$t", "$p<")); //+10
+  listcards.push(new Carte("greatshot", 2, "Great shot", "$m$r$r$r", "$t", "$p<")); //+10
+  listcards.push(new Carte("birdhouse", 2, "Sniping hard", "$r$r$r$r", "$t", "$p<")); //+10
   //Delay damage+heal
-  listcards.push(new Carte("none", 2, "Timeal strike", "$m$m$m", "$h$h", "$t", "$p>")); //+9
-  listcards.push(new Carte("none", 2, "Timeal long attack", "$m$m$r", "$h$h", "$t")); //+9
-  listcards.push(new Carte("none", 2, "Timeal attack", "$m$r$r", "$h$h", "$t")); //+9
-  listcards.push(new Carte("none", 2, "Timeal snipe", "$r$r$r", "$h$h", "$t", "$p<")); //+9
+  listcards.push(new Carte("stabbing", 2, "Timeal strike", "$m$m$m", "$h$h", "$t", "$p>")); //+9
+  listcards.push(new Carte("fence", 2, "Install fence", "$m$m$r", "$h$h", "$t")); //+9
+  listcards.push(new Carte("scorpio", 2, "Scorpio's help", "$m$r$r", "$h$h", "$t")); //+9
+  listcards.push(new Carte("spiderweb", 2, "Timeal snipe", "$r$r$r", "$h$h", "$t", "$p<")); //+9
   //Delay weird
-  listcards.push(new Carte("none", 3, "Sixtuple strike", "$m$m$m$m$m$m", "$t$t$t$t")); //+10
-  listcards.push(new Carte("none", 3, "Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
-  listcards.push(new Carte("none", 3, "Exhausting strike", "$m$m", "$c", "$t")); //+10
-  listcards.push(new Carte("none", 3, "Exhausting snipe", "$r$r", "$c", "$t")); //+10
-  listcards.push(new Carte("none", 3, "Exhausting heal", "$h$h$h$h$h$h", "$c", "$t")); //+10
-  listcards.push(new Carte("none", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
+  listcards.push(new Carte("marblesofdeath", 3, "Marbles of death", "$m$m$m$m$m$m", "$t$t$t$t")); //+10
+  listcards.push(new Carte("fireworks", 3, "Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
+  listcards.push(new Carte("exhaustwork", 3, "Exhausting strike", "$m$m", "$c", "$t")); //+10
+  listcards.push(new Carte("exhaustsnipe", 3, "Exhausting snipe", "$r$r", "$c", "$t")); //+10
+  listcards.push(new Carte("exhaustingheal", 3, "Exhausting heal", "$h$h$h$h$h$h", "$c", "$t")); //+10
+  listcards.push(new Carte("fiesta", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
   //$ha
-  listcards.push(new Carte("none", 4, "Heal impact", "$m$m", "$ha", "$p>")); //+10
-  listcards.push(new Carte("none", 4, "Heal polyvalent", "$m$r", "$ha")); //+10
-  listcards.push(new Carte("none", 4, "Heal meteor", "$r$r", "$ha", "$p<")); //+10
-  listcards.push(new Carte("none", 4, "Regeneration attack", "$m", "$h$h", "$ha")); //+9
-  listcards.push(new Carte("none", 4, "Regeneration snipe ", "$r", "$h$h", "$ha")); //+9
+  listcards.push(new Carte("healimpact", 4, "Heal impact", "$m$m", "$ha", "$p>")); //+10
+  listcards.push(new Carte("seedtree", 4, "Heal polyvalent", "$m$r", "$ha")); //+10
+  listcards.push(new Carte("loverock", 4, "Heal meteor", "$r$r", "$ha", "$p<")); //+10
+  listcards.push(new Carte("woundedheart", 4, "Regeneration attack", "$m", "$h$h", "$ha")); //+9
+  listcards.push(new Carte("fiveboule", 4, "Regeneration snipe ", "$r", "$h$h", "$ha")); //+9
   listcards.push(new Carte("island", 4, "Rejuvenation", "$h$h$h$h$h", "$ha")); //+9
   listcards.push(new Carte("letter", 4, "Regeneration", "$h", "$ha$ha")); //+9
-  listcards.push(new Carte("none", 4, "Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
-  listcards.push(new Carte("none", 4, "Fast medic", "$ha", "$c")); //+10
-  listcards.push(new Carte("none", 4, "Fast sacrificial medic", "$s$s$s$s$s", "$ha$ha","$c", "$p>")); //+9
+  listcards.push(new Carte("regenerationleaf", 4, "Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
+  listcards.push(new Carte("fastdog", 4, "Fast medic", "$ha", "$c")); //+10
+  listcards.push(new Carte("bloodcell", 4, "Fast sacrificial medic", "$s$s$s$s$s", "$ha$ha","$c", "$p>")); //+9
   listcards.push(new Carte("field", 4, "Waiting heal", "$ha$ha$ha", "$t")); //+10
-  listcards.push(new Carte("none", 4, "Heal and sleep", "$ha$ha$ha$ha", "$t$t$t")); //+10
-  listcards.push(new Carte("none", 4, "Heal before rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
+  listcards.push(new Carte("meditate", 4, "Heal and sleep", "$ha$ha$ha$ha", "$t$t$t")); //+10
+  listcards.push(new Carte("sleep", 4, "Heal before rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
   //Movement
   listcards.push(new Carte("alone", 5, "Run attack", "$m", "$s", "$c", "$p1")); //+9
-  listcards.push(new Carte("none", 5, "Flee snipe", "$r", "$s", "$c", "$p5")); //+9
-  listcards.push(new Carte("none", 5, "Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
-  listcards.push(new Carte("none", 5, "Reversed attack", "$m$m$m", "$h", "$p5")); //+10
+  listcards.push(new Carte("catapult", 5, "Flee snipe", "$r", "$s", "$c", "$p5")); //+9
+  listcards.push(new Carte("switchrole", 5, "Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
+  listcards.push(new Carte("parry", 5, "Reversed attack", "$m$m$m", "$h", "$p5")); //+10
   //Double $cc
-  listcards.push(new Carte("none", 6, "Instant heal", "$h", "$cc")); //+10
-  listcards.push(new Carte("none", 6, "Instant attack", "$m", "$s$s", "$cc")); //+10
-  listcards.push(new Carte("none", 6, "Instant snipe", "$r", "$s$s", "$cc")); //+10
-  listcards.push(new Carte("none", 6, "Teleport forward", "$cc", "$p1")); //+10
+  listcards.push(new Carte("coffee", 6, "Instant heal", "$h", "$cc")); //+10
+  listcards.push(new Carte("handshake", 6, "Instant attack", "$m", "$s$s", "$cc")); //+10
+  listcards.push(new Carte("bananateleport", 6, "Banana snipe", "$r", "$s$s", "$cc")); //+10
+  listcards.push(new Carte("time", 6, "Teleport forward", "$cc", "$p1")); //+10
   listcards.push(new Carte("bench", 6, "Teleport behind", "$cc", "$p<")); //+9
   //Bomb $b
-  listcards.push(new Carte("none", 7, "Extra attacks", "$m$m$r$r", "$bbbbb")); //+9 3*5
+  listcards.push(new Carte("triplebullseyes", 7, "Extra attacks", "$m$m$r$r", "$bbbbb")); //+9 3*5
   listcards.push(new Carte("atomicbomb", 7, "Instable strikes", "$m$m$m$m$m$m", "$p>", "$bb")); //+9 9*2
-  listcards.push(new Carte("none", 7, "Instant difficult blow", "$m", "$cc", "$bbb")); //+9 3*3
+  listcards.push(new Carte("timedattack", 7, "Instant difficult blow", "$m", "$cc", "$bbb")); //+9 3*3
   listcards.push(new Carte("soapbubblee", 7, "Instant medic", "ha", "$cc"));
-  listcards.push(new Carte("$ha", "$cc", "$bbbbb")); //+9 4*5
+  listcards.push(new Carte("rundog", 7, "Helping dog", "$ha", "$cc", "$bbbbb")); //+9 4*5
   listcards.push(new Carte("planeexplosion", 7, "Fast instable attacks", "$m$r", "$c", "$bbb")); //+9 3*3
-  listcards.push(new Carte("none", 7, "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")); //+9 2*9
+  listcards.push(new Carte("callbomb", 7, "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")); //+9 2*9
   //Permanent upgrades $b
-  listcards.push(new Carte("none", 8, "Demonic strength", "Gain permanently $+m", "Loses permanently $-h$-h", "$c"));
-  listcards.push(new Carte("none", 8, "Demonic range", "Gain permanently $+r", "Loses permanently $-h$-h", "$c"));
-  listcards.push(new Carte("none", 8, "Demonic health", "Gain permanently $+h$+h$+h$+h", "Loses permanently $-m$-r", "$c"));
-  listcards.push(new Carte("yellowflower", 8, "Hp buff", "Gain permanently $+h", "$bbb")); //+1
+  listcards.push(new Carte("demonicstrength", 8, "Demonic strength", "Gain permanently $+m", "Loses permanently $-h$-h", "$c"));
+  listcards.push(new Carte("demonicpact", 8, "Demonic's pact", "Gain permanently $+r", "Loses permanently $-h$-h", "$c"));
+  listcards.push(new Carte("hellvolcano", 8, "Demonic health", "Gain permanently $+h$+h$+h$+h", "Loses permanently $-m$-r", "$c"));
+  listcards.push(new Carte("searchforheal", 8, "Hp buff", "Gain permanently $+h", "$bbb")); //+1
   listcards.push(new Carte("purpleflower", 8, "Melee buff", "Gain permanently $+m", "Loses permanently $-h", "$bbb")); //+0
-  listcards.push(new Carte("none", 8, "Ranged buff", "Gain permanently $+r", "Loses permanently $-h", "$bbb")); //+1
-  listcards.push(new Carte("none", 8, "Attack buff", "Gain permanently $+m$+r", "Loses permanently $-h$-h", "$bb")); //+1
+  listcards.push(new Carte("sunsetgiraffe", 8, "Ranged buff", "Gain permanently $+r", "Loses permanently $-h", "$bbb")); //+1
+  listcards.push(new Carte("devilclothe", 8, "Attack buff", "Gain permanently $+m$+r", "Loses permanently $-h$-h", "$bb")); //+1
   listcards.push(new Carte("candleburned", 8, "Demonic attack", "$p>", "$m$m$m$m$m", "Loses permanently $-r")); //+15
-  listcards.push(new Carte("none", 8, "Demonic snipe", "$p<", "$r$r$r$r$r", "Loses permanently $-m")); //+15
-  listcards.push(new Carte("none", 8, "Demonic fast attack", "$p>", "$m$m$m", "Loses permanently $-r", "$c")); //+12
-  listcards.push(new Carte("none", 8, "Demonic fast snipe", "$p<", "$r$r$r", "Loses permanently $-m", "$c")); //+12
-  listcards.push(new Carte("none", 8, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
-  listcards.push(new Carte("none", 8, "Instable full attack", "$m$m", "Gain $°m after each use", "$bbbbb")); // +6 +9 +12 +15 +18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r", "Loses permanently $-m")); //+15
+  listcards.push(new Carte("runexplose", 8, "Attack and run", "$p>", "$m$m$m", "Loses permanently $-r", "$c")); //+12
+  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r$r$r", "Loses permanently $-m", "$c")); //+12
+  listcards.push(new Carte("cultivate", 8, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
+  listcards.push(new Carte("growstrength", 8, "Instable full attack", "$m$m", "Gain $°m after each use", "$bbbbb")); // +6 +9 +12 +15 +18
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //UNIQUE EFFECTS
   //Positionnal bonus
-  listcards.push(new Carte("none", 9, "Perfect spot", "$m$r", "$h", "$zh$zc if $zp3", "$p3")); //+8.4
-  listcards.push(new Carte("none", 9, "Balanced attack", "$zm$zm$zm if $zp1 or $zp2", "$zr$zr$zr if $zp4 or $zp5")); //+7.2
-  listcards.push(new Carte("none", 9, "Central fight", "$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4")); //+8.4
+  listcards.push(new Carte("perfectspot", 9, "Perfect spot", "$m$r", "$h", "$zh$zc if $zp3", "$p3")); //+8.4
+  listcards.push(new Carte("target", 9, "Balanced attack", "$zm$zm$zm if $zp1 or $zp2", "$zr$zr$zr if $zp4 or $zp5")); //+7.2
+  listcards.push(new Carte("middlewood", 9, "Fortress in the wood", "$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4")); //+8.4
   listcards.push(new Carte("bridge", 9, "Healing dash", "$p1", "$zh$zh for each space moved", "$c")); //6 8 10 12 14
-  listcards.push(new Carte("none", 9, "Snipe dash", "$p4", "$zr$zr for each space moved")); //0 6 6 12 18
-  listcards.push(new Carte("none", 9, "Medical dash", "$p5", "$zh$zha for each space moved")); //0 5 10 15 20
+  listcards.push(new Carte("longattack", 9, "Snipe dash", "$p4", "$zr$zr for each space moved")); //0 6 6 12 18
+  listcards.push(new Carte("medictime", 9, "Medical dash", "$p5", "$zh$zha for each space moved")); //0 5 10 15 20
 
   //Position of others
-  listcards.push(new Carte("none", 10, "Crowd", "Swap randomly 2 by 2 others characters", "$cc")); //+9
+  listcards.push(new Carte("fourswap", 10, "Crowd", "Swap randomly 2 by 2 others characters", "$cc")); //+9
   //Change of atkmel/atkran
-  listcards.push(new Carte("none", 10, "Switch", "Swap your $m & $r", "$c")); //+6
+  listcards.push(new Carte("switch", 10, "Switch", "Swap your $m & $r", "$c")); //+6
   //Reroll/support
-  listcards.push(new Carte("none", 10, "Reroll", "$h", "Reroll all unused dices", "$c")); //+6
-  listcards.push(new Carte("none", 10, "Return", "Return all unused dice", "$c")); //+6
+  listcards.push(new Carte("reroll", 10, "Reroll", "$h", "Reroll all unused dices", "$c")); //+6
+  listcards.push(new Carte("rubbickscube", 10, "Return", "Return all unused dice", "$c")); //+6
   listcards.push(new Carte("jellyfish", 10, "Chaos", "$ha", "Trigger a random other ability (non Chaos)")); //+13
-  listcards.push(new Carte("none", 10, "Copycat", "Apply the 1️⃣ effect")); //+9.5
-  listcards.push(new Carte("none", 10, "Feed from allies", "$h$h$h$h$h", "All other allies take one damage", "$cc")); //+10
+  listcards.push(new Carte("copycat", 10, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  listcards.push(new Carte("blackhole", 10, "Feed from allies", "$h$h$h$h$h", "All other allies take one damage", "$cc")); //+10
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
@@ -1397,14 +1397,14 @@ function changecarddeck(nbr) {
   cardchosen = 0;
   document.getElementById("grayscreen").style.visibility = "hidden";
   document.getElementById("messagecentral").textContent = "Next fight";
-  for (i = 7; i < 12; i++) {
+  /*for (i = 7; i < 12; i++) {
     listabilities[i] = listabilities[6];
     listabilities[i].effect1 = "ici";
     listabilities[i].effect2 = "ici";
     listabilities[i].effect3 = "ici";
     listabilities[i].effect4 = "ici";
     listabilities[i].effect5 = "ici";
-  }
+  }*/
 }
 
 /* Skip turn */

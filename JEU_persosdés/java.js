@@ -49,7 +49,7 @@ function onload() {
   document.getElementById("grayscreen").style.zIndex = "35";
   document.getElementById("messagecentral").style.zIndex = "40";
   document.getElementById("messagecentral").textContent =
-    "Select a dice to play (top), the corresponding card below will take effect";
+    "Select a dice to play above, the corresponding card below will take effect";
   debutdutour();
 }
 
@@ -586,7 +586,7 @@ function generatecards() {
   listcards.push(new Carte("middlewood", 9, "Fortress in the wood", "$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4")); //+8.4
   listcards.push(new Carte("bridge", 9, "Healing dash", "$p1", "$zh$zh for each space moved", "$c")); //6 8 10 12 14
   listcards.push(new Carte("longattack", 9, "Snipe dash", "$p4", "$zr$zr for each space moved")); //0 6 6 12 18
-  listcards.push(new Carte("medictime", 9, "Medical dash", "$p5", "$zh$zha for each space moved")); //0 5 10 15 20
+  listcards.push(new Carte("medictime", 9, "Medical dash", "$p5", "$zha for each space moved")); //0 4 8 12 16
 
   //Position of others
   listcards.push(new Carte("fourswap", 10, "Crowd", "Swap randomly 2 by 2 others characters", "$cc")); //+9
@@ -746,7 +746,7 @@ function clickde(event) {
         "Enemy killed. You must do an extra action (like skip turn) before fighting the next enemy.";
     } else {
       if (skipnextmessage == 0) {
-        document.getElementById("messagecentral").textContent = "Extra turn";
+        document.getElementById("messagecentral").textContent = "Extra turn (🔁)";
       }
       skipnextmessage = 0;
     }

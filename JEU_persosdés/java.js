@@ -889,55 +889,12 @@ function resolveeffect(player, id) {
           heal(player, 1);
         }
       }
-      /* $$$$$ */
       if (char[0] == "c") {
         increaseturndelay--;
         if ((split[i].charAt(1) == "c")) {
           increaseturndelay--;
         }
       }
-      /*if (char[0] == "c") {
-        //Advanced mode $c & $c
-        if (cantrip==1 && diceavailable[player.id] == "n" && advancedmode==1 && split[i].charAt(1) != "c"){
-          console.log("Advanced mode: $c twice");
-          if(increaseturndelay>0){
-            //🔁🔁⌛ => 🔁
-            increaseturndelay--;
-          } else {
-            //🔁🔁
-            let previousde = listpersos[player.id].de;
-            listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
-            if (listpersos[player.id].de >= previousde) {
-              listpersos[player.id].de++;
-            }
-            diceavailable[player.id] = "y";
-          }
-        } else {
-          console.log("s");
-          cantrip = 1;
-          if ((split[i].charAt(1) != "c")) {
-            console.log("yay3");
-            //🔁
-            diceavailable[player.id] = "n";
-          } else {
-            if (advancedmode==1 && increaseturndelay>0){
-              console.log("yay");
-              //🔁🔁⌛ => 🔁
-              diceavailable[player.id] = "n";
-              increaseturndelay--;
-            } else {
-              console.log("yay2");
-              console.log(increaseturndelay);
-              //🔁🔁
-              let previousde = listpersos[player.id].de;
-              listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
-              if (listpersos[player.id].de >= previousde) {
-              listpersos[player.id].de++;
-             }
-            }
-          }
-        }
-      }*/
 
       if (char[0] == "m") {
         //⚔️
@@ -1074,53 +1031,6 @@ function resolveeffect(player, id) {
     console.log("Bug: increaseturndelay too low");
   }
 
-/*
-  if (char[0] == "c") {
-    //Advanced mode $c & $c
-    if (cantrip==1 && diceavailable[player.id] == "n" && advancedmode==1 && split[i].charAt(1) != "c"){
-      console.log("Advanced mode: $c twice");
-      if(increaseturndelay>0){
-        //🔁🔁⌛ => 🔁
-        increaseturndelay--;
-      } else {
-        //🔁🔁
-        let previousde = listpersos[player.id].de;
-        listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
-        if (listpersos[player.id].de >= previousde) {
-          listpersos[player.id].de++;
-        }
-        diceavailable[player.id] = "y";
-      }
-    } else {
-      console.log("s");
-      cantrip = 1;
-      if ((split[i].charAt(1) != "c")) {
-        console.log("yay3");
-        //🔁
-        diceavailable[player.id] = "n";
-      } else {
-        if (advancedmode==1 && increaseturndelay>0){
-          console.log("yay");
-          //🔁🔁⌛ => 🔁
-          diceavailable[player.id] = "n";
-          increaseturndelay--;
-        } else {
-          console.log("yay2");
-          console.log(increaseturndelay);
-          //🔁🔁
-          let previousde = listpersos[player.id].de;
-          listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
-          if (listpersos[player.id].de >= previousde) {
-          listpersos[player.id].de++;
-         }
-        }
-      }
-    }
-  }
-  */
-
-
-
   checkhps();
   afficherallperso(ordrepersos);
 }
@@ -1183,7 +1093,7 @@ function specialseffectsbefore(player, id) {
       atkran(player, 3);
     }
   }
-  if (listcards[id].nom == "Central fight") {
+  if (listcards[id].nom == "Fortress in the wood") {
     //"$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4" //+8.4
     console.log("cf");
     if (

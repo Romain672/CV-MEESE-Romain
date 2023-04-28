@@ -2032,4 +2032,5 @@ document.getElementById("containerrules").addEventListener("click", displayrules
 function displayrules(){
   document.getElementById("rules").style.visibility = "visible";
   document.getElementById("displayrules").style.visibility = "hidden";
+  document.getElementById("grayscreen").style.visibility = "hidden";
 }

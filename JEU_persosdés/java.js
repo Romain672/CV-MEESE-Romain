@@ -1630,6 +1630,9 @@ function setting1() {
     for (i=5;i<16;i++){
       listpersos[i].atkmel+=3;
     }
+    if (listpersos[5].nom !="Ratatouille"){
+      listpersos[5].atkmel+=-3; //resolve bug brutally: the current ennemy is twice in data
+    }
     document.getElementById("atkmel5").style.backgroundColor="darkred";
     document.getElementById("atkmel5").style.borderRadius="50px";
   } else {
@@ -1645,6 +1648,9 @@ function setting1() {
     document.getElementById("imgpoing").textContent = "👊";
     for (i=5;i<16;i++){
       listpersos[i].atkmel+=-3;
+    }
+    if (listpersos[5].nom !="Ratatouille"){
+      listpersos[5].atkmel+=+3; //resolve bug brutally: the current ennemy is twice in data
     }
     document.getElementById("atkmel5").style.backgroundColor="transparent";
   }

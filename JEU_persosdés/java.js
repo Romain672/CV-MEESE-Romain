@@ -147,7 +147,9 @@ function afficherperso(element, id) {
   } else {
     //ennemi
     children[1].textContent = listpersos[id].avatar;
-    children[3].textContent = "⚔️".concat(listpersos[id].atkmel);
+    children[3].textContent = "⚔️".concat(listpersos[id].atkmel)
+    if(listpersos[id].atkran>1)
+      children[3].textContent += " | 🤲" + listpersos[id].atkran;
   }
 }
 function afficherallperso(array) {
@@ -166,17 +168,33 @@ function generatepersos() {
   listpersos[3] = new Personnage("👽", "Derick", 0, 6, 4, 4);
   listpersos[4] = new Personnage("🎅", "Elise", 0, 6, 1, 6);
   //ennemy
-  listpersos[5] = new Personnage("🐀", "Ratatouille", 0, 8, 3);
-  listpersos[6] = new Personnage("🐤", "Piou", 0, 12, 4);
-  listpersos[7] = new Personnage("🐧", "Siffli", 0, 16, 5);
-  listpersos[8] = new Personnage("🐈", "Garfield", 0, 20, 6);
-  listpersos[9] = new Personnage("🐒", "Abu", 0, 24, 7);
-  listpersos[10] = new Personnage("🐺", "Fenrir", 0, 28, 8);
-  listpersos[11] = new Personnage("🐄", "Abigaëlle", 0, 32, 9);
-  listpersos[12] = new Personnage("🐎", "Pégase", 0, 36, 10);
-  listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 11);
-  listpersos[14] = new Personnage("🐘", "Dumbo", 0, 44, 12);
-  listpersos[15] = new Personnage("👨", "The developper", 0, 48, 13);
+  generatepersoseasy();
+}
+function generatepersoseasy(){
+  listpersos[5] = new Personnage("🐀", "Ratatouille", 0, 8, 3, 1);
+  listpersos[6] = new Personnage("🐤", "Piou", 0, 12, 2, 2);
+  listpersos[7] = new Personnage("🐧", "Siffli", 0, 16, 5, 1);
+  listpersos[8] = new Personnage("🐈", "Garfield", 0, 20, 2, 3);
+  listpersos[9] = new Personnage("🐒", "Abu", 0, 24, 7, 1);
+  listpersos[10] = new Personnage("🐺", "Fenrir", 0, 28, 4, 2);
+  listpersos[11] = new Personnage("🐄", "Abigaëlle", 0, 32, 3, 3);
+  listpersos[12] = new Personnage("🐎", "Pégase", 0, 36, 2, 5);
+  listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 11, 1);
+  listpersos[14] = new Personnage("🐘", "Dumbo", 0, 44, 4, 3);
+  listpersos[15] = new Personnage("👨", "The developper", 0, 48, 13, 1);
+}
+function generatepersosadvanced() {
+  listpersos[5] = new Personnage("🐀", "Ratatouille", 0, 8, 4, 2);
+  listpersos[6] = new Personnage("🐤", "Piou", 0, 12, 3, 3);
+  listpersos[7] = new Personnage("🐧", "Siffli", 0, 16, 2, 5);
+  listpersos[8] = new Personnage("🐈", "Garfield", 0, 20, 11, 1);
+  listpersos[9] = new Personnage("🐒", "Abu", 0, 24, 4, 3);
+  listpersos[10] = new Personnage("🐺", "Fenrir", 0, 28, 13, 1);
+  listpersos[11] = new Personnage("🐄", "Abigaëlle", 0, 32, 7, 2);
+  listpersos[12] = new Personnage("🐎", "Pégase", 0, 36, 5, 3);
+  listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 4, 4);
+  listpersos[14] = new Personnage("🐘", "Dumbo", 0, 44, 17, 1);
+  listpersos[15] = new Personnage("👨", "The developper", 0, 48, 6, 3);
 }
 
 /* Cartes */
@@ -676,6 +694,7 @@ function debutdutour() {
 }
 function findutour() {
   if (listpersos[ennemy].currenthp < 1) {
+    console.log("Kill");
     //One kill done
     ennemy++;
     listpersos[5] = listpersos[ennemy];
@@ -687,8 +706,15 @@ function findutour() {
     if (ennemy == 7 || ennemy == 9 || ennemy > 10){
       skips++;
     }
+    let elementstyle = document.getElementById("displayrules").style;
+    elementstyle.fontSize = "20px";
+    elementstyle.width = "120px";
+    elementstyle.height = "22px";
   } else {
-    listpersos[ordrepersos[0]].currenthp += -1 * listpersos[5].atkmel;
+    //damage
+    for (let i=0;i<listpersos[5].atkran;i++){
+      listpersos[ordrepersos[i]].currenthp += -1 * listpersos[5].atkmel;
+    }
   }
   if (skipnextmessage == 0) {
     document.getElementById("messagecentral").textContent =
@@ -1328,6 +1354,7 @@ function choosenewcard() {
   }
 
   let element = document.getElementById("skipcard");
+  setTimeout(() => {
   if (skips ==0){
     element.textContent = "Skip card (+1 reroll)";
     element.style.backgroundColor = "darkred";
@@ -1343,6 +1370,7 @@ function choosenewcard() {
     element.style.height = "50px";
     element.style.left = "42%";
   }
+}, 100)
 
   document.getElementById("extratext").style.visibility = "visible";
   document.getElementById("grayscreen").style.visibility = "visible";
@@ -1540,10 +1568,14 @@ function openparameters() {
   document.getElementById("grayscreen").style.visibility = "visible";
   document.getElementById("grayscreen").style.zIndex = "100";
 
-  document
-    .getElementById("closeparameters")
-    .addEventListener("click", closeparameter);
+  document.getElementById("closeparametersandcookies").addEventListener("click", closeparametersandcookies);
+  document.getElementById("closeparametersandcookies").style.visibility = "visible";
+  document.getElementById("closeparameters").addEventListener("click", closeparameters);
   document.getElementById("closeparameters").style.visibility = "visible";
+  document.getElementById("closeparameterscancel").addEventListener("click", closeparameterscancel);
+  document.getElementById("closeparameterscancel").style.visibility = "visible";
+
+  
 
   let selector = document.getElementsByClassName("choiceparameter");
   for(let i=0;i<5;i++){
@@ -1583,14 +1615,18 @@ function openparameters() {
   selector[16].addEventListener("click", setting16);
   selector[17].addEventListener("click", setting17);
 }
-function closeparameter() {
+function closeparameters() {
   let selector = document.getElementsByClassName("choiceparameter");
   for (let i = 0; i < selector.length; i++) {
     selector[i].style.visibility = "hidden";
   }
   document.getElementById("grayscreen").style.visibility = "hidden";
   document.getElementById("closeparameters").style.visibility = "hidden";
-
+  document.getElementById("closeparametersandcookies").style.visibility = "hidden";
+  document.getElementById("closeparameterscancel").style.visibility = "hidden";
+}
+function closeparametersandcookies() {
+  console.log("cookies saved (normally)");
   //cookies:
   createcookie("disablecolors", disablecolors);
   createcookie("advancedmode", advancedmode);
@@ -1598,6 +1634,11 @@ function closeparameter() {
   createcookie("cardporposed", cardporposed);
   createcookie("randostartcard", randostartcard);
   createcookie("set", set.join("|"));
+  closeparameters();
+}
+function closeparameterscancel() {
+  setting17();
+  closeparameters();
 }
 
 let disablecolors = 0;
@@ -1628,12 +1669,13 @@ function setting1() {
     document.getElementById("carte5").children[8].textContent = "a:🔁"; //+6 
     element.style.backgroundColor = "darkred";
     document.getElementById("imgpoing").textContent = "✊";
-    for (i=5;i<16;i++){
+    /*for (i=5;i<16;i++){
       listpersos[i].atkmel+=3;
     }
     if (listpersos[5].nom !="Ratatouille"){
       listpersos[5].atkmel+=-3; //resolve bug brutally: the current ennemy is twice in data
-    }
+    }*/
+    generatepersosadvanced();
     document.getElementById("atkmel5").style.backgroundColor="darkred";
     document.getElementById("atkmel5").style.borderRadius="50px";
     document.getElementById("rerolladvanced").textContent = "(🔁🔁🔁: and reroll all non used numbers)";
@@ -1655,12 +1697,13 @@ function setting1() {
     document.getElementById("carte4").children[8].textContent = ""; //+3
     document.getElementById("carte5").children[8].textContent = ""; //+1  
     document.getElementById("imgpoing").textContent = "👊";
-    for (i=5;i<16;i++){
+    /*for (i=5;i<16;i++){
       listpersos[i].atkmel+=-3;
     }
     if (listpersos[5].nom !="Ratatouille"){
       listpersos[5].atkmel+=+3; //resolve bug brutally: the current ennemy is twice in data
-    }
+    }*/
+    generatepersoseasy();
     document.getElementById("atkmel5").style.backgroundColor="transparent";
   }
   afficherperso(document.getElementById("persoetde5"), 5);
@@ -1855,6 +1898,9 @@ function setting16() {
 function setting17(){
   disablecolors = 0;
   document.getElementById("disablecolors").innerHTML = "Colors: all";
+  advancedmode = 0;
+  document.getElementById("content").innerHTML = "Content: base game (extremely encouraged for first game or casual play)";
+  document.getElementById("content").style.backgroundColor = "darkgreen";
   choicesonkill = 5;
   document.getElementById("cardproposedonkill").innerHTML = "Choices on kill: " + choicesonkill;
   randostartcard = 2;
@@ -1959,8 +2005,8 @@ function cookieonstart() {
 }
 }
 
-let timecookie = 7200; //2h
 function createcookie(name, value) {
+  let timecookie = 345600; //4j
   document.cookie =
     name + "=" + value + "; max-age=" + timecookie + "; Samesite=None; Secure";
 }

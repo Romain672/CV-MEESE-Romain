@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Romain's game</title>
+    <title>Dice's fighting</title>
     <link rel="icon" href="new.ico" type="image/icon type">
 </head>
 <!--Images from https://pixabay.com/-->
+
 <body id="body">
     <div id="conteneurperso">
         <div id="persoetde4" class="perso ally">
@@ -135,95 +137,108 @@
 
     <br><br>
     <div id="containerrules">
-    <div id="displayrules">Display rules</div>
-    <div id="rules">
-    <span id="rerolladvanced3"></span><br>
-    Its a solo game. You have some characters in the top left in order. You have an enemy in the top right. You have some cards with effects at the bottom.<br>
-    Each turn, you will be able to play one and only one of the dice you rolled (in the top left) by clicking on them. It will activate the card with the same number from your deck (bottom).<br>
-    <br>
-    The effects are:<br>
-     - 🔁: you can play another dice this turn (🔁🔁: and reroll that dice into another number)<span id="rerolladvanced"></span><br>
-     - 💖: heal the character which rolled the dice by 1 (up to his max hp)(🩸: lose 1 instead)(💕: all other players instead)<br>
-     - ⚔️ (🏹): deal the ⚔️(🏹) damage of the character which rolled the dice to the enemy<br>
-     - 🚶‍♂️: move the character to a certain position or to one spot to the left or right<span id="rerolladvanced4"></span><br>
-     - ⌛: the dice is disabled for one extra turn<span id="rerolladvanced2"></span><br>
-     - 💥: lose one after each use. When none are left, remove all effects of the card<br>
-    <br>
-    Then, if you kill the enemy, a new one will appear and all your dices are rerolled.<br>
-    If you dont, the character in the first/rightmost position will take damage equal to the enemy attack, then all your dices will be rerolled.<br>
-    <br>
-    If one of your character goes to 0 hp or below, he will heal 4, then every ally will take one damage. If any ally is at 0 hp or below, you repeat until either all your characters are above 0 hp or all are below 1 hp, then you lose.<br>
-    <br>
-    Winning is really hard. With that patch, I believe it's impossible<br>
-    <br>
-    Extras:<br>
-    You start with one skip. You gain one extra after each skip, after 3rd kill (🐧), and every one from 5th kill (🐒).<br>
-    Make sure to hard refresh the page (ctrl+f5) for the last update if it's not the first time you play.<br>
-    You can't have 0 max💖, -1⚔️, or -1🏹. If it should happen, the last action is cancelled.<br>
-    <br>
-    Balance:<br>
-    Starting deck cards have about 6 points. Cards proposed have between 9 and 10 points.<br>
-    💖 cost 1 | 💕 cost 4 | 🔁 cost 6 | 🔁🔁 cost 9 | ⚔️🏹 each cost 3 | 🚶‍♂️> is free | 🚶‍♂️1 cost 1 | 🩸 cost -1 | ⌛ cost -2 | 💥s gives +16 value | permanent buff cost 12<br>
-    Some cards can have above this amount if they are too much specialised or have a 🚶‍♂️ which is actively bad.<br>
-    <br></div></div>
-
-    <div id="extratext">You killed. Choose a card to replace your deck:</div>
-    <div id="carteextra7" class="carte carteextra">
-        <div id="introextra7" class="intro"></div>
-        <div id="nomextra7" class="titrecarte"></div>
-        <div id="imgextra7" class="image"></div>
-        <div id="effectextra71" class="effect1"></div>
-        <div id="effectextra72" class="effect2"></div>
-        <div id="effectextra73" class="effect3"></div>
-        <div id="effectextra74" class="effect4"></div>
-        <div id="effectextra75" class="effect5"></div>
-        <div id="effectextra76" class="effect6"></div>
+        <div id="displayrules">Display rules</div>
+        <div id="rules">
+            <span id="rerolladvanced3"></span><br>
+            Its a solo game. You have some characters in the top left in order. You have an enemy in the top right. You
+            have some cards with effects at the bottom.<br>
+            Each turn, you will be able to play one and only one of the dice you rolled (in the top left) by clicking on
+            them. It will activate the card with the same number from your deck (bottom).<br>
+            <br>
+            Then, if you kill the enemy, a new one will appear and all your dices are rerolled.<br>
+            If you dont, the character in the (🤲) first/rightmost position will take damage equal to the enemy attack ⚔️, then
+            all your dices will be rerolled.<br>
+            <br>
+            The effects are:<br>
+            - 🔁: you can play another dice this turn (🔁🔁: and reroll that dice into another number)<span id="rerolladvanced"></span><br>
+            - 💖: heal the character which rolled the dice by 1 (up to his max hp)(🩸: lose 1 instead)(💕: all other players instead)<br>
+            - ⚔️ (🏹): deal the ⚔️(🏹) damage of the character which rolled the dice to the enemy<br>
+            - 🚶‍♂️: move the character to a certain position or to one spot to the left or right<span id="rerolladvanced4"></span><br>
+            - ⌛: the dice is disabled for one extra turn<span id="rerolladvanced2"></span><br>
+            - 💥: lose one after each use. When none are left, remove all effects of the card<br>
+            <br>
+            If one of your character goes to 0 hp or below, he will heal 4, then every ally will take one damage. If any
+            ally is at 0 hp or below, you repeat until either all your characters are above 0 hp or all are below 1 hp,
+            then you lose.<br>
+            <br>
+            Winning is really hard, maybe impossible.<br>
+            <br>
+            Extras:<br>
+            You start with one skip. You gain one extra after each skip, after 3rd kill (🐧), and every one from 5th
+            kill (🐒).<br>
+            Make sure to hard refresh the page (ctrl+f5) for the last update if it's not the first time you play.<br>
+            You can't have 0 max💖, -1⚔️, or -1🏹. If it should happen, the last action is cancelled.<br>
+            <br>
+            Balance:<br>
+            Starting deck cards have about 6 points. Cards proposed have between 9 and 10 points.<br>
+            💖 cost 1 | 💕 cost 4 | 🔁 cost 6 | 🔁🔁 cost 9 | ⚔️🏹 each cost 3 | 🚶‍♂️> is free | 🚶‍♂️1 cost 1 | 🩸
+            cost -1 | ⌛ cost -2 | 💥s gives +16 value | permanent buff cost 12<br>
+            Some cards can have above this amount if they are too much specialised or have a 🚶‍♂️ which is actively
+            bad.<br>
+            <br>
+        </div>
     </div>
-    <div id="carteextra8" class="carte carteextra">
-        <div id="introextra8" class="intro"></div>
-        <div id="nomextra8" class="titrecarte"></div>
-        <div id="imgextra8" class="image"></div>
-        <div id="effectextra81" class="effect1"></div>
-        <div id="effectextra82" class="effect2"></div>
-        <div id="effectextra83" class="effect3"></div>
-        <div id="effectextra84" class="effect4"></div>
-        <div id="effectextra85" class="effect5"></div>
-        <div id="effectextra86" class="effect6"></div>
+    <div id="conteneurcarteextraandextratextandskipcard">
+        <div id="extratext">You killed. Choose a card to replace your deck:</div>
+        <div id="conteneurcarteextra">
+            <div id="carteextra7" class="carte carteextra">
+                <div id="introextra7" class="intro"></div>
+                <div id="nomextra7" class="titrecarte"></div>
+                <div id="imgextra7" class="image"></div>
+                <div id="effectextra71" class="effect1"></div>
+                <div id="effectextra72" class="effect2"></div>
+                <div id="effectextra73" class="effect3"></div>
+                <div id="effectextra74" class="effect4"></div>
+                <div id="effectextra75" class="effect5"></div>
+                <div id="effectextra76" class="effect6"></div>
+            </div>
+            <div id="carteextra8" class="carte carteextra">
+                <div id="introextra8" class="intro"></div>
+                <div id="nomextra8" class="titrecarte"></div>
+                <div id="imgextra8" class="image"></div>
+                <div id="effectextra81" class="effect1"></div>
+                <div id="effectextra82" class="effect2"></div>
+                <div id="effectextra83" class="effect3"></div>
+                <div id="effectextra84" class="effect4"></div>
+                <div id="effectextra85" class="effect5"></div>
+                <div id="effectextra86" class="effect6"></div>
+            </div>
+            <div id="carteextra9" class="carte carteextra">
+                <div id="introextra9" class="intro"></div>
+                <div id="nomextra9" class="titrecarte"></div>
+                <div id="imgextra9" class="image"></div>
+                <div id="effectextra91" class="effect1"></div>
+                <div id="effectextra92" class="effect2"></div>
+                <div id="effectextra93" class="effect3"></div>
+                <div id="effectextra94" class="effect4"></div>
+                <div id="effectextra95" class="effect5"></div>
+                <div id="effectextra96" class="effect6"></div>
+            </div>
+            <div id="carteextra10" class="carte carteextra">
+                <div id="introextra10" class="intro"></div>
+                <div id="nomextra10" class="titrecarte"></div>
+                <div id="imgextra10" class="image"></div>
+                <div id="effectextra101" class="effect1"></div>
+                <div id="effectextra102" class="effect2"></div>
+                <div id="effectextra103" class="effect3"></div>
+                <div id="effectextra104" class="effect4"></div>
+                <div id="effectextra105" class="effect5"></div>
+                <div id="effectextra106" class="effect6"></div>
+            </div>
+            <div id="carteextra11" class="carte carteextra">
+                <div id="introextra11" class="intro"></div>
+                <div id="nomextra11" class="titrecarte"></div>
+                <div id="imgextra11" class="image"></div>
+                <div id="effectextra111" class="effect1"></div>
+                <div id="effectextra112" class="effect2"></div>
+                <div id="effectextra113" class="effect3"></div>
+                <div id="effectextra114" class="effect4"></div>
+                <div id="effectextra115" class="effect5"></div>
+                <div id="effectextra116" class="effect6"></div>
+            </div>
+        </div>
+        <div id="skipcard"></div>
     </div>
-    <div id="carteextra9" class="carte carteextra">
-        <div id="introextra9" class="intro"></div>
-        <div id="nomextra9" class="titrecarte"></div>
-        <div id="imgextra9" class="image"></div>
-        <div id="effectextra91" class="effect1"></div>
-        <div id="effectextra92" class="effect2"></div>
-        <div id="effectextra93" class="effect3"></div>
-        <div id="effectextra94" class="effect4"></div>
-        <div id="effectextra95" class="effect5"></div>
-        <div id="effectextra96" class="effect6"></div>
-    </div>
-    <div id="carteextra10" class="carte carteextra">
-        <div id="introextra10" class="intro"></div>
-        <div id="nomextra10" class="titrecarte"></div>
-        <div id="imgextra10" class="image"></div>
-        <div id="effectextra101" class="effect1"></div>
-        <div id="effectextra102" class="effect2"></div>
-        <div id="effectextra103" class="effect3"></div>
-        <div id="effectextra104" class="effect4"></div>
-        <div id="effectextra105" class="effect5"></div>
-        <div id="effectextra106" class="effect6"></div>
-    </div>
-    <div id="carteextra11" class="carte carteextra">
-        <div id="introextra11" class="intro"></div>
-        <div id="nomextra11" class="titrecarte"></div>
-        <div id="imgextra11" class="image"></div>
-        <div id="effectextra111" class="effect1"></div>
-        <div id="effectextra112" class="effect2"></div>
-        <div id="effectextra113" class="effect3"></div>
-        <div id="effectextra114" class="effect4"></div>
-        <div id="effectextra115" class="effect5"></div>
-        <div id="effectextra116" class="effect6"></div>
-    </div>
-    <div id="skipcard"></div>
 
     <div id="grayscreen"></div>
     <div id="playagain"><br>Play again</div>
@@ -234,10 +249,12 @@
     </div>
     <div id="conteneurparameters">
         <div id="disablecolors" class="choiceparameter">Colors: all</div>
-        <div id="content" class="choiceparameter">Content: base game (extremely encouraged for first game or casual play)</div>
+        <div id="content" class="choiceparameter">Content: base game (extremely encouraged for first game or casual
+            play)</div>
         <div id="cardproposedonkill" class="choiceparameter">Choices on kill: 5</div>
         <div id="randostartcard" class="choiceparameter">Starting random cards: 2</div>
-        <div id="sets" class="choiceparameter">Cards proposed: by set (choose random if you change 'Choices on kill' OR disable all of one color)</div>
+        <div id="sets" class="choiceparameter">Cards proposed: by set (choose random if you change 'Choices on kill' OR
+            disable all of one color)</div>
         <div id="disableset0" class="choiceparameter">Set 0 Easy: enabled</div>
         <div id="disableset1" class="choiceparameter">Set 1 Play again: enabled</div>
         <div id="disableset2" class="choiceparameter">Set 2 Delay: enabled</div>
@@ -257,10 +274,12 @@
 let color = ["darkgreen", "darkgreen", "darkcyan", "darkcyan", "darkred", "brown", "darkgreen", "indigo", "brown", "brown", "indigo", "darkslateblue", "black"];
 -->
     </div>
-    <div id="closeparameters">X</div>
-
+    <div id="closeparameters">Save for this game only</div>
+    <div id="closeparametersandcookies">Save for this game and remember this for next time (=accept cookies)</div>
+    <div id="closeparameterscancel">Cancel</div>
     <br>
 
     <script src="./java.js"></script>
 </body>
+
 </html>

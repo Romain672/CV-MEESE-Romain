@@ -638,7 +638,7 @@ function generatecards() {
   //Position of others
   listcards.push(new Carte("fourswap", 10, "Crowd", "Swap randomly 2 by 2 others characters", "$cc")); //+9
   //Change of atkmel/atkran
-  listcards.push(new Carte("switch", 10, "Switch", "Swap your $m & $r", "$c")); //+6
+  listcards.push(new Carte("switch", 10, "Switch", "Swap your $zm & $zr", "$c")); //+6
   //Reroll/support
   listcards.push(new Carte("reroll", 10, "Reroll", "$h", "Reroll all unused dices", "$c")); //+6
   listcards.push(new Carte("rubbickscube", 10, "Return", "Return all unused dice", "$c")); //+6
@@ -889,9 +889,16 @@ function resolveeffect(player, id) {
           heal(player, 1);
         }
       }
+      /* $$$$$ */
       if (char[0] == "c") {
-        /*Advanced mode $c & $c*/
-        if (cantrip==1 && diceavailable[player.id] == "n" && player.de==6 && advancedmode==1 && split[i].charAt(1) != "c"){
+        increaseturndelay--;
+        if ((split[i].charAt(1) == "c")) {
+          increaseturndelay--;
+        }
+      }
+      /*if (char[0] == "c") {
+        //Advanced mode $c & $c
+        if (cantrip==1 && diceavailable[player.id] == "n" && advancedmode==1 && split[i].charAt(1) != "c"){
           console.log("Advanced mode: $c twice");
           if(increaseturndelay>0){
             //🔁🔁⌛ => 🔁
@@ -905,21 +912,33 @@ function resolveeffect(player, id) {
             }
             diceavailable[player.id] = "y";
           }
-        } else { /* Not an exception */
+        } else {
+          console.log("s");
           cantrip = 1;
-          if (split[i].charAt(1) != "c") {
+          if ((split[i].charAt(1) != "c")) {
+            console.log("yay3");
             //🔁
             diceavailable[player.id] = "n";
           } else {
-            //🔁🔁
-            let previousde = listpersos[player.id].de;
-            listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
-            if (listpersos[player.id].de >= previousde) {
+            if (advancedmode==1 && increaseturndelay>0){
+              console.log("yay");
+              //🔁🔁⌛ => 🔁
+              diceavailable[player.id] = "n";
+              increaseturndelay--;
+            } else {
+              console.log("yay2");
+              console.log(increaseturndelay);
+              //🔁🔁
+              let previousde = listpersos[player.id].de;
+              listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
+              if (listpersos[player.id].de >= previousde) {
               listpersos[player.id].de++;
+             }
             }
           }
         }
-      }
+      }*/
+
       if (char[0] == "m") {
         //⚔️
         atkmel(player, 1);
@@ -1011,8 +1030,6 @@ function resolveeffect(player, id) {
           afficherallcarte();
         }
       }
-
-
     }
   }
 
@@ -1027,9 +1044,83 @@ function resolveeffect(player, id) {
   afficherallcarte();
 
   specialseffectsafter(player, id);
+  console.log("turndelay:" + increaseturndelay);
   if (increaseturndelay > 0) {
     turndelay[player.id] = increaseturndelay + 1;
   }
+  if(increaseturndelay == -1){
+    //🔁 or 🔁🔁⌛
+    diceavailable[player.id] = "n";
+    cantrip = 1;
+  }
+  if (increaseturndelay == -2 || increaseturndelay == -3){
+    //🔁🔁
+    let previousde = listpersos[player.id].de;
+    listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
+    if (listpersos[player.id].de >= previousde) {
+    listpersos[player.id].de++;
+    }
+    cantrip = 1;
+}
+  if (increaseturndelay == -3){
+    //🔁🔁🔁
+    for (let i=0;i<6;i++){
+      if (listpersos[i].de>0 && listpersos[i].de<7) {
+      listpersos[i].de = Math.trunc(Math.random() * 5 + 1);
+      }
+    }
+  }
+  if (increaseturndelay < -3){
+    console.log("Bug: increaseturndelay too low");
+  }
+
+/*
+  if (char[0] == "c") {
+    //Advanced mode $c & $c
+    if (cantrip==1 && diceavailable[player.id] == "n" && advancedmode==1 && split[i].charAt(1) != "c"){
+      console.log("Advanced mode: $c twice");
+      if(increaseturndelay>0){
+        //🔁🔁⌛ => 🔁
+        increaseturndelay--;
+      } else {
+        //🔁🔁
+        let previousde = listpersos[player.id].de;
+        listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
+        if (listpersos[player.id].de >= previousde) {
+          listpersos[player.id].de++;
+        }
+        diceavailable[player.id] = "y";
+      }
+    } else {
+      console.log("s");
+      cantrip = 1;
+      if ((split[i].charAt(1) != "c")) {
+        console.log("yay3");
+        //🔁
+        diceavailable[player.id] = "n";
+      } else {
+        if (advancedmode==1 && increaseturndelay>0){
+          console.log("yay");
+          //🔁🔁⌛ => 🔁
+          diceavailable[player.id] = "n";
+          increaseturndelay--;
+        } else {
+          console.log("yay2");
+          console.log(increaseturndelay);
+          //🔁🔁
+          let previousde = listpersos[player.id].de;
+          listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
+          if (listpersos[player.id].de >= previousde) {
+          listpersos[player.id].de++;
+         }
+        }
+      }
+    }
+  }
+  */
+
+
+
   checkhps();
   afficherallperso(ordrepersos);
 }
@@ -1619,12 +1710,12 @@ function setting1() {
   if (advancedmode == 0) {
     element.innerHTML = "Content: advanced (each slot got extra effects)(for more thinking)";
     advancedmode = 1;
-    document.getElementById("carte0").children[8].textContent = "a:🚶‍♂️1"; //+4
+    document.getElementById("carte0").children[8].textContent = "a:🚶‍♂️1"; //+1
     document.getElementById("carte1").children[8].textContent = "a:💖💖"; //+2
     document.getElementById("carte2").children[8].textContent = "a:💕⌛"; //+2
     document.getElementById("carte3").children[8].textContent = "a:⚔️"; //+3
     document.getElementById("carte4").children[8].textContent = "a:🏹"; //+3
-    document.getElementById("carte5").children[8].textContent = "a:🔁"; //+1  
+    document.getElementById("carte5").children[8].textContent = "a:🔁"; //+6 
     element.style.backgroundColor = "darkred";
     document.getElementById("imgpoing").textContent = "✊";
     for (i=5;i<16;i++){
@@ -1635,6 +1726,14 @@ function setting1() {
     }
     document.getElementById("atkmel5").style.backgroundColor="darkred";
     document.getElementById("atkmel5").style.borderRadius="50px";
+    document.getElementById("rerolladvanced").textContent = "(🔁🔁🔁: and reroll all non used numbers)";
+    document.getElementById("rerolladvanced").style.textDecoration = "underline";
+    document.getElementById("rerolladvanced2").textContent = " (🔁⌛: cancel each other)";
+    document.getElementById("rerolladvanced2").style.textDecoration = "underline";
+    document.getElementById("rerolladvanced3").textContent = "In advanced mode, all cards got an extra effect which depend of the number rolled and not the card on the number rolled.";
+    document.getElementById("rerolladvanced3").style.textDecoration = "underline";
+    document.getElementById("rerolladvanced4").textContent = " (advanced effects are applied last)";
+    document.getElementById("rerolladvanced4").style.textDecoration = "underline";
   } else {
     element.innerHTML = "Content: base game (extremely encouraged for first game or casual play)";
     advancedmode = 0;

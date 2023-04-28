@@ -592,7 +592,6 @@ function generatecards() {
   listcards.push(new Carte("fireworks", 3, "Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
   listcards.push(new Carte("exhaustwork", 3, "Exhausting strike", "$m$m", "$c", "$t")); //+10
   listcards.push(new Carte("exhaustsnipe", 3, "Exhausting snipe", "$r$r", "$c", "$t")); //+10
-  listcards.push(new Carte("exhaustingheal", 3, "Exhausting heal", "$h$h$h$h$h$h", "$c", "$t")); //+10
   listcards.push(new Carte("fiesta", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
   //$ha
   listcards.push(new Carte("healimpact", 4, "Heal impact", "$m$m", "$ha", "$p>")); //+10

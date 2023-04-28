@@ -39,9 +39,9 @@ let skips = 1;
 
 window.addEventListener("load", onload);
 function onload() {
-  cookieonstart();
   generatepersos();
   generatecards();
+  cookieonstart();
   createbasicdeck();
   afficherallcarte();
   document.getElementById("grayscreen").style.height =
@@ -190,8 +190,9 @@ let carte = {
   effect3: "",
   effect4: "",
   effect5: "",
+  effect6: "",
 };
-function Carte(a, b, c, d, e, f, g, h) {
+function Carte(a, b, c, d, e, f, g, h, i) {
   this.avatar = a;
   //              0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
   //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "cyan", "brown", "black", "indigo", "mediumvioletred", "black"];
@@ -224,6 +225,7 @@ indigo16
   this.effect3 = f;
   this.effect4 = g;
   this.effect5 = h;
+  this.effect6 = i;
 }
 function affichercarte(id) {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
@@ -356,6 +358,34 @@ function affichercarte(id) {
   children[7].append(displayheal(nbrbonusheal[id+1]));
   children[7].append(displaymelee(nbrbonusmelee[id+1]));
   children[7].append(displayrange(nbrbonusrange[id+1]));
+  try {
+    children[8].textContent = listabilities[id].effect6
+      .replaceAll("$+", "$")
+      .replaceAll("$-", "$")
+      .replaceAll("$z", "$")
+      .replaceAll("$°", "$")
+      .replaceAll("$ha", "💕")
+      .replaceAll("$h", "💖")
+      .replaceAll("$cc", "🔁🔁")
+      .replaceAll("$c", "🔁")
+      .replaceAll("$m", "⚔️")
+      .replaceAll("$r", "🏹")
+      .replaceAll("$p", "🚶‍♂️")
+      .replaceAll("$s", "🩸")
+      .replaceAll("$t", "⌛");
+  } catch {
+    children[8].textContent = "";
+  }
+  
+  /* Advanced mode */
+  if (advancedmode ==1) {
+    if(id==0){document.getElementById("carte" + id).children[8].textContent = "a:🚶‍♂️1"}; //+4
+    if(id==1){document.getElementById("carte" + id).children[8].textContent = "a:💖💖"}; //+2
+    if(id==2){document.getElementById("carte" + id).children[8].textContent = "a:💕⌛"}; //+2
+    if(id==3){document.getElementById("carte" + id).children[8].textContent = "a:⚔️"}; //+3
+    if(id==4){document.getElementById("carte" + id).children[8].textContent = "a:🏹"}; //+3
+    if(id==5){document.getElementById("carte" + id).children[8].textContent = "a:🔁"}; //+6
+  }
 
   try {
     if (listabilities[id].effect1[1] == "b") {
@@ -437,6 +467,22 @@ function affichercarte(id) {
       }
     }
   } catch {}
+  try {
+    if (listabilities[id].effect6[1] == "b") {
+      //if there is some bombs
+      if (nbrbombs[id] == 0) {
+        children[8].textContent = displaybombs(
+          listabilities[id].effect6.length - 1
+        );
+      } else {
+        if (nbrbombs[id] == -1) {
+          explosion = 1;
+        } else {
+          children[8].textContent = displaybombs(nbrbombs[id]);
+        }
+      }
+    }
+  } catch {}
   if (explosion == 1) {
     children[1].innerHTML = "<img id='' src='Images/explosed.jpg' alt=''>";
     children[2].textContent = "Explosed";
@@ -497,7 +543,7 @@ function generatecards() {
   //Normal: triples
   listcards.push(new Carte("trident", 0, "Triple strike", "$m$m$m", "$p>")); //+9
   listcards.push(new Carte("spear", 0, "Long attack", "$m$m$r", "$p>")); //+9
-  listcards.push(new Carte("wooden weapon", 0, "Small attack", "$m$r$r")); //+9
+  listcards.push(new Carte("wooden weapon", 0, "Agou agou", "$m$r$r")); //+9
   listcards.push(new Carte("bullet", 0, "Sniping", "$r$r$r", "$p<")); //+9
   listcards.push(new Carte("strikeheal", 0, "Strike & Heal", "$m$m", "$h$h$h", "$p>")); //+9
   listcards.push(new Carte("attack", 0, "Attack & Heal", "$m$r", "$h$h$h")); //+9
@@ -541,7 +587,7 @@ function generatecards() {
   listcards.push(new Carte("regenerationleaf", 4, "Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
   listcards.push(new Carte("fastdog", 4, "Wouf", "$ha", "$c")); //+10
   listcards.push(new Carte("bloodcell", 4, "Transfer health", "$s$s$s$s$s", "$ha$ha","$c", "$p>")); //+9
-  listcards.push(new Carte("field", 4, "Waiting heal", "$ha$ha$ha", "$t")); //+10
+  listcards.push(new Carte("field", 4, "Rest", "$ha$ha$ha", "$t")); //+10
   listcards.push(new Carte("meditate", 4, "Mediate", "$ha$ha$ha$ha", "$t$t$t")); //+10
   listcards.push(new Carte("sleep", 4, "Time to rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
   //Movement
@@ -602,10 +648,6 @@ function generatecards() {
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
-  /*
-    Hard mode (coming soon) extra effect: +3atk for the enemy and:
-    1:🩸⌛🔁 | 2:🩸💕 | 3:💖💖💖 | 4:⚔️ | 5:🏹 | 6:🚶‍♂️1
-   */
 }
 function createbasicdeck() {
   for (let i=0;i<7;i++){
@@ -617,6 +659,7 @@ function createbasicdeck() {
     changecarddeck(i);
   }
 }
+
 
 /* Gameplay */
 function lancerdes() {
@@ -778,7 +821,7 @@ function resolveeffect(player, id) {
   }
 
   let permanentbuff = [0,0,0]; //[m, r, h]
-  for (let j = 4; j > -1; j--) {
+  for (let j = 0; j <7; j++) {
     let split;
     if (j == 0) {
       split = listcards[id].effect1.split("$");
@@ -811,6 +854,27 @@ function resolveeffect(player, id) {
         split = "y";
       }
     }
+    if (j == 5) {
+      try {
+        split = listcards[id].effect6.split("$");
+      } catch {
+        split = "y";
+      }
+    }
+    /* Advanced mode */
+    if (j==6){
+        if (advancedmode==1){
+          if(player.de==1){split = "a:$p1"}; //+4
+          if(player.de==2){split = "a:$h$h"}; //+2
+          if(player.de==3){split = "a:$ha$t"}; //+2
+          if(player.de==4){split = "a:$m"}; //+3
+          if(player.de==5){split = "a:$r"}; //+3
+          if(player.de==6){split = "a:$c"}; //+1
+          split = split.split("$");
+        } else {
+        split="y";
+      }
+    }
     for (let i = 0; i < split.length; i++) {
       let char = split[i].charAt(0);
       if (char[0] == "h") {
@@ -826,16 +890,33 @@ function resolveeffect(player, id) {
         }
       }
       if (char[0] == "c") {
-        cantrip = 1;
-        if (split[i].charAt(1) != "c") {
-          //🔁
-          diceavailable[player.id] = "n";
-        } else {
-          //🔁🔁
-          let previousde = listpersos[player.id].de;
-          listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
-          if (listpersos[player.id].de >= previousde) {
-            listpersos[player.id].de++;
+        /*Advanced mode $c & $c*/
+        if (cantrip==1 && diceavailable[player.id] == "n" && player.de==6 && advancedmode==1 && split[i].charAt(1) != "c"){
+          console.log("Advanced mode: $c twice");
+          if(increaseturndelay>0){
+            //🔁🔁⌛ => 🔁
+            increaseturndelay--;
+          } else {
+            //🔁🔁
+            let previousde = listpersos[player.id].de;
+            listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
+            if (listpersos[player.id].de >= previousde) {
+              listpersos[player.id].de++;
+            }
+            diceavailable[player.id] = "y";
+          }
+        } else { /* Not an exception */
+          cantrip = 1;
+          if (split[i].charAt(1) != "c") {
+            //🔁
+            diceavailable[player.id] = "n";
+          } else {
+            //🔁🔁
+            let previousde = listpersos[player.id].de;
+            listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
+            if (listpersos[player.id].de >= previousde) {
+              listpersos[player.id].de++;
+            }
           }
         }
       }
@@ -1414,6 +1495,9 @@ function changecarddeck(nbr) {
   try {
     split = carte.effect5.split("$b");
   } catch {}
+  try {
+    split = carte.effect6.split("$b");
+  } catch {}
 /*
   console.log(split);
   console.log(split.length);*/
@@ -1458,18 +1542,23 @@ function openparameters() {
   document.getElementById("closeparameters").style.visibility = "visible";
 
   let selector = document.getElementsByClassName("choiceparameter");
-  for (let i = 0; i < selector.length; i++) {
+  for(let i=0;i<5;i++){
     selector[i].style.visibility = "visible";
-    if (i < 5) {
-      selector[i].style.top = 25 + i * 25 + "px";
-    } else {
-      selector[i].style.top = 75 + i * 25 + "px";
+  }
+  selector[0].style.top = "25px";
+  selector[1].style.top = "50px";
+  selector[1].style.height = "40px";
+  selector[2].style.top = "90px";
+  selector[3].style.top = "115px";
+  selector[4].style.top = "140px";
+  for (let i = 5; i < selector.length; i++) {
+    selector[i].style.visibility = "visible";
+      selector[i].style.top = 90 + i * 25 + "px";
       try {
         document.getElementById("disableset" + [i - 5]).style.backgroundColor =
           ordercolor[i - 5];
       } catch {}
     }
-  }
 
   selector[0].addEventListener("click", setting0);
   selector[1].addEventListener("click", setting1);
@@ -1500,6 +1589,7 @@ function closeparameter() {
 
   //cookies:
   createcookie("disablecolors", disablecolors);
+  createcookie("advancedmode", advancedmode);
   createcookie("choicesonkill", choicesonkill);
   createcookie("cardporposed", cardporposed);
   createcookie("randostartcard", randostartcard);
@@ -1519,9 +1609,43 @@ function setting0() {
   afficherallcarte();
 }
 
+/* Advanced mode: */
+let advancedmode = 0;
 function setting1() {
   let element = document.getElementById("content");
-  element.innerHTML = "not done atm D:";
+  if (advancedmode == 0) {
+    element.innerHTML = "Content: advanced (each slot got extra effects)(for more thinking)";
+    advancedmode = 1;
+    document.getElementById("carte0").children[8].textContent = "a:🚶‍♂️1"; //+4
+    document.getElementById("carte1").children[8].textContent = "a:💖💖"; //+2
+    document.getElementById("carte2").children[8].textContent = "a:💕⌛"; //+2
+    document.getElementById("carte3").children[8].textContent = "a:⚔️"; //+3
+    document.getElementById("carte4").children[8].textContent = "a:🏹"; //+3
+    document.getElementById("carte5").children[8].textContent = "a:🔁"; //+1  
+    element.style.backgroundColor = "darkred";
+    document.getElementById("imgpoing").textContent = "✊";
+    for (i=5;i<16;i++){
+      listpersos[i].atkmel+=3;
+    }
+    document.getElementById("atkmel5").style.backgroundColor="darkred";
+    document.getElementById("atkmel5").style.borderRadius="50px";
+  } else {
+    element.innerHTML = "Content: base game (extremely encouraged for first game or casual play)";
+    advancedmode = 0;
+    element.style.backgroundColor = "darkgreen";
+    document.getElementById("carte0").children[8].textContent = ""; //+4
+    document.getElementById("carte1").children[8].textContent = ""; //+2
+    document.getElementById("carte2").children[8].textContent = ""; //+2
+    document.getElementById("carte3").children[8].textContent = ""; //+3
+    document.getElementById("carte4").children[8].textContent = ""; //+3
+    document.getElementById("carte5").children[8].textContent = ""; //+1  
+    document.getElementById("imgpoing").textContent = "👊";
+    for (i=5;i<16;i++){
+      listpersos[i].atkmel+=-3;
+    }
+    document.getElementById("atkmel5").style.backgroundColor="transparent";
+  }
+  afficherperso(document.getElementById("persoetde5"), 5);
 }
 
 let choicesonkill = 5;
@@ -1755,14 +1879,18 @@ function cookieonstart() {
     setting0();
   };
 
-  if(listcookies[1].replace("choicesonkill=","")!=5){
+  if(listcookies[1].replace("advancedmode=","")==1){
+    setting1();
+  }
+
+  if(listcookies[2].replace("choicesonkill=","")!=5){
     setting2();
-  if(listcookies[1].replace("choicesonkill=","")==4){
+  if(listcookies[2].replace("choicesonkill=","")==4){
     setting2();
   }
   };
 
-  let nbr = listcookies[3].replace("randostartcard=","");
+  let nbr = listcookies[4].replace("randostartcard=","");
   if(nbr!=2){ // space annoying
     if (nbr==4){
       setting3();
@@ -1789,11 +1917,11 @@ function cookieonstart() {
     setting3();
   };
 
-  if(listcookies[2].replace("cardporposed=","")==" random"){ // space annoying
+  if(listcookies[3].replace("cardporposed=","")==" random"){ // space annoying
     setting4();
   };
 
-  listset = listcookies[4].replace("set=","").split("|");
+  listset = listcookies[5].replace("set=","").split("|");
   for (let i=0;i<listset.length;i++){
     if (listset[i] == "n" || listset[i] == " n"){ // space annoying
       if(i==0){setting5();}

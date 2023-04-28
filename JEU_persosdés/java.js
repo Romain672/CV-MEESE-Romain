@@ -1231,6 +1231,9 @@ function gameover() {
   afficherallperso(ordrepersos);
   document.getElementById("messagecentral").textContent =
     "Game over: everyone dies :(";
+    if (advancedmode==0){
+      document.getElementById("messagecentral").append(" Did you know there was an advanced mode in the options?");
+    }
   setTimeout(() => {
     for (let i = 0; i < 5; i++) {
       document

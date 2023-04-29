@@ -299,6 +299,7 @@ function affichercarte(id) {
   if (id>5){children[0].textContent = listabilities[id].nom;}
 
   //children[1].textContent = listabilities[id].nom;
+  children[1].innerHTML = "";
   children[2].innerHTML = "<img id='' src='Images/" + listabilities[id].avatar + ".jpg' alt=''>";
   children[3].textContent = listabilities[id].effect1
     .replaceAll("$+", "$")

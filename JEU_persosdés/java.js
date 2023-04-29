@@ -190,6 +190,12 @@ function generatepersoseasy(){
   listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 2, 5);
   listpersos[14] = new Personnage("🐘", "Dumbo", 0, 44, 10, 1);
   listpersos[15] = new Personnage("👨", "Developper", 0, 48, 11, 1);
+  /*Developper difficulty:
+  for (let i=5;i<16;i++){
+    listpersos[i].atkmel += -3;
+    listpersos[i].currenthp += -20;
+    listpersos[i].maxhp += -20;
+  }*/
 }
 function generatepersosadvanced() {
   listpersos[5] = new Personnage("🐀", "Ratatouille", 0, 8, 3, 3);
@@ -709,7 +715,7 @@ function findutour() {
   if (listpersos[ennemy].currenthp < 1) {
     console.log("Kill");
     //One kill done
-    if (ennemy == 16) {
+    if (ennemy == 15) {
       youwin();
       return;
     }
@@ -786,7 +792,6 @@ function checkhps() {
 }
 function genererevents() {
   for (let i = 0; i < 5; i++) {
-    //document.getElementsByClassName("de")[i].addEventListener("click", clickde);
     document.getElementById("persoetde" + i).addEventListener("click", clickde);
   }
 }
@@ -1069,14 +1074,13 @@ function resolveeffect(player, id) {
 function specialseffectsbeforebeforebefore(player, id) {
   if (listcards[id].nom == "Chaos") {
     //"$ha", "Trigger a random other ability (non Chaos)"
-    console.log("c");
     let rand;
     let newid = id;
     while (listcards[newid].nom == "Chaos") {
       rand = Math.trunc(Math.random() * 6);
       newid = listabilities[rand].id;
     }
-    console.log("Effect chosen randomly:" + newid);
+    console.log("Effect chosen randomly:" + [rand+1]);
     document.getElementById("messagecentral").textContent =
       "Effect " + newid + " done.";
     skipnextmessage = 1;
@@ -1108,7 +1112,6 @@ function specialseffectsbeforebefore(player, id) {
 function specialseffectsbefore(player, id) {
   if (listcards[id].nom == "Perfect spot") {
     //"$m$r", "$h", "💖🏹 if 🚶‍♂️3", "$p3" //+8.4
-    console.log("ps");
     if (ordrepersos.indexOf(player.id) == 2) {
       heal(player, 1);
       cantrip = 1;
@@ -1117,7 +1120,6 @@ function specialseffectsbefore(player, id) {
   }
   if (listcards[id].nom == "Balanced attack") {
     //"⚔️⚔️⚔️ if 🚶‍♂️1 or 🚶‍♂️2", "$zr$zr$zr if 🚶‍♂️4 or 🚶‍♂️5" //+7.2
-    console.log("ba");
     if (ordrepersos.indexOf(player.id) == 0 || ordrepersos.indexOf(player.id) == 1) {
       atkmel(player, 3);
     }
@@ -1127,7 +1129,6 @@ function specialseffectsbefore(player, id) {
   }
   if (listcards[id].nom == "Fortress in the wood") {
     //"$m", "⚔️$zr$zr if 🚶‍♂️2 or 🚶‍♂️3 or 🚶‍♂️4" //+8.4
-    console.log("cf");
     if (
       ordrepersos.indexOf(player.id) == 1 ||
       ordrepersos.indexOf(player.id) == 2 ||
@@ -1242,7 +1243,6 @@ function specialseffectsafter(player, id) {
   afficherallperso(ordrepersos);
     for (let i=0;i<6;i++){
       if (listpersos[i].de == 7 && turndelay[i]==0){ //not ⌛
-        console.log(i);
         listpersos[i].de = Math.trunc(Math.random() * 6 + 1);
         diceavailable[i] = "y";
         afficherallperso(ordrepersos);
@@ -1308,12 +1308,10 @@ function gameover() {
     }
   setTimeout(() => {
     for (let i = 0; i < 5; i++) {
-      document
-        .getElementsByClassName("de")
-        [i].removeEventListener("click", clickde);
+      document.getElementById("persoetde" + i).removeEventListener("click", clickde);
     }
     document.getElementById("skip").removeEventListener("click", skipturn);
-  }, 1000);
+  }, 100);
   document.getElementById("playagain").style.visibility = "visible";
   document.getElementById("playagain").addEventListener("click", reload);
 }
@@ -1324,12 +1322,10 @@ function youwin() {
     "Congratulation you won :)";
   setTimeout(() => {
     for (let i = 0; i < 5; i++) {
-      document
-        .getElementsByClassName("de")
-        [i].removeEventListener("click", clickde);
+      document.getElementById("persoetde" + i).removeEventListener("click", clickde);
     }
     document.getElementById("skip").removeEventListener("click", skipturn);
-  }, 1000);
+  }, 100);
   document.getElementById("playagain").style.visibility = "visible";
   document.getElementById("playagain").addEventListener("click", reload);
 }
@@ -1576,9 +1572,6 @@ function changecarddeck(nbr) {
   try {
     split = carte.effect6.split("$b");
   } catch {}
-/*
-  console.log(split);
-  console.log(split.length);*/
   if (split.length>1){
     //there is some bombs
     nbrbombs[nbr] = split[1].length+1;

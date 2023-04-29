@@ -181,7 +181,7 @@ function generatepersoseasy(){
   listpersos[12] = new Personnage("🐎", "Pégase", 0, 36, 2, 5);
   listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 11, 1);
   listpersos[14] = new Personnage("🐘", "Dumbo", 0, 44, 4, 3);
-  listpersos[15] = new Personnage("👨", "The developper", 0, 48, 13, 1);
+  listpersos[15] = new Personnage("👨", "Developper", 0, 48, 13, 1);
 }
 function generatepersosadvanced() {
   listpersos[5] = new Personnage("🐀", "Ratatouille", 0, 8, 4, 2);
@@ -194,7 +194,7 @@ function generatepersosadvanced() {
   listpersos[12] = new Personnage("🐎", "Pégase", 0, 36, 5, 3);
   listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 4, 4);
   listpersos[14] = new Personnage("🐘", "Dumbo", 0, 44, 17, 1);
-  listpersos[15] = new Personnage("👨", "The developper", 0, 48, 6, 3);
+  listpersos[15] = new Personnage("👨", "Developper", 0, 48, 6, 3);
 }
 
 /* Cartes */
@@ -590,9 +590,12 @@ function generatecards() {
   //Delay weird
   listcards.push(new Carte("marblesofdeath", 3, "Marbles of death", "$m$m$m$m$m$m", "$t$t$t$t")); //+10
   listcards.push(new Carte("fireworks", 3, "Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
-  listcards.push(new Carte("exhaustwork", 3, "Exhausting strike", "$m$m", "$c", "$t")); //+10
-  listcards.push(new Carte("exhaustsnipe", 3, "Exhausting snipe", "$r$r", "$c", "$t")); //+10
+  /*listcards.push(new Carte("exhaustwork", 3, "Exhausting strike", "$m$m$m", "$c", "$t$t$t")); //+10
+  listcards.push(new Carte("exhaustsnipe", 3, "Exhausting snipe", "$r$r$r", "$c", "$t$t$t")); //+10*/
   listcards.push(new Carte("fiesta", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
+  listcards.push(new Carte("field", 3, "Rest", "$ha$ha$ha", "$t")); //+10
+  listcards.push(new Carte("meditate", 3, "Mediate", "$ha$ha$ha$ha", "$t$t$t")); //+10
+  listcards.push(new Carte("sleep", 3, "Time to rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
   //$ha
   listcards.push(new Carte("healimpact", 4, "Heal impact", "$m$m", "$ha", "$p>")); //+10
   listcards.push(new Carte("seedtree", 4, "Heal polyvalent", "$m$r", "$ha")); //+10
@@ -604,9 +607,7 @@ function generatecards() {
   listcards.push(new Carte("regenerationleaf", 4, "Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
   listcards.push(new Carte("fastdog", 4, "Wouf", "$ha", "$c")); //+10
   listcards.push(new Carte("bloodcell", 4, "Transfer health", "$s$s$s$s$s", "$ha$ha","$c", "$p>")); //+9
-  listcards.push(new Carte("field", 4, "Rest", "$ha$ha$ha", "$t")); //+10
-  listcards.push(new Carte("meditate", 4, "Mediate", "$ha$ha$ha$ha", "$t$t$t")); //+10
-  listcards.push(new Carte("sleep", 4, "Time to rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
+
   //Movement
   listcards.push(new Carte("alone", 5, "Lost", "$m", "$s", "$c", "$p1")); //+9
   listcards.push(new Carte("catapult", 5, "Flee snipe", "$r", "$s", "$c", "$p5")); //+9
@@ -695,13 +696,13 @@ function findutour() {
   if (listpersos[ennemy].currenthp < 1) {
     console.log("Kill");
     //One kill done
-    ennemy++;
-    listpersos[5] = listpersos[ennemy];
-    choosenewcard();
-    if (ennemy == 16) {
+    if (ennemy == 15) {
       youwin();
       return;
     }
+    ennemy++;
+    listpersos[5] = listpersos[ennemy];
+    choosenewcard();
     if (ennemy == 7 || ennemy == 9 || ennemy > 10){
       skips++;
     }
@@ -1272,6 +1273,7 @@ function gameover() {
   document.getElementById("playagain").addEventListener("click", reload);
 }
 function youwin() {
+  console.log("youwin()");
   afficherallperso(ordrepersos);
   document.getElementById("messagecentral").textContent =
     "Congratulation you won :)";

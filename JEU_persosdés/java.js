@@ -652,8 +652,8 @@ function generatecards() {
   listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r$r$r$r", "Loses permanently $-m", "$c")); //+18
   listcards.push(new Carte("cultivate", 8, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
   listcards.push(new Carte("growstrength", 8, "Instable full attack", "$m$m", "Gain $°m after each use", "$bbbbb")); // +6 +9 +12 +15 +18
-  listcards.push(new Carte("distribution", 8, "Distribution", "💥 (non Bunker or Repatition) cards gain one 💥", "$c", "$bb"));
-  listcards.push(new Carte("bunker", 8, "Bunker", "💥 cards (non Bunker or Repatition) gain one 💥", "$bbbbb"));
+  listcards.push(new Carte("distribution", 8, "Distribution", "💥 cards (non Bunker or Distribution) gain one 💥", "$c", "$bb"));
+  listcards.push(new Carte("bunker", 8, "Bunker", "💥 cards (non Bunker or Distribution) gain one 💥", "$bbbbb"));
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9

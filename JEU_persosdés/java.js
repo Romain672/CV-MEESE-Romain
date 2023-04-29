@@ -178,23 +178,23 @@ function generatepersoseasy(){
   listpersos[9] = new Personnage("🐒", "Abu", 0, 24, 7, 1);
   listpersos[10] = new Personnage("🐺", "Fenrir", 0, 28, 4, 2);
   listpersos[11] = new Personnage("🐄", "Abigaëlle", 0, 32, 3, 3);
-  listpersos[12] = new Personnage("🐎", "Pégase", 0, 36, 2, 5);
-  listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 11, 1);
-  listpersos[14] = new Personnage("🐘", "Dumbo", 0, 44, 4, 3);
-  listpersos[15] = new Personnage("👨", "Developper", 0, 48, 13, 1);
+  listpersos[12] = new Personnage("🐎", "Pégase", 0, 36, 9, 1);
+  listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 2, 5);
+  listpersos[14] = new Personnage("🐘", "Dumbo", 0, 44, 10, 1);
+  listpersos[15] = new Personnage("👨", "Developper", 0, 48, 11, 1);
 }
 function generatepersosadvanced() {
-  listpersos[5] = new Personnage("🐀", "Ratatouille", 0, 8, 4, 2);
-  listpersos[6] = new Personnage("🐤", "Piou", 0, 12, 3, 3);
-  listpersos[7] = new Personnage("🐧", "Siffli", 0, 16, 2, 5);
-  listpersos[8] = new Personnage("🐈", "Garfield", 0, 20, 11, 1);
-  listpersos[9] = new Personnage("🐒", "Abu", 0, 24, 4, 3);
-  listpersos[10] = new Personnage("🐺", "Fenrir", 0, 28, 13, 1);
-  listpersos[11] = new Personnage("🐄", "Abigaëlle", 0, 32, 7, 2);
-  listpersos[12] = new Personnage("🐎", "Pégase", 0, 36, 5, 3);
-  listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 4, 4);
+  listpersos[5] = new Personnage("🐀", "Ratatouille", 0, 8, 3, 3);
+  listpersos[6] = new Personnage("🐤", "Piou", 0, 12, 2, 5);
+  listpersos[7] = new Personnage("🐧", "Siffli", 0, 16, 11, 1);
+  listpersos[8] = new Personnage("🐈", "Garfield", 0, 20, 4, 3);
+  listpersos[9] = new Personnage("🐒", "Abu", 0, 24, 13, 1);
+  listpersos[10] = new Personnage("🐺", "Fenrir", 0, 28, 7, 2);
+  listpersos[11] = new Personnage("🐄", "Abigaëlle", 0, 32, 5, 3);
+  listpersos[12] = new Personnage("🐎", "Pégase", 0, 36, 4, 4);
+  listpersos[13] = new Personnage("🐻", "Teddy", 0, 40, 16, 1);
   listpersos[14] = new Personnage("🐘", "Dumbo", 0, 44, 17, 1);
-  listpersos[15] = new Personnage("👨", "Developper", 0, 48, 6, 3);
+  listpersos[15] = new Personnage("👨", "Developper", 0, 48, 18, 1);
 }
 
 /* Cartes */
@@ -703,7 +703,7 @@ function findutour() {
     ennemy++;
     listpersos[5] = listpersos[ennemy];
     choosenewcard();
-    if (ennemy == 7 || ennemy == 9 || ennemy > 10){
+    if (ennemy%2 == 1){
       skips++;
     }
     let elementstyle = document.getElementById("displayrules").style;
@@ -1687,6 +1687,8 @@ function setting1() {
     document.getElementById("rerolladvanced3").style.textDecoration = "underline";
     document.getElementById("rerolladvanced4").textContent = " (advanced effects are applied last)";
     document.getElementById("rerolladvanced4").style.textDecoration = "underline";
+    document.getElementById("rerolladvanced5").style.visibility = "visible";
+    document.getElementById("rerolladvanced5").style.textDecoration = "underline";
   } else {
     element.innerHTML = "Content: base game (extremely encouraged for first game or casual play)";
     advancedmode = 0;

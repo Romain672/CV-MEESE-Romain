@@ -91,6 +91,10 @@ body{
     min-height: 40px;
 }
 
+#rerolladvanced5{
+    visibility: hidden;
+}
+
 .hidden{
     color:transparent;
 }

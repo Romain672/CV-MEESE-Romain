@@ -35,7 +35,8 @@ let ordercolor = [
   "darkslateblue",
   "black",
 ];
-let skips = 1;
+let skips = 0;
+let cantrip = 0; //check if you can chose another dice or not
 
 window.addEventListener("load", onload);
 function onload() {
@@ -75,7 +76,6 @@ function Personnage(a, b, c, d, e, f) {
   this.atkmel = e;
   this.atkran = f;
 }
-var des = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "🔁"]; //1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣🔀🔢🔁
 function afficherperso(element, id) {
   let children = element.children;
   if (id == 0) {
@@ -133,10 +133,19 @@ function afficherperso(element, id) {
       listpersos[ordrepersos[ordrepersos.indexOf(id)]].de = "7";
     } else {
       if (diceavailable[id] == "n") {
-        children[1].textContent = "🔁";
-        listpersos[ordrepersos[ordrepersos.indexOf(id)]].de = "7";
+          children[1].textContent = "🔁";
+          listpersos[ordrepersos[ordrepersos.indexOf(id)]].de = "7";
       } else {
-        children[1].textContent = des[listpersos[id].de - 1];
+        if (diceavailable[id] == "x") {
+          children[1].textContent = "❌";
+        } else {
+          if (diceavailable[id] == "y"){
+            var des = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "🔁"]; //1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣🔀🔢🔁
+            children[1].textContent = des[listpersos[id].de - 1];
+          } else {
+            console.log("bug: diceavailable[id] non equal to n, x, or y");
+          }
+        }
       }
     }
 
@@ -158,7 +167,7 @@ function afficherallperso(array) {
   afficherperso(document.getElementById("persoetde2"), array[2]);
   afficherperso(document.getElementById("persoetde3"), array[3]);
   afficherperso(document.getElementById("persoetde4"), array[4]);
-  afficherperso(document.getElementById("persoetde5"), array[5]);
+  afficherperso(document.getElementById("persoetde5"), ennemy);
 }
 function generatepersos() {
   //ally
@@ -167,7 +176,6 @@ function generatepersos() {
   listpersos[2] = new Personnage("🤖", "Catherine", 0, 10, 3, 2);
   listpersos[3] = new Personnage("👽", "Derick", 0, 6, 4, 4);
   listpersos[4] = new Personnage("🎅", "Elise", 0, 6, 1, 6);
-  //ennemy
   generatepersoseasy();
 }
 function generatepersoseasy(){
@@ -576,6 +584,7 @@ function generatecards() {
   listcards.push(new Carte("bench", 1, "Heal & Retreat", "$h$h$h", "$c", "$p5")); //+10
   listcards.push(new Carte("carddeck", 1, "Quick draw", "$r", "$c")); //+9
   listcards.push(new Carte("quick", 1, "Quick attack", "$m", "$c")); //+9
+  listcards.push(new Carte("quicklamp", 1, "Quick things", "$s", "Others 🔁 dices (non Quick things) are rerolled", "$c"));
   //Delay damage
   listcards.push(new Carte("quadruplecard", 2, "Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
   listcards.push(new Carte("longsnake", 2, "Longest snake", "$m$m$m$r", "$t", "$p>")); //+10
@@ -596,6 +605,8 @@ function generatecards() {
   listcards.push(new Carte("field", 3, "Rest", "$ha$ha$ha", "$t")); //+10
   listcards.push(new Carte("meditate", 3, "Mediate", "$ha$ha$ha$ha", "$t$t$t")); //+10
   listcards.push(new Carte("sleep", 3, "Time to rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
+  listcards.push(new Carte("acceleratetime", 3, "Accelerate time", "⌛ dices loses one coldown", "$c"));
+  listcards.push(new Carte("skiptime", 3, "Skip time", "⌛ dices loses all coldowns"));
   //$ha
   listcards.push(new Carte("healimpact", 4, "Heal impact", "$m$m", "$ha", "$p>")); //+10
   listcards.push(new Carte("seedtree", 4, "Heal polyvalent", "$m$r", "$ha")); //+10
@@ -628,35 +639,37 @@ function generatecards() {
   listcards.push(new Carte("planeexplosion", 7, "Fast instable attacks", "$m$r", "$c", "$bbb")); //+9 3*3
   listcards.push(new Carte("callbomb", 7, "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")); //+9 2*9
   //Permanent upgrades $b
-  listcards.push(new Carte("demonicstrength", 8, "Demonic strength", "Gain permanently $+m", "Loses permanently $-h$-h", "$c"));
-  listcards.push(new Carte("demonicpact", 8, "Demonic's pact", "Gain permanently $+r", "Loses permanently $-h$-h", "$c"));
-  listcards.push(new Carte("hellvolcano", 8, "Demonic health", "Gain permanently $+h$+h$+h$+h", "Loses permanently $-m$-r", "$c"));
-  listcards.push(new Carte("searchforheal", 8, "Lifestone's search", "Gain permanently $+h", "$bbb")); //+1
-  listcards.push(new Carte("purpleflower", 8, "Melee buff", "Gain permanently $+m", "Loses permanently $-h", "$bbb")); //+0
-  listcards.push(new Carte("sunsetgiraffe", 8, "Ranged buff", "Gain permanently $+r", "Loses permanently $-h", "$bbb")); //+1
-  listcards.push(new Carte("devilclothe", 8, "Attack buff", "Gain permanently $+m$+r", "Loses permanently $-h$-h", "$bb")); //+1
-  listcards.push(new Carte("candleburned", 8, "Demonic attack", "$p>", "$m$m$m$m$m", "Loses permanently $-r")); //+15
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r", "Loses permanently $-m")); //+15
-  listcards.push(new Carte("runexplose", 8, "Attack and run", "$p>", "$m$m$m", "Loses permanently $-r", "$c")); //+12
-  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r$r$r", "Loses permanently $-m", "$c")); //+12
+  listcards.push(new Carte("demonicstrength", 8, "Demonic strength", "Gain permanently $+m", "Loses permanently $-h$-h", "$cc")); //+0p
+  listcards.push(new Carte("demonicpact", 8, "Demonic's pact", "Gain permanently $+r", "Loses permanently $-h$-h", "$cc")); //+0p
+  listcards.push(new Carte("hellvolcano", 8, "Demonic health", "Gain permanently $+h$+h$+h$+h", "Loses permanently $-m$-r", "$cc")); //+0p
+  listcards.push(new Carte("searchforheal", 8, "Lifestone's search", "Gain permanently $+h", "$c", "$bbb")); //+3p
+  listcards.push(new Carte("purpleflower", 8, "Melee buff", "Gain permanently $+m", "Loses permanently $-h", "$c", "$bbb")); //+3p
+  listcards.push(new Carte("sunsetgiraffe", 8, "Ranged buff", "Gain permanently $+r", "Loses permanently $-h", "$c", "$bbb")); //+3p
+  listcards.push(new Carte("devilclothe", 8, "Attack buff", "Gain permanently $+m$+r", "Loses permanently $-h$-h", "$c", "$bb")); //+4p
+  listcards.push(new Carte("candleburned", 8, "Demonic attack", "$p>", "$m$m$m$m$m$m", "Loses permanently $-r")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("runexplose", 8, "Attack and run", "$p>", "$m$m$m$m", "Loses permanently $-r", "$c")); //+18
+  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r$r$r$r", "Loses permanently $-m", "$c")); //+18
   listcards.push(new Carte("cultivate", 8, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
   listcards.push(new Carte("growstrength", 8, "Instable full attack", "$m$m", "Gain $°m after each use", "$bbbbb")); // +6 +9 +12 +15 +18
+  listcards.push(new Carte("distribution", 8, "Distribution", "💥 (non Bunker or Repatition) cards gain one 💥", "$c", "$bb"));
+  listcards.push(new Carte("bunker", 8, "Bunker", "💥 cards (non Bunker or Repatition) gain one 💥", "$bbbbb"));
 
-  //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
+  //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //UNIQUE EFFECTS
   //Positionnal bonus
-  listcards.push(new Carte("perfectspot", 9, "Perfect spot", "$m$r", "$h", "$zh$zc if $zp3", "$p3")); //+8.4
-  listcards.push(new Carte("target", 9, "Balanced attack", "$zm$zm$zm if $zp1 or $zp2", "$zr$zr$zr if $zp4 or $zp5")); //+7.2
-  listcards.push(new Carte("middlewood", 9, "Fortress in the wood", "$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4")); //+8.4
-  listcards.push(new Carte("bridge", 9, "Healing dash", "$p1", "$zh$zh for each space moved", "$c")); //6 8 10 12 14
-  listcards.push(new Carte("longattack", 9, "Snipe dash", "$p4", "$zr$zr for each space moved")); //0 6 6 12 18
-  listcards.push(new Carte("medictime", 9, "Medical dash", "$p5", "$zha for each space moved")); //0 4 8 12 16
+  listcards.push(new Carte("perfectspot", 9, "Perfect spot", "$m$r", "$h", "💖🏹 if 🚶‍♂️3", "$p3")); //+8.4
+  listcards.push(new Carte("target", 9, "Balanced attack", "⚔️⚔️⚔️ if 🚶‍♂️1 or 🚶‍♂️2", "🏹🏹🏹 if 🚶‍♂️4 or 🚶‍♂️5")); //+7.2
+  listcards.push(new Carte("middlewood", 9, "Fortress in the wood", "$m", "⚔️🏹🏹 if 🚶‍♂️2 or 🚶‍♂️3 or 🚶‍♂️4")); //+8.4
+  listcards.push(new Carte("bridge", 9, "Healing dash", "$p1", "💖💖 for each space moved", "$c")); //6 8 10 12 14
+  listcards.push(new Carte("longattack", 9, "Snipe dash", "$p4", "🏹🏹 for each space moved")); //0 6 6 12 18
+  listcards.push(new Carte("medictime", 9, "Medical dash", "$p5", "💕 for each space moved")); //0 4 8 12 16
 
   //Position of others
   listcards.push(new Carte("fourswap", 10, "Crowd", "Swap randomly 2 by 2 others characters", "$cc")); //+9
   //Change of atkmel/atkran
-  listcards.push(new Carte("switch", 10, "Switch", "Swap your $zm & $zr", "$c")); //+6
+  listcards.push(new Carte("switch", 10, "Switch", "Swap your ⚔️ & 🏹", "$c")); //+6
   //Reroll/support
   listcards.push(new Carte("reroll", 10, "Reroll", "$h", "Reroll all unused dices", "$c")); //+6
   listcards.push(new Carte("rubbickscube", 10, "Return", "Return all unused dice", "$c")); //+6
@@ -696,12 +709,11 @@ function findutour() {
   if (listpersos[ennemy].currenthp < 1) {
     console.log("Kill");
     //One kill done
-    if (ennemy == 15) {
+    if (ennemy == 16) {
       youwin();
       return;
     }
     ennemy++;
-    listpersos[5] = listpersos[ennemy];
     choosenewcard();
     if (ennemy%2 == 1){
       skips++;
@@ -712,8 +724,8 @@ function findutour() {
     elementstyle.height = "22px";
   } else {
     //damage
-    for (let i=0;i<listpersos[5].atkran;i++){
-      listpersos[ordrepersos[i]].currenthp += -1 * listpersos[5].atkmel;
+    for (let i=0;i<listpersos[ennemy].atkran;i++){
+      listpersos[ordrepersos[i]].currenthp += -1 * listpersos[ennemy].atkmel;
     }
   }
   if (skipnextmessage == 0) {
@@ -796,7 +808,7 @@ function clickde(event) {
 
   if (de == 7) {
     document.getElementById("messagecentral").textContent =
-      "Clicking on 🔁/⌛ does nothing. You can skip turn instead.";
+      "Clicking on 🔁/⌛/❌ does nothing. You can skip turn instead.";
     return;
   }
   if (nbrbombs[player.de - 1] == -1) {
@@ -812,11 +824,11 @@ function clickde(event) {
     turndelaydecrease();
     findutour();
   } else {
-    if (listpersos[5].currenthp < 1) {
-      listpersos[5].currenthp = 0;
+    if (listpersos[ennemy].currenthp < 1) {
+      listpersos[ennemy].currenthp = 0;
       afficherallperso(ordrepersos);
       document.getElementById("messagecentral").textContent =
-        "Enemy killed. You must do an extra action (like skip turn) before fighting the next enemy.";
+        "Ennemy killed. You must do an extra action (like skip turn) before fighting the next ennemy.";
     } else {
       if (skipnextmessage == 0) {
         document.getElementById("messagecentral").textContent = "Extra turn (🔁)";
@@ -825,7 +837,6 @@ function clickde(event) {
     }
   }
 }
-let cantrip = 0; //check if you can chose another dice or not
 function resolveeffect(player, id) {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
@@ -834,7 +845,6 @@ function resolveeffect(player, id) {
   id = specialseffectsbeforebeforebefore(player, id);
   id = specialseffectsbeforebefore(player, id);
   id = specialseffectsbefore(player, id);
-
   //bombs
   if (nbrbombs[listpersos[player.id].de - 1] == 1) {
     //explosion
@@ -945,9 +955,7 @@ function resolveeffect(player, id) {
 
       //permanent buff on perso
       if (char[0] == "+") {
-        console.log("+");
-        console.log(split);
-        console.log(split[i].charAt(1));
+        console.log("+" + split + "| " + split[i].charAt(1));
         if (split[i].charAt(1) == "m") {
           permanentbuff[0]++;
         }
@@ -960,9 +968,7 @@ function resolveeffect(player, id) {
         }
       }
       if (char[0] == "-") {
-        console.log("-");
-        console.log(split);
-        console.log(split[i].charAt(1));
+        console.log("-" + split + "| " + split[i].charAt(1));
         if (split[i].charAt(1) == "m") {
           if (player.atkmel-permanentbuff[0] == 0) {
             document.getElementById("messagecentral").textContent =
@@ -1024,10 +1030,6 @@ function resolveeffect(player, id) {
       heal(player, permanentbuff[2]);
     }
 
-  afficherallcarte();
-
-  specialseffectsafter(player, id);
-  console.log("turndelay:" + increaseturndelay);
   if (increaseturndelay > 0) {
     turndelay[player.id] = increaseturndelay + 1;
   }
@@ -1056,8 +1058,12 @@ function resolveeffect(player, id) {
   if (increaseturndelay < -3){
     console.log("Bug: increaseturndelay too low");
   }
+  
+  specialseffectsafter(player, id);
+  console.log(diceavailable);
 
   checkhps();
+  afficherallcarte();
   afficherallperso(ordrepersos);
 }
 function specialseffectsbeforebeforebefore(player, id) {
@@ -1101,7 +1107,7 @@ function specialseffectsbeforebefore(player, id) {
 }
 function specialseffectsbefore(player, id) {
   if (listcards[id].nom == "Perfect spot") {
-    //"$m$r", "$h", "$zh$zc if $zp3", "$p3" //+8.4
+    //"$m$r", "$h", "💖🏹 if 🚶‍♂️3", "$p3" //+8.4
     console.log("ps");
     if (ordrepersos.indexOf(player.id) == 2) {
       heal(player, 1);
@@ -1110,7 +1116,7 @@ function specialseffectsbefore(player, id) {
     }
   }
   if (listcards[id].nom == "Balanced attack") {
-    //"$zm$zm$zm if $zp1 or $zp2", "$zr$zr$zr if $zp4 or $zp5" //+7.2
+    //"⚔️⚔️⚔️ if 🚶‍♂️1 or 🚶‍♂️2", "$zr$zr$zr if 🚶‍♂️4 or 🚶‍♂️5" //+7.2
     console.log("ba");
     if (ordrepersos.indexOf(player.id) == 0 || ordrepersos.indexOf(player.id) == 1) {
       atkmel(player, 3);
@@ -1120,7 +1126,7 @@ function specialseffectsbefore(player, id) {
     }
   }
   if (listcards[id].nom == "Fortress in the wood") {
-    //"$m", "$zm$zr$zr if $zp2 or $zp3 or $zp4" //+8.4
+    //"$m", "⚔️$zr$zr if 🚶‍♂️2 or 🚶‍♂️3 or 🚶‍♂️4" //+8.4
     console.log("cf");
     if (
       ordrepersos.indexOf(player.id) == 1 ||
@@ -1132,7 +1138,7 @@ function specialseffectsbefore(player, id) {
     }
   }
   if (listcards[id].nom == "Healing dash"){
-    //"p1", "$zh$zh for each space moved", "$c"
+    //"p1", "💖💖 for each space moved", "$c"
     heal (player,  ordrepersos.indexOf(player.id) *2);
   }
   if (listcards[id].nom == "Snipe dash"){
@@ -1144,7 +1150,7 @@ function specialseffectsbefore(player, id) {
     }
   }
   if (listcards[id].nom == "Medical dash"){
-    //"$p5", "$zh$zha for each space moved"
+    //"$p5", "💖💕 for each space moved"
     for (let k = 0; k < 5; k++) {
       heal(listpersos[k], 4- ordrepersos.indexOf(player.id));
     }
@@ -1154,7 +1160,6 @@ function specialseffectsbefore(player, id) {
 function specialseffectsafter(player, id) {
   if (listcards[id].nom == "Crowd") {
     //"Change randomly the place of all characters", "$cc"
-    console.log("c");
     let nbrs = [0, 1, 2, 3, 4];
     nbrs.splice(ordrepersos.indexOf(player.id), 1);
     let alea = Math.trunc(Math.random() * 3 + 1);
@@ -1166,7 +1171,6 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Switch") {
     //"Swap your $m & $r", "$c"
-    console.log("s");
     let i = listpersos[player.id].atkmel;
     listpersos[player.id].atkmel = listpersos[player.id].atkran;
     listpersos[player.id].atkran = i;
@@ -1177,7 +1181,6 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Reroll") {
     //"$h", "Reroll all unused dices", "$c"
-    console.log("r");
     for (let i = 0; i < 5; i++) {
       if (listpersos[i].de < 7 && listpersos[i].de > 0) {
         listpersos[i].de = Math.trunc(Math.random() * 6 + 1);
@@ -1188,7 +1191,6 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Return") {
     //"Return all unused dice", "$c"
-    console.log("i");
     for (let i = 0; i < 5; i++) {
       if (listpersos[i].de < 7 && listpersos[i].de > 0) {
         listpersos[i].de = 7 - listpersos[i].de;
@@ -1206,18 +1208,61 @@ function specialseffectsafter(player, id) {
     heal(listpersos[3], -1);
     heal(listpersos[4], -1);
   }
+  if (listcards[id].nom == "Bunker" || listcards[id].nom == "Distribution") {
+    //"💥 cards gain one 💥", "$bbbbb"
+    let cardplayed = listcards[id];
+    for (let i=0;i<6;i++){
+      if (nbrbombs[i]>0 && cardplayed.nom != "Bunker" && cardplayed.nom != "Distribution"){
+        nbrbombs[i]++;
+        console.log("bomb added");
+      }
+    }
+    afficherallcarte();
+  }
+  if (listcards[id].nom == "Accelerate time" || listcards[id].nom == "Skip time") {
+    //at:"⌛ cards lose one coldown", "$c"
+    //st:"⌛ cards lose all coldowns"
+    for (let i=0;i<6;i++){
+      if (turndelay[i]>0){
+        if (listcards[id].nom == "Accelerate time") {
+          //accelerate time
+          turndelay[i]--;
+        } else {
+          //skip time
+          turndelay[i]=0;
+        }
+        if(turndelay[i]==0){
+          listpersos[i].de = Math.trunc(Math.random() * 6 + 1);
+        }
+      }
+    }
+  }
+  if (listcards[id].nom == "Quick things") {
+  //"$s", "Others 🔁 dices are rerolled", "$c"
+  afficherallperso(ordrepersos);
+    for (let i=0;i<6;i++){
+      if (listpersos[i].de == 7 && turndelay[i]==0){ //not ⌛
+        console.log(i);
+        listpersos[i].de = Math.trunc(Math.random() * 6 + 1);
+        diceavailable[i] = "y";
+        afficherallperso(ordrepersos);
+      }
+    }
+    diceavailable[player.id] = "x";
+    player.de = 7;
+  }
 }
 function heal(player, nbr) {
   player.currenthp += nbr;
 }
 function attack(nbr) {
-  listpersos[5].currenthp += -1 * nbr;
+  listpersos[ennemy].currenthp += -1 * nbr;
 }
 function atkmel(player, nbr) {
-  listpersos[5].currenthp += -1 * nbr * player.atkmel;
+  listpersos[ennemy].currenthp += -1 * nbr * player.atkmel;
 }
 function atkran(player, nbr) {
-  listpersos[5].currenthp += -1 * nbr * player.atkran;
+  listpersos[ennemy].currenthp += -1 * nbr * player.atkran;
 }
 function move(player, string) {
   let endroit = ordrepersos.indexOf(player.id);

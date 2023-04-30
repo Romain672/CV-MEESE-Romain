@@ -657,11 +657,6 @@ function generatecards() {
   listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r", "Loses permanently $-m to deal 🏹🏹🏹 extra")); //+18
   listcards.push(new Carte("runexplose", 8, "Attack and run", "$p>", "$m", "Loses permanently $-r to deal ⚔️⚔️⚔️ extra", "$c")); //+18
   listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
-  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
-  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
-  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
-  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
-  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
   listcards.push(new Carte("cultivate", 8, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
   listcards.push(new Carte("growstrength", 8, "Instable full attack", "$m$m", "Gain $°m after each use", "$bbbbb")); // +6 +9 +12 +15 +18
   listcards.push(new Carte("distribution", 8, "Distribution", "💥 cards (non Bunker or Distribution) gain one 💥", "$c", "$bb"));

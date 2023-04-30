@@ -1081,9 +1081,9 @@ function specialseffectsbeforebeforebefore(player, id) {
       rand = Math.trunc(Math.random() * 6);
       newid = listabilities[rand].id;
     }
-    console.log("Effect chosen randomly:" + [rand+1]);
+    console.log("Effect chosen randomly:" + [rand+1] + "| id:" + newid);
     document.getElementById("messagecentral").textContent =
-      "Effect " + newid + " done.";
+      "Effect " + [rand+1] + " done.";
     skipnextmessage = 1;
     //$ha
     for (let k = 0; k < 5; k++) {
@@ -1443,6 +1443,11 @@ function choosenewcard() {
   //skip
   document.getElementById("skipcard").style.visibility = "visible";
   document.getElementById("skipcard").addEventListener("click", skipcard);
+  document.getElementById("holdtosee").style.visibility = "visible";
+  document.getElementById("holdtosee").addEventListener("mouseover" , holdtosee);
+  document.getElementById("skipcardandholdtosee").addEventListener("mouseover" , holdtosee);
+  document.getElementById("holdtosee").addEventListener("mouseout" , holdtoseeout);
+  document.getElementById("skipcardandholdtosee").addEventListener("mouseout" , holdtoseeout);
 
   affichercarte(7);
   affichercarte(8);
@@ -1463,6 +1468,24 @@ function skipcard() {
   } else {
     skips--;
     choosenewcard();
+  }
+}
+function holdtosee(){
+  document.getElementById("grayscreen").style.visibility = "hidden";
+  document.getElementById("skipcard").style.visibility = "hidden";
+  document.getElementById("extratext").style.visibility = "hidden";
+  for (let i=7;i<12;i++){
+    document.getElementById("carteextra" + i).style.visibility = "hidden";
+  }
+}
+function holdtoseeout(){
+  document.getElementById("grayscreen").style.visibility = "visible";
+  document.getElementById("skipcard").style.visibility = "visible";
+  document.getElementById("extratext").style.visibility = "visible";
+  for (let i=7;i<12;i++){
+    if (choicesonkill+7>i){
+      document.getElementById("carteextra" + i).style.visibility = "visible";
+    }
   }
 }
 function newcard1() {
@@ -1498,6 +1521,7 @@ function extrahidden() {
   document.getElementsByClassName("carteextra")[4].style.visibility = "hidden";
   //
   document.getElementById("skipcard").style.visibility = "hidden";
+  document.getElementById("holdtosee").style.visibility = "hidden";
   document.getElementById("extratext").style.visibility = "hidden";
   document.getElementById("grayscreen").style.zIndex = "20";
 }

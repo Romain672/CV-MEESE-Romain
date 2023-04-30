@@ -655,20 +655,6 @@ function generatecards() {
   listcards.push(new Carte("devilclothe", 8, "Attack buff", "Gain permanently $+m$+r", "Loses permanently $-h$-h", "$c", "$bb")); //+4p
   listcards.push(new Carte("candleburned", 8, "Demonic attack", "$p>", "$m$m$m$m$m$m", "Loses permanently $-r")); //+18
   listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
   listcards.push(new Carte("runexplose", 8, "Attack and run", "$p>", "$m$m$m$m", "Loses permanently $-r", "$c")); //+18
   listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r$r$r$r", "Loses permanently $-m", "$c")); //+18
   listcards.push(new Carte("cultivate", 8, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6

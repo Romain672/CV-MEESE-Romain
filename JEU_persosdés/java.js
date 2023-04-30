@@ -1445,9 +1445,7 @@ function choosenewcard() {
   document.getElementById("skipcard").addEventListener("click", skipcard);
   document.getElementById("holdtosee").style.visibility = "visible";
   document.getElementById("holdtosee").addEventListener("mouseover" , holdtosee);
-  document.getElementById("skipcardandholdtosee").addEventListener("mouseover" , holdtosee);
   document.getElementById("holdtosee").addEventListener("mouseout" , holdtoseeout);
-  document.getElementById("skipcardandholdtosee").addEventListener("mouseout" , holdtoseeout);
 
   affichercarte(7);
   affichercarte(8);

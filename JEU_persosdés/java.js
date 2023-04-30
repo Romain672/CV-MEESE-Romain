@@ -655,6 +655,20 @@ function generatecards() {
   listcards.push(new Carte("devilclothe", 8, "Attack buff", "Gain permanently $+m$+r", "Loses permanently $-h$-h", "$c", "$bb")); //+4p
   listcards.push(new Carte("candleburned", 8, "Demonic attack", "$p>", "$m$m$m$m$m$m", "Loses permanently $-r")); //+18
   listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
   listcards.push(new Carte("runexplose", 8, "Attack and run", "$p>", "$m$m$m$m", "Loses permanently $-r", "$c")); //+18
   listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r$r$r$r", "Loses permanently $-m", "$c")); //+18
   listcards.push(new Carte("cultivate", 8, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
@@ -865,10 +879,10 @@ function resolveeffect(player, id) {
   let permanentbuff = [0,0,0]; //[m, r, h]
   for (let j = 0; j <7; j++) {
     let split;
-    if (j == 0) {
+    if (j == 4) {
       split = listcards[id].effect1.split("$");
     }
-    if (j == 1) {
+    if (j == 3) {
       try {
         split = listcards[id].effect2.split("$");
       } catch {
@@ -882,14 +896,14 @@ function resolveeffect(player, id) {
         split = "y";
       }
     }
-    if (j == 3) {
+    if (j == 1) {
       try {
         split = listcards[id].effect4.split("$");
       } catch {
         split = "y";
       }
     }
-    if (j == 4) {
+    if (j == 0) {
       try {
         split = listcards[id].effect5.split("$");
       } catch {
@@ -976,7 +990,7 @@ function resolveeffect(player, id) {
       if (char[0] == "-") {
         console.log("-" + split + "| " + split[i].charAt(1));
         if (split[i].charAt(1) == "m") {
-          if (player.atkmel-permanentbuff[0] == 0) {
+          if (player.atkmel-permanentbuff[0] < 1) {
             document.getElementById("messagecentral").textContent =
               "Attack too low. Action cancelled";
             cantrip = 1;
@@ -986,7 +1000,7 @@ function resolveeffect(player, id) {
           permanentbuff[0]--;
         }
         if (split[i].charAt(1) == "r") {
-          if (player.atkran-permanentbuff[1] == 0) {
+          if (player.atkran-permanentbuff[1] < 1) {
             document.getElementById("messagecentral").textContent =
               "Range too low. Action cancelled";
             cantrip = 1;
@@ -996,7 +1010,7 @@ function resolveeffect(player, id) {
           permanentbuff[1]--;
         }
         if (split[i].charAt(1) == "h") {
-          if (player.maxhp-permanentbuff[2] == 1) {
+          if (player.maxhp-permanentbuff[2] < 2) {
             document.getElementById("messagecentral").textContent =
               "Health too low. Action cancelled";
             cantrip = 1;
@@ -1028,13 +1042,13 @@ function resolveeffect(player, id) {
     }
   }
 
-    //permanent buff
-    player.atkmel += permanentbuff[0];
-    player.atkran += permanentbuff[1];
-    player.maxhp += permanentbuff[2];
-    if(permanentbuff[2]>0){
-      heal(player, permanentbuff[2]);
-    }
+  //permanent buff
+  player.atkmel += permanentbuff[0];
+  player.atkran += permanentbuff[1];
+  player.maxhp += permanentbuff[2];
+  if(permanentbuff[2]>0){
+    heal(player, permanentbuff[2]);
+  }
 
   if (increaseturndelay > 0) {
     turndelay[player.id] = increaseturndelay + 1;

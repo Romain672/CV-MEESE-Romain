@@ -653,10 +653,15 @@ function generatecards() {
   listcards.push(new Carte("purpleflower", 8, "Melee buff", "Gain permanently $+m", "Loses permanently $-h", "$c", "$bbb")); //+3p
   listcards.push(new Carte("sunsetgiraffe", 8, "Ranged buff", "Gain permanently $+r", "Loses permanently $-h", "$c", "$bbb")); //+3p
   listcards.push(new Carte("devilclothe", 8, "Attack buff", "Gain permanently $+m$+r", "Loses permanently $-h$-h", "$c", "$bb")); //+4p
-  listcards.push(new Carte("candleburned", 8, "Demonic attack", "$p>", "$m$m$m$m$m$m", "Loses permanently $-r")); //+18
-  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r$r$r$r", "Loses permanently $-m")); //+18
-  listcards.push(new Carte("runexplose", 8, "Attack and run", "$p>", "$m$m$m$m", "Loses permanently $-r", "$c")); //+18
-  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r$r$r$r", "Loses permanently $-m", "$c")); //+18
+  listcards.push(new Carte("candleburned", 8, "Demonic attack", "$p>", "$m$m$m", "Loses permanently $-r to deal ⚔️⚔️⚔️ extra")); //+18
+  listcards.push(new Carte("escapehell", 8, "Demonic snipe", "$p<", "$r$r$r", "Loses permanently $-m to deal 🏹🏹🏹 extra")); //+18
+  listcards.push(new Carte("runexplose", 8, "Attack and run", "$p>", "$m", "Loses permanently $-r to deal ⚔️⚔️⚔️ extra", "$c")); //+18
+  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
+  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
+  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
+  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
+  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
+  listcards.push(new Carte("demonicbow", 8, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal 🏹🏹🏹 extra", "$c")); //+18
   listcards.push(new Carte("cultivate", 8, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
   listcards.push(new Carte("growstrength", 8, "Instable full attack", "$m$m", "Gain $°m after each use", "$bbbbb")); // +6 +9 +12 +15 +18
   listcards.push(new Carte("distribution", 8, "Distribution", "💥 cards (non Bunker or Distribution) gain one 💥", "$c", "$bb"));
@@ -977,33 +982,30 @@ function resolveeffect(player, id) {
         console.log("-" + split + "| " + split[i].charAt(1));
         if (split[i].charAt(1) == "m") {
           if (player.atkmel-permanentbuff[0] < 1) {
-            document.getElementById("messagecentral").textContent =
-              "Attack too low. Action cancelled";
-            cantrip = 1;
+            document.getElementById("messagecentral").textContent ="Attack too low: extra effects not applied.";
             skipnextmessage = 1;
-            return;
+          } else {
+            atkran(player, 3);
+            permanentbuff[0]--;
           }
-          permanentbuff[0]--;
         }
         if (split[i].charAt(1) == "r") {
           if (player.atkran-permanentbuff[1] < 1) {
-            document.getElementById("messagecentral").textContent =
-              "Range too low. Action cancelled";
-            cantrip = 1;
+            document.getElementById("messagecentral").textContent ="Range too low: extra effects not applied.";
             skipnextmessage = 1;
-            return;
+          } else {
+            atkmel(player, 3);
+            permanentbuff[1]--;
           }
-          permanentbuff[1]--;
         }
         if (split[i].charAt(1) == "h") {
           if (player.maxhp-permanentbuff[2] < 2) {
             document.getElementById("messagecentral").textContent =
-              "Health too low. Action cancelled";
-            cantrip = 1;
+              "Health too low: extra effects not applied.";
             skipnextmessage = 1;
-            return;
+          } else {
+            permanentbuff[2]--;
           }
-          permanentbuff[2]--;
         }
       }
 

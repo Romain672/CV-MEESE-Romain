@@ -137,7 +137,7 @@ function afficherperso(element, id) {
           listpersos[ordrepersos[ordrepersos.indexOf(id)]].de = "7";
       } else {
         if (diceavailable[id] == "x") {
-          children[1].textContent = "❌";
+          children[1].textContent = "🔀";
         } else {
           if (diceavailable[id] == "y"){
             var des = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "🔁"]; //1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣🔀🔢🔁
@@ -608,7 +608,7 @@ function generatecards() {
   listcards.push(new Carte("fireworks", 3, "Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
   /*listcards.push(new Carte("exhaustwork", 3, "Exhausting strike", "$m$m$m", "$c", "$t$t$t")); //+10
   listcards.push(new Carte("exhaustsnipe", 3, "Exhausting snipe", "$r$r$r", "$c", "$t$t$t")); //+10*/
-  listcards.push(new Carte("fiesta", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
+  //listcards.push(new Carte("fiesta", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
   listcards.push(new Carte("field", 3, "Rest", "$ha$ha$ha", "$t")); //+10
   listcards.push(new Carte("meditate", 3, "Mediate", "$ha$ha$ha$ha", "$t$t$t")); //+10
   listcards.push(new Carte("sleep", 3, "Time to rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
@@ -814,7 +814,7 @@ function clickde(event) {
 
   if (de == 7) {
     document.getElementById("messagecentral").textContent =
-      "Clicking on 🔁/⌛/❌ does nothing. You can skip turn instead.";
+      "Clicking on 🔁/⌛/🔀 does nothing. You can skip turn instead.";
     return;
   }
   if (nbrbombs[player.de - 1] == -1) {
@@ -1475,6 +1475,9 @@ function holdtosee(){
   for (let i=7;i<12;i++){
     document.getElementById("carteextra" + i).style.visibility = "hidden";
   }
+  document.getElementById("holdtosee").style.backgroundColor = "transparent";
+  //document.getElementById("holdtosee").style.border = "none";
+  document.getElementById("holdtosee").innerHTML = "";
 }
 function holdtoseeout(){
   document.getElementById("grayscreen").style.visibility = "visible";
@@ -1485,6 +1488,9 @@ function holdtoseeout(){
       document.getElementById("carteextra" + i).style.visibility = "visible";
     }
   }
+  document.getElementById("holdtosee").style.backgroundColor = "darkolivegreen";
+  //document.getElementById("holdtosee").style.border = "???";
+  document.getElementById("holdtosee").innerHTML = "👀";
 }
 function newcard1() {
   extrahidden();

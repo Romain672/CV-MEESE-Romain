@@ -981,13 +981,15 @@ function resolveeffect(player, id) {
         console.log("+" + split + "| " + split[i].charAt(1));
         if (split[i].charAt(1) == "m") {
           permanentbuff[0]++;
+          applyextraeffects=1;
         }
         if (split[i].charAt(1) == "r") {
           permanentbuff[1]++;
+          applyextraeffects=1;
         }
         if (split[i].charAt(1) == "h") {
           permanentbuff[2]++;
-          heal(player, 1);
+          applyextraeffects=1;
         }
       }
       if (char[0] == "-") {

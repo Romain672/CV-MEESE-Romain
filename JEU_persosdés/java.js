@@ -1042,14 +1042,13 @@ function resolveeffect(player, id) {
   }
 
   //permanent buff
-  if (applyextraeffects==0){
+  if (applyextraeffects==1){
     player.atkmel += permanentbuff[0];
     player.atkran += permanentbuff[1];
     player.maxhp += permanentbuff[2];
     if(permanentbuff[2]>0){ //useless
       heal(player, permanentbuff[2]);
     }
-
   }
 
   if (increaseturndelay > 0) {
@@ -1836,7 +1835,7 @@ function closeparametersandcookies() {
   closeparameters();
 }
 function closeparameterscancel() {
-  setting17();
+  setting11();
   closeparameters();
 }
 

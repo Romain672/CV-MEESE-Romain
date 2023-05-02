@@ -227,29 +227,6 @@ let carte = {
 };
 function Carte(a, b, c, d, e, f, g, h, i) {
   this.avatar = a;
-  //              0easy         1$c        2delay 3delayweird   4medic        5move    6$cc      7bomb     8permanentup 9positionalup 10unique
-  //let color = ["darkgreen", "darkblue", "darkcyan", "darkred", "darkorange", "cyan", "brown", "black", "indigo", "mediumvioletred", "black"];
-  /*
-darkgreen19
-darkcyan15
-darkred14
-brown18
-indigo22
-*/
-  //  easy    delay    medic   move+permanentup+positionalup bomb+unique
-  //darkgreen darkcyan darkred          brown                 indigo
-
-  //let color = ["darkgreen", "darkblue", "darkcyan", "darkcyan", "darkred", "brown", "darkblue", "black", "brown", "mediumvioletred", "indigo"];
-  /*
-darkgreen11
-darkblue8
-darkcyan15
-darkred14
-brown15
-black6
-mediumvioletred3
-indigo16
-*/
   this.color = b;
   this.nom = c;
   this.id = listcards.length;
@@ -607,7 +584,7 @@ function generatecards() {
   listcards.push(new Carte("switchrole", 0, "Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
   listcards.push(new Carte("parry", 0, "Reversed attack", "$m$m$m", "$h", "$p5")); //+10
 
-  //Delay $t => 17
+  //Delay $t => 19
   listcards.push(new Carte("quadruplecard", 1, "Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
   listcards.push(new Carte("longsnake", 1, "Longest snake", "$m$m$m$r", "$t", "$p>")); //+10
   listcards.push(new Carte("dolphin", 1, "Heavy attack", "$m$m$r$r", "$t")); //+10
@@ -617,18 +594,20 @@ function generatecards() {
   listcards.push(new Carte("fence", 1, "Install fence", "$m$m$r", "$h$h", "$t")); //+9
   listcards.push(new Carte("scorpio", 1, "Scorpio's help", "$m$r$r", "$h$h", "$t")); //+9
   listcards.push(new Carte("spiderweb", 1, "Timeal snipe", "$r$r$r", "$h$h", "$t", "$p<")); //+9
-  listcards.push(new Carte("pizza", 1, "Feed", "$r$r", "If that kill the enemy, gain permanently 💖💖")); //+9
   listcards.push(new Carte("marblesofdeath", 1, "Marbles of death", "$m$m$m$m$m$m", "$t$t$t$t")); //+10
   listcards.push(new Carte("fireworks", 1, "Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
-  /*listcards.push(new Carte("exhaustwork", 3, "Exhausting strike", "$m$m$m", "$c", "$t$t$t")); //+10
-  listcards.push(new Carte("exhaustsnipe", 3, "Exhausting snipe", "$r$r$r", "$c", "$t$t$t")); //+10*/
-  //listcards.push(new Carte("fiesta", 3, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
+  /*listcards.push(new Carte("exhaustwork", 1, "Exhausting strike", "$m$m$m", "$c", "$t$t$t")); //+10
+  listcards.push(new Carte("exhaustsnipe", 1, "Exhausting snipe", "$r$r$r", "$c", "$t$t$t")); //+10*/
+  //listcards.push(new Carte("fiesta", 1, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
   listcards.push(new Carte("field", 1, "Rest", "$ha$ha$ha", "$t")); //+10
   listcards.push(new Carte("meditate", 1, "Mediate", "$ha$ha$ha$ha", "$t$t$t")); //+10
   listcards.push(new Carte("sleep", 1, "Time to rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
   listcards.push(new Carte("acceleratetime", 1, "Accelerate time", "⌛ dices loses one coldown", "$c"));
   listcards.push(new Carte("skiptime", 1, "Skip time", "⌛ dices loses all coldowns"));
-  //listcards.push(new Carte("skiptime", 3, "Skip time", "", "$t$t$t$t$t$t$t$t$t$t", "Loses one $zt per $zt on others dices", "new"));
+  listcards.push(new Carte("onethousandclock", 1, "One thousand clock", "Deal 3^x damage to the enemy where x is the number of dices with ⌛", "$c"));
+  listcards.push(new Carte("four", 1, "Power of four", "Add ⌛⚔️ to the 4️⃣ card", "$c"));
+  //listcards.push(new Carte("", 1, "", "Deal 2 damage to the enemy per⌛⚔️ to a random other card with ⌛", "$c"));
+  listcards.push(new Carte("synchronize", 1, "Synchronize", "Add 🔁⌛⌛⌛ to the 2️⃣ card", "$c", "$b"));
 
   //$Heal => 17
   listcards.push(new Carte("healimpact", 2, "Heal impact", "$m$m", "$ha", "$p>")); //+10
@@ -642,14 +621,14 @@ function generatecards() {
   listcards.push(new Carte("fastdog", 2, "Wouf", "$ha", "$c")); //+10
   listcards.push(new Carte("bloodcell", 2, "Transfer health", "$s$s$s$s$s", "$ha$ha", "$c", "$p>")); //+9
   listcards.push(new Carte("heart+", 2, "Enhance", "Add 💖 to all others cards", "$cc", "$b")); //+9
-  listcards.push(new Carte("heartprism", 2, "Battle heart", "This turn, your 💖 deal one damage as extra effect", "$c", "new")); //+9
-  listcards.push(new Carte("twopurpleheart", 2, "Purple heart", "Double the 💖 of all other ally", "new")); //+9
+  listcards.push(new Carte("heartprism", 2, "Battle heart", "This turn, your 💖 deal one damage as extra effect", "$c")); //+9
+  listcards.push(new Carte("twopurpleheart", 2, "Purple heart", "Double the 💖 of all other ally")); //+9
   listcards.push(new Carte("redgift", 2, "Red synergy", "Other red cards gain 💖", "$c")); //+9
   listcards.push(new Carte("cultivate", 2, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
   listcards.push(new Carte("bridge", 4, "Healing dash", "$p1", "💖💖 for each space moved", "$c")); //6 8 10 12 14
   listcards.push(new Carte("medictime", 4, "Medical dash", "$p5", "💕 for each space moved")); //0 4 8 12 16
-  
-  //Permanent upgrades $b => 21
+
+  //Permanent upgrades $b => 22
   listcards.push(new Carte("demonicstrength", 3, "Demonic strength", "Gain permanently $+m", "Loses permanently $-h$-h", "$cc")); //+0p
   listcards.push(new Carte("demonicpact", 3, "Demonic's pact", "Gain permanently $+r", "Loses permanently $-h$-h", "$cc")); //+0p
   listcards.push(new Carte("hellvolcano", 3, "Demonic health", "Gain permanently $+h$+h$+h$+h", "Loses permanently $-m$-r", "$cc")); //+0p
@@ -671,6 +650,7 @@ function generatecards() {
   listcards.push(new Carte("rundog", 3, "Helping dog", "$ha", "$cc", "$bbbbb")); //+9 4*5
   listcards.push(new Carte("planeexplosion", 3, "Fast instable attacks", "$m$r", "$c", "$bbb")); //+9 3*3
   listcards.push(new Carte("callbomb", 3, "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")); //+9 2*9
+  listcards.push(new Carte("pizza", 1, "Feed", "$r$r", "If that kill the enemy, gain permanently 💖💖")); //+9
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
@@ -686,14 +666,14 @@ function generatecards() {
   listcards.push(new Carte("jellyfish", 4, "Chaos", "$ha", "Trigger a random other ability (non Chaos)")); //+13
   listcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
   listcards.push(new Carte("blackhole", 4, "Feed from allies", "$h$h$h$h$h", "All other allies take one damage", "$cc")); //+10
-  listcards.push(new Carte("fightofelements", 4, "Fight of elements", "Loses permanently 2⚔️ and 3🏹 then double them", "$cc", "new", "$b"));
-  listcards.push(new Carte("newminion", 4, "Song of robustness", "Loses permanently 6💖 then double it", "$cc", "new", "$b"));
-  listcards.push(new Carte("doorgate", 4, "Resurrection", "If you have 0⚔️ and 0🏹, gain permanently 4⚔️ and 6🏹", "$cc", "new", "$b"));
-  listcards.push(new Carte("canyon", 4, "Narrow path", "Permanently reduce 🤲 of enemy to 2", "$c", "new"));
-  listcards.push(new Carte("panneauetroit", 4, "Launch a panel", "Permanently reduce 🤲 of enemy by 1 (down to 1)", "$c", "new", "$bb"));
-  listcards.push(new Carte("punch", 4, "Disarm", "Permanently reduce ⚔️ of enemy by 1 (down to 5)", "$c", "new"));
-  listcards.push(new Carte("lasso", 4, "Lasso", "Permanently reduce ⚔️ of enemy by 3 (down to 5)", "new", "$bb"));
-  listcards.push(new Carte("halfheart", 4, "Broken heart", "Half the hp of yourself and the enemy (rounded up)", "new"));
+  listcards.push(new Carte("fightofelements", 4, "Fight of elements", "Loses permanently 2⚔️ and 3🏹 then double them", "$cc", "$b"));
+  listcards.push(new Carte("newminion", 4, "Song of robustness", "Loses permanently 6💖 then double it", "$cc", "$b"));
+  listcards.push(new Carte("doorgate", 4, "Resurrection", "If you have 0⚔️ and 0🏹, gain permanently 4⚔️ and 6🏹", "$cc", "$b"));
+  listcards.push(new Carte("canyon", 4, "Narrow path", "Permanently reduce 🤲 of enemy to 2", "$c"));
+  listcards.push(new Carte("panneauetroit", 4, "Launch a panel", "Permanently reduce 🤲 of enemy by 1 (down to 1)", "$c", "$bb"));
+  listcards.push(new Carte("punch", 4, "Disarm", "Permanently reduce ⚔️ of enemy by 1 (down to 5)", "$c"));
+  listcards.push(new Carte("lasso", 4, "Lasso", "Permanently reduce ⚔️ of enemy by 3 (down to 5)", "$bb"));
+  listcards.push(new Carte("halfheart", 4, "Broken heart", "Half the hp of yourself and the enemy (rounded up)"));
 
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
@@ -1089,16 +1069,13 @@ function resolveeffect(player, id) {
     }
     cantrip = 1;
   }
-  if (increaseturndelay == -3){
+  if (increaseturndelay <= -3){
     //🔁🔁🔁
     for (let i=0;i<6;i++){
       if (listpersos[i].de>0 && listpersos[i].de<7) {
       listpersos[i].de = Math.trunc(Math.random() * 5 + 1);
       }
     }
-  }
-  if (increaseturndelay < -3){
-    console.log("Bug: increaseturndelay too low");
   }
   
   specialseffectsafter(player, id);
@@ -1194,7 +1171,7 @@ function specialseffectsbefore(player, id) {
     }
   }
   if (listcards[id].nom == "Battle heart"){
-    //"This turn, your 💖 deal one damage as extra effect", "$c", "new"
+    //"This turn, your 💖 deal one damage as extra effect", "$c"
     for (let k = 0; k < 5; k++) {
       battleheart = 1;
     }
@@ -1319,7 +1296,11 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Song of robustness") {
     //"Loses permanently 6💖 then double it", "$b"
-    player.maxhp = (player.maxhp -6) * 2;
+    if (player.maxhp > 12){
+      let i= (player.maxhp -6);
+      heal(player, Math.floor(i * 2 - player.maxhp));
+      player.maxhp = Math.floor(i*2);
+    }
   }
   if (listcards[id].nom == "Fight of elements") {
     //"Loses permanently 2⚔️ and 3🏹 then double them", "$b"
@@ -1374,12 +1355,38 @@ function specialseffectsafter(player, id) {
     ennemy.currenthp = Math.floor(ennemy.currenthp/2);
     player.currenthp = Math.floor(player.currenthp /2);
   }
-  if (listcards[id].nom == "Broken heart"){
-    //"Purple heart", "Double the 💖 of all other ally"
+  if (listcards[id].nom == "Purple heart"){
+    //"Double the 💖 of all other ally"
     for (let i=1 ; i<6;i++){
       if (ordrepersos[player.id-1] == i){
         listpersos[i].currenthp = listpersos[i].currenthp *2;
       }
+    }
+  }
+  if (listcards[id].nom == "One thousand clock"){
+    //"Deal 3^x damage to the enemy where x is the number of dices with ⌛", "$c"
+    let j=0;
+    for (let i=0 ; i<6;i++){
+      if (turndelay[i]>0){
+        j++;
+      }
+    }
+    attack(player, Math.pow(3,j));
+  }
+  if (listcards[id].nom == "Power of four"){
+    //"Add ⌛⚔️ to the 4️⃣ card", "$c"
+    if (listabilities[3].effect5 == undefined) {
+      listabilities[3].effect5 = "$t$m";
+    } else {
+      listabilities[3].effect5 += "$t$m";
+    }
+  }
+  if (listcards[id].nom == "Synchronize"){
+    //"Add 🔁⌛⌛⌛ to the 2️⃣ card", "$c", "$b"
+    if (listabilities[1].effect5 == undefined) {
+      listabilities[1].effect5 = "$c$t$t$t";
+    } else {
+      listabilities[1].effect5 += "$c$t$t$t";
     }
   }
 }

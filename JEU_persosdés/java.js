@@ -306,6 +306,7 @@ function affichercarte(id) {
     .replaceAll("$+", "$")
     .replaceAll("$-", "$")
     .replaceAll("$z", "$")
+    .replaceAll("$w", "$")
     .replaceAll("$°", "$")
     .replaceAll("$ha", "💕")
     .replaceAll("$h", "💖")
@@ -322,6 +323,7 @@ function affichercarte(id) {
       .replaceAll("$+", "$")
       .replaceAll("$-", "$")
       .replaceAll("$z", "$")
+      .replaceAll("$w", "$")
       .replaceAll("$°", "$")
       .replaceAll("$ha", "💕")
       .replaceAll("$h", "💖")
@@ -340,6 +342,7 @@ function affichercarte(id) {
       .replaceAll("$+", "$")
       .replaceAll("$-", "$")
       .replaceAll("$z", "$")
+      .replaceAll("$w", "$")
       .replaceAll("$°", "$")
       .replaceAll("$ha", "💕")
       .replaceAll("$h", "💖")
@@ -358,6 +361,7 @@ function affichercarte(id) {
       .replaceAll("$+", "$")
       .replaceAll("$-", "$")
       .replaceAll("$z", "$")
+      .replaceAll("$w", "$")
       .replaceAll("$°", "$")
       .replaceAll("$ha", "💕")
       .replaceAll("$h", "💖")
@@ -376,6 +380,7 @@ function affichercarte(id) {
       .replaceAll("$+", "$")
       .replaceAll("$-", "$")
       .replaceAll("$z", "$")
+      .replaceAll("$w", "$")
       .replaceAll("$°", "$")
       .replaceAll("$ha", "💕")
       .replaceAll("$h", "💖")
@@ -397,6 +402,7 @@ function affichercarte(id) {
       .replaceAll("$+", "$")
       .replaceAll("$-", "$")
       .replaceAll("$z", "$")
+      .replaceAll("$w", "$")
       .replaceAll("$°", "$")
       .replaceAll("$ha", "💕")
       .replaceAll("$h", "💖")
@@ -1193,18 +1199,18 @@ function specialseffectsbefore(player, id) {
   }
   if (listcards[id].nom == "Enhance") {
     //"Add 💖 to all others cards", "$cc", "$b"
-    for (let i=1;i<7;i++){
-      if(listabilities[i].effect5 == undefined) {
-        listabilities[i].effect5 = "$h";
+    for (let i=0;i<6;i++){
+      if(listabilities[i].effect2 == undefined) {
+        listabilities[i].effect2 = "$h";
       } else {
-        listabilities[i].effect5 += "$h";
+        listabilities[i].effect2 += "$h";
       }
-      listabilities[player.de-1].effect5 = "";
+      listabilities[player.de-1].effect2 = "";
     }
   }
   if (listcards[id].nom == "Red synergy") {
     //"Other red cards gain 💖"
-    for (let i=1;i<7;i++){
+    for (let i=0;i<6;i++){
       if (listabilities[i].color == 2)
         if (listabilities[i].effect5 == undefined) {
           listabilities[i].effect5 = "$h";
@@ -1335,29 +1341,29 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Narrow path"){
     //"Permanently reduce 🤲 of enemy to 2", "$c"
-    if (listabilities[5].atkran>2){
-      listabilities[5].atkran = 2;
+    if (listpersos[5].atkran>2){
+      listpersos[5].atkran = 2;
     }
   }
   if (listcards[id].nom == "Launch a panel"){
     //"Permanently reduce 🤲 of enemy by 1 (down to 1)", "$c", "$bb"
-    if (listabilities[5].atkran>1){
-      listabilities[5].atkran--;
+    if (listpersos[5].atkran>1){
+      listpersos[5].atkran--;
     }
   }
   if (listcards[id].nom == "Disarm"){
     //"Permanently reduce ⚔️ of enemy by 1 (down to 5)", "$c"
-    if (listabilities[5].atkmel>5){
-      listabilities[5].atkmel--;
+    if (listpersos[5].atkmel>5){
+      listpersos[5].atkmel--;
     }
   }
   if (listcards[id].nom == "Lasso"){
     //"Permanently reduce ⚔️ of enemy by 3 (down to 5)", "$b"
-    if (listabilities[5].atkmel>5){
-      if (listabilities[5].atkmel>7){
-        listabilities[5].atkmel += -3;
+    if (listpersos[5].atkmel>5){
+      if (listpersos[5].atkmel>7){
+        listpersos[5].atkmel += -3;
       } else {
-        listabilities[5].atkmel = 5;
+        listpersos[5].atkmel = 5;
       }
     }
   }

@@ -578,7 +578,7 @@ function generatecards() {
   listcards.push(new Carte("bananateleport", 0, "Banana snipe", "$r", "$s$s", "$cc")); //+10
   listcards.push(new Carte("time", 0, "Teleport forward", "$cc", "$p1")); //+10
   listcards.push(new Carte("bench", 0, "Teleport behind", "$cc", "$p<")); //+9
-  listcards.push(new Carte("quicklamp", 0, "Quick things", "$s", "Others 🔁 dices (non Quick things) are rerolled", "$c"));
+  listcards.push(new Carte("quicklamp", 0, "Quick things", "$s", "Others 🔁 dices (not from Quick things) are rerolled", "$c"));
   listcards.push(new Carte("alone", 0, "Lost", "$m", "$s", "$c", "$p1")); //+9
   listcards.push(new Carte("catapult", 0, "Flee snipe", "$r", "$s", "$c", "$p5")); //+9
   listcards.push(new Carte("switchrole", 0, "Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
@@ -622,7 +622,7 @@ function generatecards() {
   listcards.push(new Carte("bloodcell", 2, "Transfer health", "$s$s$s$s$s", "$ha$ha", "$c", "$p>")); //+9
   listcards.push(new Carte("heart+", 2, "Enhance", "Add 💖 to all others cards", "$cc", "$b")); //+9
   listcards.push(new Carte("heartprism", 2, "Battle heart", "This turn, your 💖 deal one damage as extra effect", "$c")); //+9
-  listcards.push(new Carte("twopurpleheart", 2, "Purple heart", "Double the 💖 of all other ally")); //+9
+  listcards.push(new Carte("twopurpleheart", 2, "Purple heart", "$s$s", "Double the 💖 of all other ally"));
   listcards.push(new Carte("redgift", 2, "Red synergy", "Other red cards gain 💖", "$c")); //+9
   listcards.push(new Carte("cultivate", 2, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
   listcards.push(new Carte("bridge", 4, "Healing dash", "$p1", "💖💖 for each space moved", "$c")); //6 8 10 12 14
@@ -1078,7 +1078,6 @@ function resolveeffect(player, id) {
   }
   
   specialseffectsafter(player, id);
-  console.log(diceavailable);
 
   checkhps();
   afficherallcarte();
@@ -1315,7 +1314,7 @@ function specialseffectsafter(player, id) {
     }
   }
   if (listcards[id].nom == "Feed"){
-    if (listpersos[5].currenthp <1){
+    if (listpersos[ennemy].currenthp <1){
       console.log("Feed activated");
       player.maxhp += 2;
       heal(player, 2);
@@ -1323,43 +1322,42 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Narrow path"){
     //"Permanently reduce 🤲 of enemy to 2", "$c"
-    if (listpersos[5].atkran>2){
-      listpersos[5].atkran = 2;
+    if (listpersos[ennemy].atkran>2){
+      listpersos[ennemy].atkran = 2;
     }
   }
   if (listcards[id].nom == "Launch a panel"){
     //"Permanently reduce 🤲 of enemy by 1 (down to 1)", "$c", "$bb"
-    if (listpersos[5].atkran>1){
-      listpersos[5].atkran--;
+    if (listpersos[ennemy].atkran>1){
+      listpersos[ennemy].atkran--;
     }
   }
   if (listcards[id].nom == "Disarm"){
     //"Permanently reduce ⚔️ of enemy by 1 (down to 5)", "$c"
-    if (listpersos[5].atkmel>5){
-      listpersos[5].atkmel--;
+    if (listpersos[ennemy].atkmel>5){
+      listpersos[ennemy].atkmel--;
     }
   }
   if (listcards[id].nom == "Lasso"){
     //"Permanently reduce ⚔️ of enemy by 3 (down to 5)", "$b"
-    if (listpersos[5].atkmel>5){
-      if (listpersos[5].atkmel>7){
-        listpersos[5].atkmel += -3;
+    if (listpersos[ennemy].atkmel>5){
+      if (listpersos[ennemy].atkmel>7){
+        listpersos[ennemy].atkmel += -3;
       } else {
-        listpersos[5].atkmel = 5;
+        listpersos[ennemy].atkmel = 5;
       }
     }
   }
   if (listcards[id].nom == "Broken heart"){
     //"Half the hp of yourself and the enemy (rounded up)"
-    ennemy.currenthp = Math.floor(ennemy.currenthp/2);
+    listpersos[ennemy].currenthp = Math.floor(listpersos[ennemy].currenthp/2);
     player.currenthp = Math.floor(player.currenthp /2);
   }
   if (listcards[id].nom == "Purple heart"){
-    //"Double the 💖 of all other ally"
-    for (let i=1 ; i<6;i++){
-      if (ordrepersos[player.id-1] == i){
-        listpersos[i].currenthp = listpersos[i].currenthp *2;
-      }
+    //"Double the 💖 of all other ally", "$s$s"
+    player.currenthp = player.currenthp /2;
+    for (let i=0 ; i<5;i++){
+      listpersos[i].currenthp = Math.floor(listpersos[i].currenthp *2);
     }
   }
   if (listcards[id].nom == "One thousand clock"){

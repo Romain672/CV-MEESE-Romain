@@ -39,6 +39,7 @@ let ordercolor = [
   "black",
 ]; //colors of the differents sets of cards. At the end, colors of the basic cards and of a trash/empty card (who should be never used)
 let skips = 0; //number of times you can reroll a card reward
+let battleheart = 0; //special effect card 'Battle heart'
 
 window.addEventListener("load", onload);
 function onload() {
@@ -283,131 +284,99 @@ function affichercarte(id) {
   }
 
   //children[0].textContent = (id+1 + ":" + listabilities[id].nom);
-  if (id==0){children[0].textContent = "1️⃣" + listabilities[id].nom;}
-  if (id==1){children[0].textContent = "2️⃣" + listabilities[id].nom;}
-  if (id==2){children[0].textContent = "3️⃣" + listabilities[id].nom;}
-  if (id==3){children[0].textContent = "4️⃣" + listabilities[id].nom;}
-  if (id==4){children[0].textContent = "5️⃣" + listabilities[id].nom;}
-  if (id==5){children[0].textContent = "6️⃣" + listabilities[id].nom;}
-  if (id>5){children[0].textContent = listabilities[id].nom;}
+  if (id == 0) {
+    children[0].textContent = "1️⃣" + listabilities[id].nom;
+  }
+  if (id == 1) {
+    children[0].textContent = "2️⃣" + listabilities[id].nom;
+  }
+  if (id == 2) {
+    children[0].textContent = "3️⃣" + listabilities[id].nom;
+  }
+  if (id == 3) {
+    children[0].textContent = "4️⃣" + listabilities[id].nom;
+  }
+  if (id == 4) {
+    children[0].textContent = "5️⃣" + listabilities[id].nom;
+  }
+  if (id == 5) {
+    children[0].textContent = "6️⃣" + listabilities[id].nom;
+  }
+  if (id > 5) {
+    children[0].textContent = listabilities[id].nom;
+  }
 
   //children[1].textContent = listabilities[id].nom;
   children[1].innerHTML = "";
-  children[2].innerHTML = "<img id='' src='Images/" + listabilities[id].avatar + ".jpg' alt=''>";
-  children[3].textContent = listabilities[id].effectatk
+  children[2].innerHTML =
+    "<img id='' src='Images/" + listabilities[id].avatar + ".jpg' alt=''>";
+  children[3].textContent = listabilities[id].effectselfdamage.replaceAll("$s","🩸");
+  children[4].textContent = listabilities[id].effectatk
     .replaceAll("$m", "⚔️")
     .replaceAll("$r", "🏹");
+  children[5].textContent = listabilities[id].effecthp
+    .replaceAll("$ha", "💕")
+    .replaceAll("$h", "💖");
+  children[6].textContent = listabilities[id].effectcantrip
+    .replaceAll("$cc", "🔁🔁")
+    .replaceAll("$c", "🔁");
+  children[7].textContent = listabilities[id].effectdelay.replaceAll("$t","⌛");
+  children[8].textContent = listabilities[id].effectmove.replaceAll("$p", "🚶‍♂️");
+  children[8].append(displayheal(nbrbonusheal[id + 1]));
+  children[8].append(displaymelee(nbrbonusmelee[id + 1]));
+  children[8].append(displayrange(nbrbonusrange[id + 1]));
+  children[9].textContent = listabilities[id].effectbomb
+    .replaceAll("$bbbbb", "💥💥💥💥💥")
+    .replaceAll("$bbbb", "💥💥💥💥")
+    .replaceAll("$bbb", "💥💥💥")
+    .replaceAll("$bb", "💥💥")
+    .replaceAll("$b", "💥");
+  children[10].textContent = listabilities[id].effect1
+    .replaceAll("£+", "$")
+    .replaceAll("£-", "$")
+    .replaceAll("£°", "$")
+    .replaceAll("£z", "$")
+    .replaceAll("£w", "$")
+    .replaceAll("$m", "⚔️")
+    .replaceAll("$r", "🏹")
+    .replaceAll("$h", "💖");
+  children[11].textContent = listabilities[id].effect2
+    .replaceAll("£+", "$")
+    .replaceAll("£-", "$")
+    .replaceAll("£°", "$")
+    .replaceAll("£z", "$")
+    .replaceAll("£w", "$")
+    .replaceAll("$m", "⚔️")
+    .replaceAll("$r", "🏹")
+    .replaceAll("$h", "💖");
+  children[12].textContent = listabilities[id].effect3
+    .replaceAll("£+", "$")
+    .replaceAll("£-", "$")
+    .replaceAll("£°", "$")
+    .replaceAll("£z", "$")
+    .replaceAll("£w", "$")
+    .replaceAll("$m", "⚔️")
+    .replaceAll("$r", "🏹")
+    .replaceAll("$h", "💖");
+  children[13].textContent = listabilities[id].effect4
+    .replaceAll("£+", "$")
+    .replaceAll("£-", "$")
+    .replaceAll("£°", "$")
+    .replaceAll("£z", "$")
+    .replaceAll("£w", "$")
+    .replaceAll("$m", "⚔️")
+    .replaceAll("$r", "🏹")
+    .replaceAll("$h", "💖");
+  children[14].textContent = listabilities[id].effect5
+    .replaceAll("£+", "$")
+    .replaceAll("£-", "$")
+    .replaceAll("£°", "$")
+    .replaceAll("£z", "$")
+    .replaceAll("£w", "$")
+    .replaceAll("$m", "⚔️")
+    .replaceAll("$r", "🏹")
+    .replaceAll("$h", "💖");
 
-    try {
-      children[4].textContent = listabilities[id].effecthp
-        .replaceAll("$ha", "💕")
-        .replaceAll("$h", "💖");
-    } catch {
-      children[4].textContent = "";
-    }
-    try {
-      children[5].textContent = listabilities[id].effectselfdamage
-        .replaceAll("$s", "🩸");
-    } catch {
-      children[5].textContent = "";
-    }
-  try {
-    children[6].textContent = listabilities[id].effectcantrip
-      .replaceAll("$cc", "🔁🔁")
-      .replaceAll("$c", "🔁");
-  } catch {
-    children[6].textContent = "";
-  }
-  try {
-    children[7].textContent = listabilities[id].effectdelay
-      .replaceAll("$t", "⌛");
-  } catch {
-    children[7].textContent = "";
-  }
-  try {
-    children[8].textContent = listabilities[id].effectmove
-      .replaceAll("$p", "🚶‍♂️");
-  } catch {
-    children[8].textContent = "";
-  }
-  children[8].append(displayheal(nbrbonusheal[id+1]));
-  children[8].append(displaymelee(nbrbonusmelee[id+1]));
-  children[8].append(displayrange(nbrbonusrange[id+1]));
-  try {
-    children[9].textContent = listabilities[id].effectbomb
-      .replaceAll("$bbbbb", "💥💥💥💥💥")
-      .replaceAll("$bbbb", "💥💥💥💥")
-      .replaceAll("$bbb", "💥💥💥")
-      .replaceAll("$bb", "💥💥")
-      .replaceAll("$b", "💥");
-  } catch {
-    children[9].textContent = "";
-  }
-  try {
-    children[10].textContent = listabilities[id].effect1
-      .replaceAll("£+", "$")
-      .replaceAll("£-", "$")
-      .replaceAll("£°", "$")
-      .replaceAll("£z", "$")
-      .replaceAll("£w", "$")
-      .replaceAll("$m", "⚔️")
-      .replaceAll("$r", "🏹")
-      .replaceAll("$h", "💖");
-  } catch {
-    children[10].textContent = "";
-  }
-  try {
-    children[11].textContent = listabilities[id].effect2
-    .replaceAll("£+", "$")
-    .replaceAll("£-", "$")
-    .replaceAll("£°", "$")
-    .replaceAll("£z", "$")
-    .replaceAll("£w", "$")
-    .replaceAll("$m", "⚔️")
-    .replaceAll("$r", "🏹")
-    .replaceAll("$h", "💖");
-  } catch {
-    children[11].textContent = "";
-  }
-  try {
-    children[12].textContent = listabilities[id].effect3
-    .replaceAll("£+", "$")
-    .replaceAll("£-", "$")
-    .replaceAll("£°", "$")
-    .replaceAll("£z", "$")
-    .replaceAll("£w", "$")
-    .replaceAll("$m", "⚔️")
-    .replaceAll("$r", "🏹")
-    .replaceAll("$h", "💖");
-  } catch {
-    children[12].textContent = "";
-  }
-  try {
-    children[13].textContent = listabilities[id].effect4
-    .replaceAll("£+", "$")
-    .replaceAll("£-", "$")
-    .replaceAll("£°", "$")
-    .replaceAll("£z", "$")
-    .replaceAll("£w", "$")
-    .replaceAll("$m", "⚔️")
-    .replaceAll("$r", "🏹")
-    .replaceAll("$h", "💖");
-  } catch {
-    children[13].textContent = "";
-  }
-  try {
-    children[14].textContent = listabilities[id].effect5
-    .replaceAll("£+", "$")
-    .replaceAll("£-", "$")
-    .replaceAll("£°", "$")
-    .replaceAll("£z", "$")
-    .replaceAll("£w", "$")
-    .replaceAll("$m", "⚔️")
-    .replaceAll("$r", "🏹")
-    .replaceAll("$h", "💖");
-  } catch {
-    children[14].textContent = "";
-  }
   /*try {
     children[X].textContent = listabilities[id].effectadvanced
       .replaceAll("£+", "$")
@@ -427,15 +396,27 @@ function affichercarte(id) {
   } catch {
     children[X].textContent = "";
   }*/
-  
+
   /* Advanced mode */
-  if (advancedmode ==1) {
-    if(id==0){document.getElementById("carte" + id).children[15].textContent = "a:🚶‍♂️1"}; //+4
-    if(id==1){document.getElementById("carte" + id).children[15].textContent = "a:💖💖"}; //+2
-    if(id==2){document.getElementById("carte" + id).children[15].textContent = "a:💕⌛"}; //+2
-    if(id==3){document.getElementById("carte" + id).children[15].textContent = "a:⚔️"}; //+3
-    if(id==4){document.getElementById("carte" + id).children[15].textContent = "a:🏹"}; //+3
-    if(id==5){document.getElementById("carte" + id).children[15].textContent = "a:🔁"}; //+6
+  if (advancedmode == 1) {
+    if (id == 0) {
+      document.getElementById("carte" + id).children[15].textContent = "a:🚶‍♂️1";
+    } //+4
+    if (id == 1) {
+      document.getElementById("carte" + id).children[15].textContent = "a:💖💖";
+    } //+2
+    if (id == 2) {
+      document.getElementById("carte" + id).children[15].textContent = "a:💕⌛";
+    } //+2
+    if (id == 3) {
+      document.getElementById("carte" + id).children[15].textContent = "a:⚔️";
+    } //+3
+    if (id == 4) {
+      document.getElementById("carte" + id).children[15].textContent = "a:🏹";
+    } //+3
+    if (id == 5) {
+      document.getElementById("carte" + id).children[15].textContent = "a:🔁";
+    } //+6
   }
 
   try {
@@ -597,14 +578,6 @@ function generatecards() {
   ephemerelistcards.push(new Carte("demonicpact", 3, "Demonic's pact", "Gain permanently £+r", "Loses permanently £-h£-h", "$cc")); //+0p
   ephemerelistcards.push(new Carte("hellvolcano", 3, "Demonic health", "Gain permanently £+h£+h£+h£+h", "Loses permanently £-m£-r", "$cc")); //+0p
   ephemerelistcards.push(new Carte("searchforheal", 3, "Lifestone's search", "Gain permanently £+h", "$c", "$bbb")); //+3p
-  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
-  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
-  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
-  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
-  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
-  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
-  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
-  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
   ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
   ephemerelistcards.push(new Carte("sunsetgiraffe", 3, "Ranged buff", "Gain permanently £+r", "Loses permanently £-h", "$c", "$bbb")); //+3p
   ephemerelistcards.push(new Carte("devilclothe", 3, "Attack buff", "Gain permanently £+m£+r", "Loses permanently £-h£-h", "$c", "$bb")); //+4p
@@ -914,7 +887,6 @@ function resolveeffect(player, id) {
   cantrip = 0;
   let increaseturndelay = 0;
   let applyextraeffects = 0;
-  let battleheart = 0;
   id = specialseffectsbeforebeforebefore(player, id);
   id = specialseffectsbeforebefore(player, id);
   id = specialseffectsbefore(player, id);
@@ -922,6 +894,25 @@ function resolveeffect(player, id) {
   if (nbrbombs[listpersos[player.id].de - 1] == 1) {
     //explosion
     nbrbombs[listpersos[player.id].de - 1] = -1;
+    nbrbombs[listpersos[player.id].de - 1] = 0;
+    let explosedspot = listabilities[listpersos[player.id].de - 1];
+    explosedspot.avatar = "explosed";
+    explosedspot.nom = "Explosed";
+    explosedspot.color = 10 ;
+    explosedspot.id = "2";
+    explosedspot.effectatk = "$m$r";
+    explosedspot.effect1 = "";
+    explosedspot.effect2 = "";
+    explosedspot.effect3 = "";
+    explosedspot.effect4 = "";
+    explosedspot.effect5 = "";
+    explosedspot.effectadvanced = "";
+    explosedspot.effectbomb = "";
+    explosedspot.effectcantrip = "";
+    explosedspot.effectdelay = "";
+    explosedspot.effecthp = "";
+    explosedspot.effectmove = "";
+    explosedspot.effectselfdamage = "";
   } else {
     if (nbrbombs[listpersos[player.id].de - 1] > 1) {
       //-1bomb
@@ -1022,7 +1013,6 @@ for (const property in listabilities[player.de-1]) {
             applyextraeffects=1;
           }
         }
-        console.log("p");
         if (split[j].charAt(1) == "h") {
           if (player.maxhp-permanentbuff[2] < 2) {
             document.getElementById("messagecentral").textContent =
@@ -1066,11 +1056,10 @@ for (const property in listabilities[player.de-1]) {
           nbrbonusheal[player.de]++;
           afficherallcarte();
         }
-        console.log("u");
       }
 
     }
-    console.log(split);
+    //console.log(split);
   }
 }
     /* Advanced mode */
@@ -1218,9 +1207,7 @@ function specialseffectsbefore(player, id) {
   }
   if (listcards[id].nom == "Battle heart"){
     //"This turn, your 💖 deal one damage as extra effect", "$c"
-    for (let k = 0; k < 5; k++) {
-      battleheart = 1;
-    }
+    battleheart += 1;
   }
   if (listcards[id].nom == "Enhance") {
     //"Add 💖 to all others cards", "$cc", "$b"
@@ -1237,12 +1224,12 @@ function specialseffectsbefore(player, id) {
     //"Other red cards gain 💖"
     for (let i=0;i<6;i++){
       if (listabilities[i].color == 2)
-        if (listabilities[i].effectmove == undefined) {
-          listabilities[i].effectmove = "$h";
+        if (listabilities[i].effecthp == undefined) {
+          listabilities[i].effecthp = "$h";
         } else {
-          listabilities[i].effectmove += "$h";
+          listabilities[i].effecthp += "$h";
         }
-      listabilities[player.de-1].effectmove = "";
+      listabilities[player.de-1].effecthp.slice(0, -2);
     }
   }
   return id;
@@ -1420,10 +1407,15 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Power of four"){
     //"Add ⌛⚔️ to the 4️⃣ card", "$c"
-    if (listabilities[3].effectmove == undefined) {
-      listabilities[3].effectmove = "$t$m";
+    if (listabilities[3].effectatk == undefined) {
+      listabilities[3].effectatk = "$m";
     } else {
-      listabilities[3].effectmove += "$t$m";
+      listabilities[3].effectatk += "$m";
+    }
+    if (listabilities[3].effectdelay == undefined) {
+      listabilities[3].effectdelay = "$t";
+    } else {
+      listabilities[3].effectdelay += "$t";
     }
   }
   if (listcards[id].nom == "Synchronize"){

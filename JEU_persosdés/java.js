@@ -7,18 +7,21 @@
 function changecarddeck(nbr)
 */
 
-let listpersos = [];
-let listabilities = [12]; //7ème card is empty, 8/9/10/11/12ème are for choices
-let listcards = [];
-let ordrepersos = [0, 1, 2, 3, 4, 5];
-let diceavailable = ["y", "y", "y", "y", "y"];
-let turndelay = [0, 0, 0, 0, 0, 0];
-let nbrbombs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let listpersos = []; // persos[01234] represent ally (top left), persos[5+] is the enemy (top right)
+let ennemy = 5; //persos[ennemy] is the current enemy of the listpersos
+let listabilities = [12]; //listabilities[012345] is the deck (bottom), listabilities[7] is trash/empty, listabilities[89101112] are for choices after you killed an enemy
+let listcards = []; //listcards[0] is trash/empty, listcards[123456] is the starting cards (4 by default, can goes up to 6), listcards[7+] are the cards created manually
+let ordrepersos = [0, 1, 2, 3, 4, 5]; //this represent where each perso is present. 5 is always last. If ordrepersos = [0,2,1,4,3,5], then Bernard & Catherine are swapped. Same for Derick and Elise.
+let diceavailable = ["y", "y", "y", "y", "y"]; //for each dice in order, this is equal to "n" if it's in a 🔁 position. It's equal to "x" with a specific effect.
+let turndelay = [0, 0, 0, 0, 0, 0]; //this tell the number of ⌛ of each card of the deck
+let cantrip = 0; //sum the number of 🔁 (-1) and ⌛ (+1) to know if: (0+) you pass to next turn | (-1) you play again and display 🔁 | (-2) you play again, reroll that dice and display 🔁 | (-3 or less) you play again, reroll all dices, and display 🔁
+let nbrbombs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; //this tell the number of 💥 of each card of the deck (those above 5 are useless)
+//those are some permanent bonus on cards, they are trigered right before the end of a turn, since sometimes the effect of the card will fail (those above 5 are useless)
 let nbrbonusheal = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let nbrbonusmelee = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let nbrbonusrange = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-let ennemy = 5;
-let skipnextmessage = 0;
+
+let skipnextmessage = 0; //this is a variable which let you skip the next normal message displayed in the middle
 let ordercolor = [
   "darkgreen",
   "purple",
@@ -34,10 +37,8 @@ let ordercolor = [
   /*Extras*/
   "darkslateblue",
   "black",
-];
-
-let skips = 0;
-let cantrip = 0; //check if you can chose another dice or not
+]; //colors of the differents sets of cards. At the end, colors of the basic cards and of a trash/empty card (who should be never used)
+let skips = 0; //number of times you can reroll a card reward
 
 window.addEventListener("load", onload);
 function onload() {
@@ -218,24 +219,38 @@ let carte = {
   color: "darkslateblue",
   nom: "none",
   id: 0,
+  effectatk: "",
+  effecthp: "",
+  effectselfdamage: "",
+  effectcantrip: "",
+  effectdelay: "",
+  effectmove: "",
+  effectbomb: "",
   effect1: "",
   effect2: "",
   effect3: "",
   effect4: "",
   effect5: "",
-  effect6: "",
+  effectadvanced: "",
 };
-function Carte(a, b, c, d, e, f, g, h, i) {
+function Carte(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
   this.avatar = a;
   this.color = b;
   this.nom = c;
   this.id = listcards.length;
-  this.effect1 = d;
-  this.effect2 = e;
-  this.effect3 = f;
-  this.effect4 = g;
-  this.effect5 = h;
-  this.effect6 = i;
+  this.effectatk = d;
+  this.effecthp = e;
+  this.effectselfdamage = f;
+  this.effectcantrip = g;
+  this.effectdelay = h;
+  this.effectmove = i;
+  this.effectbomb = j;
+  this.effect1 = k;
+  this.effect2 = l;
+  this.effect3 = m;
+  this.effect4 = n;
+  this.effect5 = o;
+  this.effectadvanced = p;
 }
 function affichercarte(id) {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
@@ -279,108 +294,127 @@ function affichercarte(id) {
   //children[1].textContent = listabilities[id].nom;
   children[1].innerHTML = "";
   children[2].innerHTML = "<img id='' src='Images/" + listabilities[id].avatar + ".jpg' alt=''>";
-  children[3].textContent = listabilities[id].effect1
-    .replaceAll("$+", "$")
-    .replaceAll("$-", "$")
-    .replaceAll("$z", "$")
-    .replaceAll("$w", "$")
-    .replaceAll("$°", "$")
-    .replaceAll("$ha", "💕")
-    .replaceAll("$h", "💖")
-    .replaceAll("$cc", "🔁🔁")
-    .replaceAll("$c", "🔁")
+  children[3].textContent = listabilities[id].effectatk
     .replaceAll("$m", "⚔️")
-    .replaceAll("$r", "🏹")
-    .replaceAll("$p", "🚶‍♂️")
-    .replaceAll("$s", "🩸")
-    .replaceAll("$t", "⌛");
+    .replaceAll("$r", "🏹");
 
+    try {
+      children[4].textContent = listabilities[id].effecthp
+        .replaceAll("$ha", "💕")
+        .replaceAll("$h", "💖");
+    } catch {
+      children[4].textContent = "";
+    }
+    try {
+      children[5].textContent = listabilities[id].effectselfdamage
+        .replaceAll("$s", "🩸");
+    } catch {
+      children[5].textContent = "";
+    }
   try {
-    children[4].textContent = listabilities[id].effect2
-      .replaceAll("$+", "$")
-      .replaceAll("$-", "$")
-      .replaceAll("$z", "$")
-      .replaceAll("$w", "$")
-      .replaceAll("$°", "$")
-      .replaceAll("$ha", "💕")
-      .replaceAll("$h", "💖")
+    children[6].textContent = listabilities[id].effectcantrip
       .replaceAll("$cc", "🔁🔁")
-      .replaceAll("$c", "🔁")
-      .replaceAll("$m", "⚔️")
-      .replaceAll("$r", "🏹")
-      .replaceAll("$p", "🚶‍♂️")
-      .replaceAll("$s", "🩸")
-      .replaceAll("$t", "⌛");
-  } catch {
-    children[4].textContent = "";
-  }
-  try {
-    children[5].textContent = listabilities[id].effect3
-      .replaceAll("$+", "$")
-      .replaceAll("$-", "$")
-      .replaceAll("$z", "$")
-      .replaceAll("$w", "$")
-      .replaceAll("$°", "$")
-      .replaceAll("$ha", "💕")
-      .replaceAll("$h", "💖")
-      .replaceAll("$cc", "🔁🔁")
-      .replaceAll("$c", "🔁")
-      .replaceAll("$m", "⚔️")
-      .replaceAll("$r", "🏹")
-      .replaceAll("$p", "🚶‍♂️")
-      .replaceAll("$s", "🩸")
-      .replaceAll("$t", "⌛");
-  } catch {
-    children[5].textContent = "";
-  }
-  try {
-    children[6].textContent = listabilities[id].effect4
-      .replaceAll("$+", "$")
-      .replaceAll("$-", "$")
-      .replaceAll("$z", "$")
-      .replaceAll("$w", "$")
-      .replaceAll("$°", "$")
-      .replaceAll("$ha", "💕")
-      .replaceAll("$h", "💖")
-      .replaceAll("$cc", "🔁🔁")
-      .replaceAll("$c", "🔁")
-      .replaceAll("$m", "⚔️")
-      .replaceAll("$r", "🏹")
-      .replaceAll("$p", "🚶‍♂️")
-      .replaceAll("$s", "🩸")
-      .replaceAll("$t", "⌛");
+      .replaceAll("$c", "🔁");
   } catch {
     children[6].textContent = "";
   }
   try {
-    children[7].textContent = listabilities[id].effect5
-      .replaceAll("$+", "$")
-      .replaceAll("$-", "$")
-      .replaceAll("$z", "$")
-      .replaceAll("$w", "$")
-      .replaceAll("$°", "$")
-      .replaceAll("$ha", "💕")
-      .replaceAll("$h", "💖")
-      .replaceAll("$cc", "🔁🔁")
-      .replaceAll("$c", "🔁")
-      .replaceAll("$m", "⚔️")
-      .replaceAll("$r", "🏹")
-      .replaceAll("$p", "🚶‍♂️")
-      .replaceAll("$s", "🩸")
+    children[7].textContent = listabilities[id].effectdelay
       .replaceAll("$t", "⌛");
   } catch {
     children[7].textContent = "";
   }
-  children[7].append(displayheal(nbrbonusheal[id+1]));
-  children[7].append(displaymelee(nbrbonusmelee[id+1]));
-  children[7].append(displayrange(nbrbonusrange[id+1]));
   try {
-    children[8].textContent = listabilities[id].effect6
-      .replaceAll("$+", "$")
-      .replaceAll("$-", "$")
+    children[8].textContent = listabilities[id].effectmove
+      .replaceAll("$p", "🚶‍♂️");
+  } catch {
+    children[8].textContent = "";
+  }
+  children[8].append(displayheal(nbrbonusheal[id+1]));
+  children[8].append(displaymelee(nbrbonusmelee[id+1]));
+  children[8].append(displayrange(nbrbonusrange[id+1]));
+  try {
+    children[9].textContent = listabilities[id].effectbomb
+      .replaceAll("$bbbbb", "💥💥💥💥💥")
+      .replaceAll("$bbbb", "💥💥💥💥")
+      .replaceAll("$bbb", "💥💥💥")
+      .replaceAll("$bb", "💥💥")
+      .replaceAll("$b", "💥");
+  } catch {
+    children[9].textContent = "";
+  }
+  try {
+    children[10].textContent = listabilities[id].effect1
+      .replaceAll("£+", "$")
+      .replaceAll("£-", "$")
+      .replaceAll("£°", "$")
+      .replaceAll("£z", "$")
+      .replaceAll("£w", "$")
+      .replaceAll("$m", "⚔️")
+      .replaceAll("$r", "🏹")
+      .replaceAll("$h", "💖");
+  } catch {
+    children[10].textContent = "";
+  }
+  try {
+    children[11].textContent = listabilities[id].effect2
+    .replaceAll("£+", "$")
+    .replaceAll("£-", "$")
+    .replaceAll("£°", "$")
+    .replaceAll("£z", "$")
+    .replaceAll("£w", "$")
+    .replaceAll("$m", "⚔️")
+    .replaceAll("$r", "🏹")
+    .replaceAll("$h", "💖");
+  } catch {
+    children[11].textContent = "";
+  }
+  try {
+    children[12].textContent = listabilities[id].effect3
+    .replaceAll("£+", "$")
+    .replaceAll("£-", "$")
+    .replaceAll("£°", "$")
+    .replaceAll("£z", "$")
+    .replaceAll("£w", "$")
+    .replaceAll("$m", "⚔️")
+    .replaceAll("$r", "🏹")
+    .replaceAll("$h", "💖");
+  } catch {
+    children[12].textContent = "";
+  }
+  try {
+    children[13].textContent = listabilities[id].effect4
+    .replaceAll("£+", "$")
+    .replaceAll("£-", "$")
+    .replaceAll("£°", "$")
+    .replaceAll("£z", "$")
+    .replaceAll("£w", "$")
+    .replaceAll("$m", "⚔️")
+    .replaceAll("$r", "🏹")
+    .replaceAll("$h", "💖");
+  } catch {
+    children[13].textContent = "";
+  }
+  try {
+    children[14].textContent = listabilities[id].effect5
+    .replaceAll("£+", "$")
+    .replaceAll("£-", "$")
+    .replaceAll("£°", "$")
+    .replaceAll("£z", "$")
+    .replaceAll("£w", "$")
+    .replaceAll("$m", "⚔️")
+    .replaceAll("$r", "🏹")
+    .replaceAll("$h", "💖");
+  } catch {
+    children[14].textContent = "";
+  }
+  /*try {
+    children[X].textContent = listabilities[id].effectadvanced
+      .replaceAll("£+", "$")
+      .replaceAll("£-", "$")
       .replaceAll("$z", "$")
-      .replaceAll("$w", "$")
-      .replaceAll("$°", "$")
+      .replaceAll("£w", "$")
+      .replaceAll("£°", "$")
       .replaceAll("$ha", "💕")
       .replaceAll("$h", "💖")
       .replaceAll("$cc", "🔁🔁")
@@ -391,111 +425,31 @@ function affichercarte(id) {
       .replaceAll("$s", "🩸")
       .replaceAll("$t", "⌛");
   } catch {
-    children[8].textContent = "";
-  }
+    children[X].textContent = "";
+  }*/
   
   /* Advanced mode */
   if (advancedmode ==1) {
-    if(id==0){document.getElementById("carte" + id).children[8].textContent = "a:🚶‍♂️1"}; //+4
-    if(id==1){document.getElementById("carte" + id).children[8].textContent = "a:💖💖"}; //+2
-    if(id==2){document.getElementById("carte" + id).children[8].textContent = "a:💕⌛"}; //+2
-    if(id==3){document.getElementById("carte" + id).children[8].textContent = "a:⚔️"}; //+3
-    if(id==4){document.getElementById("carte" + id).children[8].textContent = "a:🏹"}; //+3
-    if(id==5){document.getElementById("carte" + id).children[8].textContent = "a:🔁"}; //+6
+    if(id==0){document.getElementById("carte" + id).children[15].textContent = "a:🚶‍♂️1"}; //+4
+    if(id==1){document.getElementById("carte" + id).children[15].textContent = "a:💖💖"}; //+2
+    if(id==2){document.getElementById("carte" + id).children[15].textContent = "a:💕⌛"}; //+2
+    if(id==3){document.getElementById("carte" + id).children[15].textContent = "a:⚔️"}; //+3
+    if(id==4){document.getElementById("carte" + id).children[15].textContent = "a:🏹"}; //+3
+    if(id==5){document.getElementById("carte" + id).children[15].textContent = "a:🔁"}; //+6
   }
 
   try {
-    if (listabilities[id].effect1[1] == "b") {
+    if (listabilities[id].effectbomb[1] == "b") {
       //if there is some bombs
       if (nbrbombs[id] == 0) {
-        children[3].textContent = displaybombs(
-          listabilities[id].effect1.length - 1
+        children[9].textContent = displaybombs(
+          listabilities[id].effectbomb.length - 1
         );
       } else {
         if (nbrbombs[id] == -1) {
           explosion = 1;
         } else {
-          children[3].textContent = displaybombs(nbrbombs[id]);
-        }
-      }
-    }
-  } catch {}
-  try {
-    if (listabilities[id].effect2[1] == "b") {
-      //if there is some bombs
-      if (nbrbombs[id] == 0) {
-        children[4].textContent = displaybombs(
-          listabilities[id].effect2.length - 1
-        );
-      } else {
-        if (nbrbombs[id] == -1) {
-          explosion = 1;
-        } else {
-          children[4].textContent = displaybombs(nbrbombs[id]);
-        }
-      }
-    }
-  } catch {}
-  try {
-    if (listabilities[id].effect3[1] == "b") {
-      //if there is some bombs
-      if (nbrbombs[id] == 0) {
-        children[5].textContent = displaybombs(
-          listabilities[id].effect3.length - 1
-        );
-      } else {
-        if (nbrbombs[id] == -1) {
-          explosion = 1;
-        } else {
-          children[5].textContent = displaybombs(nbrbombs[id]);
-        }
-      }
-    }
-  } catch {}
-  try {
-    if (listabilities[id].effect4[1] == "b") {
-      //if there is some bombs
-      if (nbrbombs[id] == 0) {
-        children[6].textContent = displaybombs(
-          listabilities[id].effect4.length - 1
-        );
-      } else {
-        if (nbrbombs[id] == -1) {
-          explosion = 1;
-        } else {
-          children[6].textContent = displaybombs(nbrbombs[id]);
-        }
-      }
-    }
-  } catch {}
-  try {
-    if (listabilities[id].effect5[1] == "b") {
-      //if there is some bombs
-      if (nbrbombs[id] == 0) {
-        children[7].textContent = displaybombs(
-          listabilities[id].effect5.length - 1
-        );
-      } else {
-        if (nbrbombs[id] == -1) {
-          explosion = 1;
-        } else {
-          children[7].textContent = displaybombs(nbrbombs[id]);
-        }
-      }
-    }
-  } catch {}
-  try {
-    if (listabilities[id].effect6[1] == "b") {
-      //if there is some bombs
-      if (nbrbombs[id] == 0) {
-        children[8].textContent = displaybombs(
-          listabilities[id].effect6.length - 1
-        );
-      } else {
-        if (nbrbombs[id] == -1) {
-          explosion = 1;
-        } else {
-          children[8].textContent = displaybombs(nbrbombs[id]);
+          children[9].textContent = displaybombs(nbrbombs[id]);
         }
       }
     }
@@ -507,6 +461,14 @@ function affichercarte(id) {
     children[4].textContent = "";
     children[5].textContent = "";
     children[6].textContent = "";
+    children[7].textContent = "";
+    children[8].textContent = "";
+    children[9].textContent = "";
+    children[10].textContent = "";
+    children[11].textContent = "";
+    children[12].textContent = "";
+    children[13].textContent = "";
+    children[14].textContent = "";
   }
 }
 function displaybombs(nbr) {
@@ -548,135 +510,248 @@ function afficherallcarte() {
 function generatecards() {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
+  let ephemerelistcards = [];
   //Trash
-  listcards.push(new Carte("bug", 12, "Bug", "$s$h$c"));
+  ephemerelistcards.push(new Carte("bug", 12, "Bug", "$s$h$c"));
   //Starting deck (=+6 instead of +9)
-  listcards.push(new Carte("run", 11, "Run forward", "$c", "$p1")); //+7
-  listcards.push(new Carte("magicorb", 11, "Magic orb", "$m", "$h$h$h")); //+6
-  listcards.push(new Carte("dualgun", 11, "Dual gun", "$m$r")); //+6
-  listcards.push(new Carte("two", 11, "Double strike", "$m$m", "$p>")); //+6
-  listcards.push(new Carte("heal", 11, "Fast heal", "$h", "$c")); //+7
-  listcards.push(new Carte("longlaser", 11, "Longshot", "$r$r", "$p<")); //+6
-  //^^
+  ephemerelistcards.push(new Carte("run", 11, "Run forward", "$c", "$p1")); //+7
+  ephemerelistcards.push(new Carte("magicorb", 11, "Magic orb", "$m", "$h$h$h")); //+6
+  ephemerelistcards.push(new Carte("dualgun", 11, "Dual gun", "$m$r")); //+6
+  ephemerelistcards.push(new Carte("two", 11, "Double strike", "$m$m", "$p>")); //+6
+  ephemerelistcards.push(new Carte("heal", 11, "Fast heal", "$h", "$c")); //+7
+  ephemerelistcards.push(new Carte("longlaser", 11, "Longshot", "$r$r", "$p<")); //+6
+  //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
+  //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //Normal => 24
-  listcards.push(new Carte("trident", 0, "Triple strike", "$m$m$m", "$p>")); //+9
-  listcards.push(new Carte("spear", 0, "Long attack", "$m$m$r", "$p>")); //+9
-  listcards.push(new Carte("wooden weapon", 0, "Agou agou", "$m$r$r")); //+9
-  listcards.push(new Carte("bullet", 0, "Sniping", "$r$r$r", "$p<")); //+9
-  listcards.push(new Carte("strikeheal", 0, "Strike & Heal", "$m$m", "$h$h$h", "$p>")); //+9
-  listcards.push(new Carte("attack", 0, "Attack & Heal", "$m$r", "$h$h$h")); //+9
-  listcards.push(new Carte("snipe", 0, "Snipe & Heal", "$r$r", "$h$h$h", "$p<")); //+9
-  listcards.push(new Carte("drain", 0, "Drain life", "$m", "$h$h$h$h$h$h$h", "$p>")); //+10
-  listcards.push(new Carte("boomerang", 0, "Boomerang heal", "$r", "$h$h$h$h$h$h$h", "$p5")); //+11
-  listcards.push(new Carte("balloonsfish", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
-  listcards.push(new Carte("fourstars", 0, "Quadruple shot", "$r$r$r$r", "$s$s$s", "$p4")); //+10
-  listcards.push(new Carte("bench", 0, "Heal & Retreat", "$h$h$h", "$c", "$p5")); //+10
-  listcards.push(new Carte("carddeck", 0, "Quick draw", "$r", "$c")); //+9
-  listcards.push(new Carte("quick", 0, "Quick attack", "$m", "$c")); //+9
-  listcards.push(new Carte("coffee", 0, "Instant heal", "$h", "$cc")); //+10
-  listcards.push(new Carte("handshake", 0, "Instant attack", "$m", "$s$s", "$cc")); //+10
-  listcards.push(new Carte("bananateleport", 0, "Banana snipe", "$r", "$s$s", "$cc")); //+10
-  listcards.push(new Carte("time", 0, "Teleport forward", "$cc", "$p1")); //+10
-  listcards.push(new Carte("bench", 0, "Teleport behind", "$cc", "$p<")); //+9
-  listcards.push(new Carte("quicklamp", 0, "Quick things", "$s", "Others 🔁 dices (not from Quick things) are rerolled", "$c"));
-  listcards.push(new Carte("alone", 0, "Lost", "$m", "$s", "$c", "$p1")); //+9
-  listcards.push(new Carte("catapult", 0, "Flee snipe", "$r", "$s", "$c", "$p5")); //+9
-  listcards.push(new Carte("switchrole", 0, "Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
-  listcards.push(new Carte("parry", 0, "Reversed attack", "$m$m$m", "$h", "$p5")); //+10
-
+  ephemerelistcards.push(new Carte("trident", 0, "Triple strike", "$m$m$m", "$p>")); //+9
+  ephemerelistcards.push(new Carte("spear", 0, "Long attack", "$m$m$r", "$p>")); //+9
+  ephemerelistcards.push(new Carte("wooden weapon", 0, "Agou agou", "$m$r$r")); //+9
+  ephemerelistcards.push(new Carte("bullet", 0, "Sniping", "$r$r$r", "$p<")); //+9
+  ephemerelistcards.push(new Carte("strikeheal", 0, "Strike & Heal", "$m$m", "$h$h$h", "$p>")); //+9
+  ephemerelistcards.push(new Carte("attack", 0, "Attack & Heal", "$m$r", "$h$h$h")); //+9
+  ephemerelistcards.push(new Carte("snipe", 0, "Snipe & Heal", "$r$r", "$h$h$h", "$p<")); //+9
+  ephemerelistcards.push(new Carte("drain", 0, "Drain life", "$m", "$h$h$h$h$h$h$h", "$p>")); //+10
+  ephemerelistcards.push(new Carte("boomerang", 0, "Boomerang heal", "$r", "$h$h$h$h$h$h$h", "$p5")); //+11
+  ephemerelistcards.push(new Carte("balloonsfish", 0, "Big heal", "$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h$h")); //+14
+  ephemerelistcards.push(new Carte("fourstars", 0, "Quadruple shot", "$r$r$r$r", "$s$s$s", "$p4")); //+10
+  ephemerelistcards.push(new Carte("bench", 0, "Heal & Retreat", "$h$h$h", "$c", "$p5")); //+10
+  ephemerelistcards.push(new Carte("carddeck", 0, "Quick draw", "$r", "$c")); //+9
+  ephemerelistcards.push(new Carte("quick", 0, "Quick attack", "$m", "$c")); //+9
+  ephemerelistcards.push(new Carte("coffee", 0, "Instant heal", "$h", "$cc")); //+10
+  ephemerelistcards.push(new Carte("handshake", 0, "Instant attack", "$m", "$s$s", "$cc")); //+10
+  ephemerelistcards.push(new Carte("bananateleport", 0, "Banana snipe", "$r", "$s$s", "$cc")); //+10
+  ephemerelistcards.push(new Carte("time", 0, "Teleport forward", "$cc", "$p1")); //+10
+  ephemerelistcards.push(new Carte("bench", 0, "Teleport behind", "$cc", "$p<")); //+9
+  ephemerelistcards.push(new Carte("quicklamp", 0, "Quick things", "$s", "Others 🔁 dices (not from Quick things) are rerolled", "$c"));
+  ephemerelistcards.push(new Carte("alone", 0, "Lost", "$m", "$s", "$c", "$p1")); //+9
+  ephemerelistcards.push(new Carte("catapult", 0, "Flee snipe", "$r", "$s", "$c", "$p5")); //+9
+  ephemerelistcards.push(new Carte("switchrole", 0, "Reversed snipe", "$r$r$r", "$h", "$p1")); //+11
+  ephemerelistcards.push(new Carte("parry", 0, "Reversed attack", "$m$m$m", "$h", "$p5")); //+10
+  //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
+  //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //Delay $t => 19
-  listcards.push(new Carte("quadruplecard", 1, "Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
-  listcards.push(new Carte("longsnake", 1, "Longest snake", "$m$m$m$r", "$t", "$p>")); //+10
-  listcards.push(new Carte("dolphin", 1, "Heavy attack", "$m$m$r$r", "$t")); //+10
-  listcards.push(new Carte("greatshot", 1, "Great shot", "$m$r$r$r", "$t", "$p<")); //+10
-  listcards.push(new Carte("birdhouse", 1, "Sniping hard", "$r$r$r$r", "$t", "$p<")); //+10
-  listcards.push(new Carte("stabbing", 1, "Timeal strike", "$m$m$m", "$h$h", "$t", "$p>")); //+9
-  listcards.push(new Carte("fence", 1, "Install fence", "$m$m$r", "$h$h", "$t")); //+9
-  listcards.push(new Carte("scorpio", 1, "Scorpio's help", "$m$r$r", "$h$h", "$t")); //+9
-  listcards.push(new Carte("spiderweb", 1, "Timeal snipe", "$r$r$r", "$h$h", "$t", "$p<")); //+9
-  listcards.push(new Carte("marblesofdeath", 1, "Marbles of death", "$m$m$m$m$m$m", "$t$t$t$t")); //+10
-  listcards.push(new Carte("fireworks", 1, "Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
-  /*listcards.push(new Carte("exhaustwork", 1, "Exhausting strike", "$m$m$m", "$c", "$t$t$t")); //+10
-  listcards.push(new Carte("exhaustsnipe", 1, "Exhausting snipe", "$r$r$r", "$c", "$t$t$t")); //+10*/
-  //listcards.push(new Carte("fiesta", 1, "Melting pot", "$m$r", "$s", "$c", "$t", "$p<")); //+9
-  listcards.push(new Carte("field", 1, "Rest", "$ha$ha$ha", "$t")); //+10
-  listcards.push(new Carte("meditate", 1, "Mediate", "$ha$ha$ha$ha", "$t$t$t")); //+10
-  listcards.push(new Carte("sleep", 1, "Time to rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
-  listcards.push(new Carte("acceleratetime", 1, "Accelerate time", "⌛ dices loses one coldown", "$c"));
-  listcards.push(new Carte("skiptime", 1, "Skip time", "⌛ dices loses all coldowns"));
-  listcards.push(new Carte("onethousandclock", 1, "One thousand clock", "Deal 3^x damage to the enemy where x is the number of dices with ⌛", "$c"));
-  listcards.push(new Carte("four", 1, "Power of four", "Add ⌛⚔️ to the 4️⃣ card", "$c"));
-  //listcards.push(new Carte("", 1, "", "Deal 2 damage to the enemy per⌛⚔️ to a random other card with ⌛", "$c"));
-  listcards.push(new Carte("synchronize", 1, "Synchronize", "Add 🔁⌛⌛⌛ to the 2️⃣ card", "$c", "$b"));
-
+  ephemerelistcards.push(new Carte("quadruplecard", 1, "Quadruple strike", "$m$m$m$m", "$t", "$p>")); //+10
+  ephemerelistcards.push(new Carte("longsnake", 1, "Longest snake", "$m$m$m$r", "$t", "$p>")); //+10
+  ephemerelistcards.push(new Carte("dolphin", 1, "Heavy attack", "$m$m$r$r", "$t")); //+10
+  ephemerelistcards.push(new Carte("greatshot", 1, "Great shot", "$m$r$r$r", "$t", "$p<")); //+10
+  ephemerelistcards.push(new Carte("birdhouse", 1, "Sniping hard", "$r$r$r$r", "$t", "$p<")); //+10
+  ephemerelistcards.push(new Carte("stabbing", 1, "Timeal strike", "$m$m$m", "$h$h", "$t", "$p>")); //+9
+  ephemerelistcards.push(new Carte("fence", 1, "Install fence", "$m$m$r", "$h$h", "$t")); //+9
+  ephemerelistcards.push(new Carte("scorpio", 1, "Scorpio's help", "$m$r$r", "$h$h", "$t")); //+9
+  ephemerelistcards.push(new Carte("spiderweb", 1, "Timeal snipe", "$r$r$r", "$h$h", "$t", "$p<")); //+9
+  ephemerelistcards.push(new Carte("marblesofdeath", 1, "Marbles of death", "$m$m$m$m$m$m", "$t$t$t$t")); //+10
+  ephemerelistcards.push(new Carte("fireworks", 1, "Arrow of the year", "$r$r$r$r$r$r", "$t$t$t$t")); //+10
+  ephemerelistcards.push(new Carte("field", 1, "Rest", "$ha$ha$ha", "$t")); //+10
+  ephemerelistcards.push(new Carte("meditate", 1, "Mediate", "$ha$ha$ha$ha", "$t$t$t")); //+10
+  ephemerelistcards.push(new Carte("sleep", 1, "Time to rest", "$ha$ha$ha$ha$ha", "$t$t$t$t$t")); //+10
+  ephemerelistcards.push(new Carte("acceleratetime", 1, "Accelerate time", "⌛ dices loses one coldown", "$c"));
+  ephemerelistcards.push(new Carte("skiptime", 1, "Skip time", "⌛ dices loses all coldowns"));
+  ephemerelistcards.push(new Carte("onethousandclock", 1, "One thousand clock", "Deal 3^x damage to the enemy where x is the number of dices with ⌛", "$c"));
+  ephemerelistcards.push(new Carte("four", 1, "Power of four", "Add ⌛⚔️ to the 4️⃣ card", "$c"));
+  //ephemerelistcards.push(new Carte("", 1, "", "Deal 2 damage to the enemy per⌛⚔️ to a random other card with ⌛", "$c"));
+  ephemerelistcards.push(new Carte("synchronize", 1, "Synchronize", "Add 🔁⌛⌛⌛ to the 2️⃣ card", "$c", "$b"));
+  //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
+  //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //$Heal => 17
-  listcards.push(new Carte("healimpact", 2, "Heal impact", "$m$m", "$ha", "$p>")); //+10
-  listcards.push(new Carte("seedtree", 2, "Heal polyvalent", "$m$r", "$ha")); //+10
-  listcards.push(new Carte("loverock", 2, "Heal meteor", "$r$r", "$ha", "$p<")); //+10
-  listcards.push(new Carte("woundedheart", 2, "Regeneration attack", "$m", "$h$h", "$ha")); //+9
-  listcards.push(new Carte("fiveboule", 2, "Regeneration snipe ", "$r", "$h$h", "$ha")); //+9
-  listcards.push(new Carte("island", 2, "Rejuvenation", "$h$h$h$h$h", "$ha")); //+9
-  listcards.push(new Carte("letter", 2, "Regeneration", "$h", "$ha$ha")); //+9
-  listcards.push(new Carte("regenerationleaf", 2, "Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
-  listcards.push(new Carte("fastdog", 2, "Wouf", "$ha", "$c")); //+10
-  listcards.push(new Carte("bloodcell", 2, "Transfer health", "$s$s$s$s$s", "$ha$ha", "$c", "$p>")); //+9
-  listcards.push(new Carte("heart+", 2, "Enhance", "Add 💖 to all others cards", "$cc", "$b")); //+9
-  listcards.push(new Carte("heartprism", 2, "Battle heart", "This turn, your 💖 deal one damage as extra effect", "$c")); //+9
-  listcards.push(new Carte("twopurpleheart", 2, "Purple heart", "$s$s", "Double the 💖 of all other ally"));
-  listcards.push(new Carte("redgift", 2, "Red synergy", "Other red cards gain 💖", "$c")); //+9
-  listcards.push(new Carte("cultivate", 2, "Upgrading heal", "$m$m", "Gain $°h after each use")); //+6
-  listcards.push(new Carte("bridge", 4, "Healing dash", "$p1", "💖💖 for each space moved", "$c")); //6 8 10 12 14
-  listcards.push(new Carte("medictime", 4, "Medical dash", "$p5", "💕 for each space moved")); //0 4 8 12 16
-
+  ephemerelistcards.push(new Carte("healimpact", 2, "Heal impact", "$m$m", "$ha", "$p>")); //+10
+  ephemerelistcards.push(new Carte("seedtree", 2, "Heal polyvalent", "$m$r", "$ha")); //+10
+  ephemerelistcards.push(new Carte("loverock", 2, "Heal meteor", "$r$r", "$ha", "$p<")); //+10
+  ephemerelistcards.push(new Carte("woundedheart", 2, "Regeneration attack", "$m", "$h$h", "$ha")); //+9
+  ephemerelistcards.push(new Carte("fiveboule", 2, "Regeneration snipe ", "$r", "$h$h", "$ha")); //+9
+  ephemerelistcards.push(new Carte("island", 2, "Rejuvenation", "$h$h$h$h$h", "$ha")); //+9
+  ephemerelistcards.push(new Carte("letter", 2, "Regeneration", "$h", "$ha$ha")); //+9
+  ephemerelistcards.push(new Carte("regenerationleaf", 2, "Triple reparation", "$s$s$s", "$ha$ha$ha")); //+9
+  ephemerelistcards.push(new Carte("fastdog", 2, "Wouf", "$ha", "$c")); //+10
+  ephemerelistcards.push(new Carte("bloodcell", 2, "Transfer health", "$s$s$s$s$s$s", "$ha$ha", "$c", "$p>")); //+9
+  ephemerelistcards.push(new Carte("heart+", 2, "Enhance", "Add 💖 to all others cards", "$cc", "$b")); //+9
+  ephemerelistcards.push(new Carte("heartprism", 2, "Battle heart", "This turn, your 💖 deal one damage as extra effect", "$c")); //+9
+  ephemerelistcards.push(new Carte("twopurpleheart", 2, "Purple heart", "$s$s", "Double the 💖 of all other ally"));
+  ephemerelistcards.push(new Carte("redgift", 2, "Red synergy", "Other red cards gain 💖", "$c")); //+9
+  ephemerelistcards.push(new Carte("cultivate", 2, "Upgrading heal", "$m$m", "Gain £°h after each use")); //+6
+  ephemerelistcards.push(new Carte("bridge", 4, "Healing dash", "$p1", "💖💖 for each space moved", "$c")); //6 8 10 12 14
+  ephemerelistcards.push(new Carte("medictime", 4, "Medical dash", "$p5", "💕 for each space moved")); //0 4 8 12 16
+  //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
+  //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //Permanent upgrades $b => 22
-  listcards.push(new Carte("demonicstrength", 3, "Demonic strength", "Gain permanently $+m", "Loses permanently $-h$-h", "$cc")); //+0p
-  listcards.push(new Carte("demonicpact", 3, "Demonic's pact", "Gain permanently $+r", "Loses permanently $-h$-h", "$cc")); //+0p
-  listcards.push(new Carte("hellvolcano", 3, "Demonic health", "Gain permanently $+h$+h$+h$+h", "Loses permanently $-m$-r", "$cc")); //+0p
-  listcards.push(new Carte("searchforheal", 3, "Lifestone's search", "Gain permanently $+h", "$c", "$bbb")); //+3p
-  listcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently $+m", "Loses permanently $-h", "$c", "$bbb")); //+3p
-  listcards.push(new Carte("sunsetgiraffe", 3, "Ranged buff", "Gain permanently $+r", "Loses permanently $-h", "$c", "$bbb")); //+3p
-  listcards.push(new Carte("devilclothe", 3, "Attack buff", "Gain permanently $+m$+r", "Loses permanently $-h$-h", "$c", "$bb")); //+4p
-  listcards.push(new Carte("candleburned", 3, "Demonic attack", "$p>", "$m$m$m", "Loses permanently $-r to deal $wm$wm$wm extra")); //+18
-  listcards.push(new Carte("escapehell", 3, "Demonic snipe", "$p<", "$r$r$r", "Loses permanently $-m to deal $wr$wr$wr extra")); //+18
-  listcards.push(new Carte("runexplose", 3, "Attack and run", "$p>", "$m", "Loses permanently $-r to deal $wm$wm$wm extra", "$c")); //+18
-  listcards.push(new Carte("demonicbow", 3, "Demonic fast snipe", "$p<", "$r", "Loses permanently $-m to deal $wr$wr$wr extra", "$c")); //+18
-  listcards.push(new Carte("growstrength", 3, "Instable full attack", "$m$m", "Gain $°m after each use", "$bbbbb")); // +6 +9 +12 +15 +18
-  listcards.push(new Carte("distribution", 3, "Distribution", "💥 cards (non Bunker or Distribution) gain one 💥", "$c", "$bb"));
-  listcards.push(new Carte("bunker", 3, "Bunker", "💥 cards (non Bunker or Distribution) gain one 💥", "$bbbbb"));
-  listcards.push(new Carte("triplebullseyes", 3, "Extra attacks", "$m$m$r$r", "$bbbbb")); //+9 3*5
-  listcards.push(new Carte("atomicbomb", 3, "Instable strikes", "$m$m$m$m$m$m", "$p>", "$bb")); //+9 9*2
-  listcards.push(new Carte("timedattack", 3, "Instant difficult blow", "$m", "$cc", "$bbb")); //+9 3*3
-  listcards.push(new Carte("soapbubblee", 3, "Instant medic", "$s$s$s", "$ha", "$cc")); //+10
-  listcards.push(new Carte("rundog", 3, "Helping dog", "$ha", "$cc", "$bbbbb")); //+9 4*5
-  listcards.push(new Carte("planeexplosion", 3, "Fast instable attacks", "$m$r", "$c", "$bbb")); //+9 3*3
-  listcards.push(new Carte("callbomb", 3, "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")); //+9 2*9
-  listcards.push(new Carte("pizza", 1, "Feed", "$r$r", "If that kill the enemy, gain permanently 💖💖")); //+9
-
+  ephemerelistcards.push(new Carte("demonicstrength", 3, "Demonic strength", "Gain permanently £+m", "Loses permanently £-h£-h", "$cc")); //+0p
+  ephemerelistcards.push(new Carte("demonicpact", 3, "Demonic's pact", "Gain permanently £+r", "Loses permanently £-h£-h", "$cc")); //+0p
+  ephemerelistcards.push(new Carte("hellvolcano", 3, "Demonic health", "Gain permanently £+h£+h£+h£+h", "Loses permanently £-m£-r", "$cc")); //+0p
+  ephemerelistcards.push(new Carte("searchforheal", 3, "Lifestone's search", "Gain permanently £+h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("purpleflower", 3, "Melee buff", "Gain permanently £+m", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("sunsetgiraffe", 3, "Ranged buff", "Gain permanently £+r", "Loses permanently £-h", "$c", "$bbb")); //+3p
+  ephemerelistcards.push(new Carte("devilclothe", 3, "Attack buff", "Gain permanently £+m£+r", "Loses permanently £-h£-h", "$c", "$bb")); //+4p
+  ephemerelistcards.push(new Carte("candleburned", 3, "Demonic attack", "$p>", "$m$m$m", "Loses permanently £-r to deal £wm£wm£wm extra")); //+18
+  ephemerelistcards.push(new Carte("escapehell", 3, "Demonic snipe", "$p<", "$r$r$r", "Loses permanently £-m to deal £wr£wr£wr extra")); //+18
+  ephemerelistcards.push(new Carte("runexplose", 3, "Attack and run", "$p>", "$m", "Loses permanently £-r to deal £wm£wm£wm extra", "$c")); //+18
+  ephemerelistcards.push(new Carte("demonicbow", 3, "Demonic fast snipe", "$p<", "$r", "Loses permanently £-m to deal £wr£wr£wr extra", "$c")); //+18
+  ephemerelistcards.push(new Carte("growstrength", 3, "Instable full attack", "$m$m", "Gain £°m after each use", "$bbbbb")); // +6 +9 +12 +15 +18
+  ephemerelistcards.push(new Carte("distribution", 3, "Distribution", "💥 cards (non Bunker or Distribution) gain one 💥", "$c", "$bb"));
+  ephemerelistcards.push(new Carte("bunker", 3, "Bunker", "💥 cards (non Bunker or Distribution) gain one 💥", "$bbbbb"));
+  ephemerelistcards.push(new Carte("triplebullseyes", 3, "Extra attacks", "$m$m$r$r", "$bbbbb")); //+9 3*5
+  ephemerelistcards.push(new Carte("atomicbomb", 3, "Instable strikes", "$m$m$m$m$m$m", "$p>", "$bb")); //+9 9*2
+  ephemerelistcards.push(new Carte("timedattack", 3, "Instant difficult blow", "$m", "$cc", "$bbb")); //+9 3*3
+  ephemerelistcards.push(new Carte("soapbubblee", 3, "Instant medic", "$s$s$s", "$ha", "$cc")); //+10
+  ephemerelistcards.push(new Carte("rundog", 3, "Helping dog", "$ha", "$cc", "$bbbbb")); //+9 4*5
+  ephemerelistcards.push(new Carte("planeexplosion", 3, "Fast instable attacks", "$m$r", "$c", "$bbb")); //+9 3*3
+  ephemerelistcards.push(new Carte("callbomb", 3, "Call for help", "$ha$ha$ha$ha$ha$ha", "$t$t$t", "$bb")); //+9 2*9
+  ephemerelistcards.push(new Carte("pizza", 1, "Feed", "$r$r", "If that kill the enemy, gain permanently 💖💖")); //+9
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //Unique effects => 19
-  listcards.push(new Carte("perfectspot", 4, "Perfect spot", "$m$r", "$h", "💖🏹 if 🚶‍♂️3", "$p3")); //+8.4
-  listcards.push(new Carte("target", 4, "Balanced attack", "⚔️⚔️⚔️ if 🚶‍♂️1 or 🚶‍♂️2", "🏹🏹🏹 if 🚶‍♂️4 or 🚶‍♂️5")); //+7.2
-  listcards.push(new Carte("middlewood", 4, "Fortress in the wood", "$m", "⚔️🏹🏹 if 🚶‍♂️2 or 🚶‍♂️3 or 🚶‍♂️4")); //+8.4
-  listcards.push(new Carte("longattack", 4, "Snipe dash", "$p4", "🏹🏹 for each space moved")); //0 6 6 12 18
-  listcards.push(new Carte("fourswap", 4, "Crowd", "Swap randomly 2 by 2 others characters", "$cc")); //+9
-  listcards.push(new Carte("switch", 4, "Switch", "Swap your ⚔️ & 🏹", "$c")); //+6
-  listcards.push(new Carte("reroll", 4, "Reroll", "$h", "Reroll all unused dices", "$c")); //+6
-  listcards.push(new Carte("rubbickscube", 4, "Return", "Return all unused dice", "$c")); //+6
-  listcards.push(new Carte("jellyfish", 4, "Chaos", "$ha", "Trigger a random other ability (non Chaos)")); //+13
-  listcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
-  listcards.push(new Carte("blackhole", 4, "Feed from allies", "$h$h$h$h$h", "All other allies take one damage", "$cc")); //+10
-  listcards.push(new Carte("fightofelements", 4, "Fight of elements", "Loses permanently 2⚔️ and 3🏹 then double them", "$cc", "$b"));
-  listcards.push(new Carte("newminion", 4, "Song of robustness", "Loses permanently 6💖 then double it", "$cc", "$b"));
-  listcards.push(new Carte("doorgate", 4, "Resurrection", "If you have 0⚔️ and 0🏹, gain permanently 4⚔️ and 6🏹", "$cc", "$b"));
-  listcards.push(new Carte("canyon", 4, "Narrow path", "Permanently reduce 🤲 of enemy to 2", "$c"));
-  listcards.push(new Carte("panneauetroit", 4, "Launch a panel", "Permanently reduce 🤲 of enemy by 1 (down to 1)", "$c", "$bb"));
-  listcards.push(new Carte("punch", 4, "Disarm", "Permanently reduce ⚔️ of enemy by 1 (down to 5)", "$c"));
-  listcards.push(new Carte("lasso", 4, "Lasso", "Permanently reduce ⚔️ of enemy by 3 (down to 5)", "$bb"));
-  listcards.push(new Carte("halfheart", 4, "Broken heart", "Half the hp of yourself and the enemy (rounded up)"));
-
+  ephemerelistcards.push(new Carte("perfectspot", 4, "Perfect spot", "$m$r", "$h", "💖🏹 if 🚶‍♂️3", "$p3")); //+8.4
+  ephemerelistcards.push(new Carte("target", 4, "Balanced attack", "⚔️⚔️⚔️ if 🚶‍♂️1 or 🚶‍♂️2", "🏹🏹🏹 if 🚶‍♂️4 or 🚶‍♂️5")); //+7.2
+  ephemerelistcards.push(new Carte("middlewood", 4, "Fortress in the wood", "$m", "⚔️🏹🏹 if 🚶‍♂️2 or 🚶‍♂️3 or 🚶‍♂️4")); //+8.4
+  ephemerelistcards.push(new Carte("longattack", 4, "Snipe dash", "$p4", "🏹🏹 for each space moved")); //0 6 6 12 18
+  ephemerelistcards.push(new Carte("fourswap", 4, "Crowd", "Swap randomly 2 by 2 others characters", "$cc")); //+9
+  ephemerelistcards.push(new Carte("switch", 4, "Switch", "Swap your ⚔️ & 🏹", "$c")); //+6
+  ephemerelistcards.push(new Carte("reroll", 4, "Reroll", "$h", "Reroll all unused dices", "$c")); //+6
+  ephemerelistcards.push(new Carte("rubbickscube", 4, "Return", "Return all unused dice", "$c")); //+6
+  ephemerelistcards.push(new Carte("jellyfish", 4, "Chaos", "$ha", "Trigger a random other ability (non Chaos)")); //+13
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("blackhole", 4, "Feed from allies", "$h$h$h$h$h", "All other allies take one damage", "$cc")); //+10
+  ephemerelistcards.push(new Carte("fightofelements", 4, "Fight of elements", "Loses permanently 2⚔️ and 3🏹 then double them", "$cc", "$b"));
+  ephemerelistcards.push(new Carte("newminion", 4, "Song of robustness", "Loses permanently 6💖 then double it", "$cc", "$b"));
+  ephemerelistcards.push(new Carte("doorgate", 4, "Resurrection", "If you have 0⚔️ and 0🏹, gain permanently 4⚔️ and 6🏹", "$cc", "$b"));
+  ephemerelistcards.push(new Carte("canyon", 4, "Narrow path", "Permanently reduce 🤲 of enemy to 2", "$c"));
+  ephemerelistcards.push(new Carte("panneauetroit", 4, "Launch a panel", "Permanently reduce 🤲 of enemy by 1 (down to 1)", "$c", "$bb"));
+  ephemerelistcards.push(new Carte("punch", 4, "Disarm", "Permanently reduce ⚔️ of enemy by 1 (down to 5)", "$c"));
+  ephemerelistcards.push(new Carte("lasso", 4, "Lasso", "Permanently reduce ⚔️ of enemy by 3 (down to 5)", "$bb"));
+  ephemerelistcards.push(new Carte("halfheart", 4, "Broken heart", "Half the hp of yourself and the enemy (rounded down)"));
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
+  generatecardscreateorder(ephemerelistcards);
+}
+function generatecardscreateorder(ephemerelistcards) {
+  let card;
+  let text = "";
+  let split;
+  for (let i=0;i<ephemerelistcards.length;i++){
+    card = ephemerelistcards[i];
+    let j = [card.effectatk, card.effecthp, card.effectselfdamage, card.effectcantrip, card.effectdelay, card.effectmove, card.effectbomb, card.effect1, card.effect2, card.effect3, card.effect4, card.effect5, card.effectadvanced];
+    text += j[0];
+    for (let k=1; k<j.length;k++){
+      if (j[k] != undefined) {
+        text += "|" + j[k];
+      }
+    }
+    listcards.push(new Carte(ephemerelistcards[i].avatar, ephemerelistcards[i].color, ephemerelistcards[i].nom, "", "", "", "", "", "", "", "", "", "", "", "", ""));
+  
+    let separate = text.split("|")
+    let nbreffects=0;
+    for (l=0;l<separate.length;l++){
+      split = separate[l].split("$");
+      //console.log(split);
+      for (let k=0;k<split.length;k++){
+        let char = split[k].charAt(0);
+        let char2 = split[k].charAt(1);
+        let chardelete = 0;
+          if (char=="m"){
+            listcards[i].effectatk += "$m";
+            chardelete = 1;
+          }
+          if (char=="r"){
+            listcards[i].effectatk += "$r";
+            chardelete = 1;
+          }
+          if (char=="h"){
+            if (char2 =="a"){
+              listcards[i].effecthp += "$ha";
+              chardelete = 2;
+            } else {
+              listcards[i].effecthp += "$h";
+              chardelete = 1;
+            }
+          }
+          if (char=="s") {
+            listcards[i].effectselfdamage += "$s";
+            chardelete = 1;
+          }
+          if (char=="c") {
+            if (char2 == "c"){
+              listcards[i].effectcantrip += "$cc";
+              chardelete = 2;
+            } else {
+              listcards[i].effectcantrip += "$c";
+              chardelete = 1;
+            }
+          }
+          if (char=="t") {
+            listcards[i].effectdelay += "$t";
+            chardelete = 1;
+          }
+          if (char=="p") {
+            listcards[i].effectmove += "$p" + char2;
+            chardelete = 2;
+          }
+          if (char=="b"){ //last test
+            listcards[i].effectbomb += "$";
+            let counter=0;
+            while (char=="b") {
+              listcards[i].effectbomb += "b";
+              counter++;
+              if (split[k].length > counter){
+                char = split[k].charAt(counter);
+              } else {
+                char="end";
+              }
+            }
+            chardelete = counter;
+          }
+          //console.log(">" + chardelete + "|" + split[k]);
+          if (split[k].length != chardelete) {
+            split[k] = split[k].substring(chardelete);
+            if (nbreffects == 0){
+              listcards[i].effect1 += split[k];
+            }
+            if (nbreffects == 1){
+              listcards[i].effect2 += split[k];
+            }
+            if (nbreffects == 2){
+              listcards[i].effect3 += split[k];
+            }
+            if (nbreffects == 3){
+              listcards[i].effect4 += split[k];
+            }
+            if (nbreffects == 4){
+              listcards[i].effect5 += split[k];
+            }
+            nbreffects++;
+          }
+      }
+      //console.log(listcards[i].effectatk);
+      text = "";
+    }
+    }
+  console.log("Génération cartes faites:");
+  console.log(listcards);
 }
 function createbasicdeck() {
   for (let i=0;i<7;i++){
@@ -695,7 +770,6 @@ function lancerdes() {
   diceavailable = ["y", "y", "y", "y", "y"];
   for (let i = 0; i < 5; i++) {
     listpersos[i].de = Math.trunc(Math.random() * 6 + 1);
-    //document.getElementById("persoetde"+i).children[1].textContent = listpersos[i].de;
   }
 }
 function debutdutour() {
@@ -856,64 +930,18 @@ function resolveeffect(player, id) {
   }
 
   let permanentbuff = [0,0,0]; //[m, r, h]
-  for (let j = 0; j <7; j++) {
-    let split;
-    if (j == 4) {
-      split = listcards[id].effect1.split("$");
-    }
-    if (j == 3) {
-      try {
-        split = listcards[id].effect2.split("$");
-      } catch {
-        split = "y";
-      }
-    }
-    if (j == 2) {
-      try {
-        split = listcards[id].effect3.split("$");
-      } catch {
-        split = "y";
-      }
-    }
-    if (j == 1) {
-      try {
-        split = listcards[id].effect4.split("$");
-      } catch {
-        split = "y";
-      }
-    }
-    if (j == 0) {
-      try {
-        split = listcards[id].effect5.split("$");
-      } catch {
-        split = "y";
-      }
-    }
-    if (j == 5) {
-      try {
-        split = listcards[id].effect6.split("$");
-      } catch {
-        split = "y";
-      }
-    }
-    /* Advanced mode */
-    if (j==6){
-        if (advancedmode==1){
-          if(player.de==1){split = "a:$p1"}; //+4
-          if(player.de==2){split = "a:$h$h"}; //+2
-          if(player.de==3){split = "a:$ha$t"}; //+2
-          if(player.de==4){split = "a:$m"}; //+3
-          if(player.de==5){split = "a:$r"}; //+3
-          if(player.de==6){split = "a:$c"}; //+1
-          split = split.split("$");
-        } else {
-        split="y";
-      }
-    }
-    for (let i = 0; i < split.length; i++) {
-      let char = split[i].charAt(0);
+
+for (const property in listabilities[player.de-1]) {
+  let currentproperty = `${listabilities[player.de-1][property]}`;
+  if (property != "avatar" && property != "color" && property != "nom" && property != "id" && currentproperty != ""){
+    let split = currentproperty.split(/\$|\£/).filter(e => e);
+    for (j=0;j<split.length;j++){
+      //console.log(split[j]);
+
+
+      let char = split[j].charAt(0);
       if (char[0] == "h") {
-        if (split[i].charAt(1) == "a") {
+        if (split[j].charAt(1) == "a") {
           //💕
           for (let k = 0; k < 5; k++) {
             heal(listpersos[k], 1);
@@ -923,14 +951,14 @@ function resolveeffect(player, id) {
           //💖
           heal(player, 1);
           //battle heart special effect
-          if (battleheart==1){
-            attack(1);
+          if (battleheart>0){
+            attack(battleheart);
           }
         }
       }
       if (char[0] == "c") {
         increaseturndelay--;
-        if ((split[i].charAt(1) == "c")) {
+        if ((split[j].charAt(1) == "c")) {
           increaseturndelay--;
         }
       }
@@ -945,7 +973,7 @@ function resolveeffect(player, id) {
       }
       if (char[0] == "p") {
         //🚶‍♂️
-        move(player, split[i].charAt(1));
+        move(player, split[j].charAt(1));
       }
       if (char[0] == "s") {
         //🩸
@@ -958,23 +986,23 @@ function resolveeffect(player, id) {
 
       //permanent buff on perso
       if (char[0] == "+") {
-        console.log("+" + split + "| " + split[i].charAt(1));
-        if (split[i].charAt(1) == "m") {
+        console.log("+" + split + "| " + split[j].charAt(1));
+        if (split[j].charAt(1) == "m") {
           permanentbuff[0]++;
           applyextraeffects=1;
         }
-        if (split[i].charAt(1) == "r") {
+        if (split[j].charAt(1) == "r") {
           permanentbuff[1]++;
           applyextraeffects=1;
         }
-        if (split[i].charAt(1) == "h") {
+        if (split[j].charAt(1) == "h") {
           permanentbuff[2]++;
           applyextraeffects=1;
         }
       }
       if (char[0] == "-") {
-        console.log("-" + split + "| " + split[i].charAt(1));
-        if (split[i].charAt(1) == "m") {
+        console.log("-" + split + "| " + split[j].charAt(1));
+        if (split[j].charAt(1) == "m") {
           if (player.atkmel-permanentbuff[0] < 1) {
             document.getElementById("messagecentral").textContent ="Attack too low: extra effects not applied.";
             skipnextmessage = 1;
@@ -984,7 +1012,7 @@ function resolveeffect(player, id) {
             applyextraeffects=1;
           }
         }
-        if (split[i].charAt(1) == "r") {
+        if (split[j].charAt(1) == "r") {
           if (player.atkran-permanentbuff[1] < 1) {
             document.getElementById("messagecentral").textContent ="Range too low: extra effects not applied.";
             skipnextmessage = 1;
@@ -994,7 +1022,8 @@ function resolveeffect(player, id) {
             applyextraeffects=1;
           }
         }
-        if (split[i].charAt(1) == "h") {
+        console.log("p");
+        if (split[j].charAt(1) == "h") {
           if (player.maxhp-permanentbuff[2] < 2) {
             document.getElementById("messagecentral").textContent =
               "Health too low: extra effects not applied.";
@@ -1007,39 +1036,58 @@ function resolveeffect(player, id) {
         }
       }
       if (char[0] == "w" && applyextraeffects==1) {
-        //$w
+        //£w
         console.log("Stat lost: extra effects applied");
-        if(split[i].charAt(1) == "m"){
+        if(split[j].charAt(1) == "m"){
           atkmel(player, 1);
         }
-        if(split[i].charAt(1) == "r"){
+        if(split[j].charAt(1) == "r"){
           atkmel(player, 1);
         }
-        if(split[i].charAt(1) == "h"){
+        if(split[j].charAt(1) == "h"){
           heal(player, 1);
         }
       }
 
       //permanent buff on card
       if (char[0] == "°") {
-        if (split[i].charAt(1) == "m") {
+        if (split[j].charAt(1) == "m") {
           atkmel(player,nbrbonusmelee[player.de]);
           nbrbonusmelee[player.de]++;
           afficherallcarte();
         }
-        if (split[i].charAt(1) == "r") {
+        if (split[j].charAt(1) == "r") {
           atkmel(player,nbrbonusrange[player.de]);
           nbrbonusrange[player.de]++;
           afficherallcarte();
         }
-        if (split[i].charAt(1) == "h") {
+        if (split[j].charAt(1) == "h") {
           heal(player, nbrbonusheal[player.de]);
           nbrbonusheal[player.de]++;
           afficherallcarte();
         }
+        console.log("u");
       }
+
     }
+    console.log(split);
   }
+}
+    /* Advanced mode */
+    /*if (j==8){
+        if (advancedmode==1){
+          if(player.de==1){split = "a:$p1"}; //+4
+          if(player.de==2){split = "a:$h$h"}; //+2
+          if(player.de==3){split = "a:$ha$t"}; //+2
+          if(player.de==4){split = "a:$m"}; //+3
+          if(player.de==5){split = "a:$r"}; //+3
+          if(player.de==6){split = "a:$c"}; //+1
+          split = split.split("$");
+        } else {
+        split="y";
+      }
+    }*/
+      
 
   //permanent buff
   if (applyextraeffects==1){
@@ -1177,24 +1225,24 @@ function specialseffectsbefore(player, id) {
   if (listcards[id].nom == "Enhance") {
     //"Add 💖 to all others cards", "$cc", "$b"
     for (let i=0;i<6;i++){
-      if(listabilities[i].effect2 == undefined) {
-        listabilities[i].effect2 = "$h";
+      if(listabilities[i].effecthp == undefined) {
+        listabilities[i].effecthp = "$h";
       } else {
-        listabilities[i].effect2 += "$h";
+        listabilities[i].effecthp += "$h";
       }
-      listabilities[player.de-1].effect2 = "";
+      listabilities[player.de-1].effecthp = "";
     }
   }
   if (listcards[id].nom == "Red synergy") {
     //"Other red cards gain 💖"
     for (let i=0;i<6;i++){
       if (listabilities[i].color == 2)
-        if (listabilities[i].effect5 == undefined) {
-          listabilities[i].effect5 = "$h";
+        if (listabilities[i].effectmove == undefined) {
+          listabilities[i].effectmove = "$h";
         } else {
-          listabilities[i].effect5 += "$h";
+          listabilities[i].effectmove += "$h";
         }
-      listabilities[player.de-1].effect5 = "";
+      listabilities[player.de-1].effectmove = "";
     }
   }
   return id;
@@ -1254,7 +1302,7 @@ function specialseffectsafter(player, id) {
     //"💥 cards gain one 💥", "$bbbbb"
     let cardplayed = listcards[id];
     for (let i=0;i<6;i++){
-      if (nbrbombs[i]>0 && cardplayed.nom != "Bunker" && cardplayed.nom != "Distribution"){
+      if (nbrbombs[i]>0 && listabilities[i].nom != "Bunker" && listabilities[i].nom != "Distribution"){
         nbrbombs[i]++;
         console.log("bomb added");
       }
@@ -1372,18 +1420,18 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Power of four"){
     //"Add ⌛⚔️ to the 4️⃣ card", "$c"
-    if (listabilities[3].effect5 == undefined) {
-      listabilities[3].effect5 = "$t$m";
+    if (listabilities[3].effectmove == undefined) {
+      listabilities[3].effectmove = "$t$m";
     } else {
-      listabilities[3].effect5 += "$t$m";
+      listabilities[3].effectmove += "$t$m";
     }
   }
   if (listcards[id].nom == "Synchronize"){
     //"Add 🔁⌛⌛⌛ to the 2️⃣ card", "$c", "$b"
-    if (listabilities[1].effect5 == undefined) {
-      listabilities[1].effect5 = "$c$t$t$t";
+    if (listabilities[1].effectmove == undefined) {
+      listabilities[1].effectmove = "$c$t$t$t";
     } else {
-      listabilities[1].effect5 += "$c$t$t$t";
+      listabilities[1].effectmove += "$c$t$t$t";
     }
   }
 }
@@ -1715,25 +1763,10 @@ function changecarddeck(nbr) {
   listabilities[nbr] = listabilities[6 + cardchosen];
 
   //bombs
-  let carte = listabilities[6 + cardchosen];
+  let carte = listabilities[nbr];
   let split = "";
   try {
-    split = carte.effect1.split("$b");
-  } catch {}
-  try {
-    split = carte.effect2.split("$b");
-  } catch {}
-  try {
-    split = carte.effect3.split("$b");
-  } catch {}
-  try {
-    split = carte.effect4.split("$b");
-  } catch {}
-  try {
-    split = carte.effect5.split("$b");
-  } catch {}
-  try {
-    split = carte.effect6.split("$b");
+    split = carte.effectbomb.split("$b");
   } catch {}
   if (split.length>1){
     //there is some bombs
@@ -1747,14 +1780,6 @@ function changecarddeck(nbr) {
   cardchosen = 0;
   document.getElementById("grayscreen").style.visibility = "hidden";
   document.getElementById("messagecentral").textContent = "Next fight";
-  /*for (i = 7; i < 12; i++) {
-    listabilities[i] = listabilities[6];
-    listabilities[i].effect1 = "ici";
-    listabilities[i].effect2 = "ici";
-    listabilities[i].effect3 = "ici";
-    listabilities[i].effect4 = "ici";
-    listabilities[i].effect5 = "ici";
-  }*/
 }
 
 /* Skip turn */
@@ -1855,7 +1880,7 @@ let advancedmode = 0;
 function setting1() {
   let element = document.getElementById("content");
   if (advancedmode == 0) {
-    element.innerHTML = "Content: advanced (each slot got extra effects)(for more thinking)";
+    element.innerHTML = "Content: advanced (each slot got extra effects)(for more thinking)(less balanced)";
     advancedmode = 1;
     document.getElementById("carte0").children[8].textContent = "a:🚶‍♂️1"; //+1
     document.getElementById("carte1").children[8].textContent = "a:💖💖"; //+2

@@ -8,7 +8,7 @@ function changecarddeck(nbr)
 */
 
 let listpersos = []; // persos[01234] represent ally (top left), persos[5+] is the enemy (top right)
-let ennemy = 5; //persos[ennemy] is the current enemy of the listpersos
+let enemy = 5; //persos[enemy] is the current enemy of the listpersos
 let listabilities = [12]; //listabilities[012345] is the deck (bottom), listabilities[7] is trash/empty, listabilities[89101112] are for choices after you killed an enemy
 let listcards = []; //listcards[0] is trash/empty, listcards[123456] is the starting cards (4 by default, can goes up to 6), listcards[7+] are the cards created manually
 let ordrepersos = [0, 1, 2, 3, 4, 5]; //this represent where each perso is present. 5 is always last. If ordrepersos = [0,2,1,4,3,5], then Bernard & Catherine are swapped. Same for Derick and Elise.
@@ -45,17 +45,81 @@ window.addEventListener("load", onload);
 function onload() {
   generatepersos();
   generatecards();
+  generatedivs();
   cookieonstart();
   createbasicdeck();
-  afficherallcarte();
+  displayallcarte();
   document.getElementById("grayscreen").style.height =
     document.body.scrollHeight + 20 + "px";
   document.getElementById("grayscreen").style.visibility = "visible";
   document.getElementById("grayscreen").style.zIndex = "35";
   document.getElementById("messagecentral").style.zIndex = "40";
-  document.getElementById("messagecentral").textContent =
-    "Select a dice to play above, the corresponding card below will take effect";
+  document.getElementById("messagecentral").textContent = "Select a dice to play above, the corresponding card below will take effect";
   debutdutour();
+}
+
+function generatedivs() {
+  let nbrattributes = 16;
+  let previousdiv = [];
+  let newdiv = [];
+  for (let i=0;i<6;i++){
+    previousdiv = document.getElementById("carte" + i);
+    //
+    newdiv[i*nbrattributes] = document.createElement("div");
+    newdiv[i*nbrattributes].id = "intro" + i;
+    newdiv[i*nbrattributes].classList.add("intro");
+    previousdiv.appendChild(newdiv[i*nbrattributes]);
+    previousdiv.append(newdiv[i*nbrattributes]);
+    //
+    newdiv[i*nbrattributes+1] = document.createElement("div");
+    newdiv[i*nbrattributes+1].id = "nom" + i;
+    newdiv[i*nbrattributes+1].classList.add("titrecarte");
+    previousdiv.appendChild(newdiv[i*nbrattributes+1]);
+    previousdiv.append(newdiv[i*nbrattributes+1]);
+    //
+    newdiv[i*nbrattributes+2] = document.createElement("div");
+    newdiv[i*nbrattributes+2].id = "img" + i;
+    newdiv[i*nbrattributes+2].classList.add("image");
+    previousdiv.appendChild(newdiv[i*nbrattributes+2]);
+    previousdiv.append(newdiv[i*nbrattributes+2]);
+    //
+    for (j=1;j<nbrattributes-2;j++){
+      newdiv[i*nbrattributes+j+2] = document.createElement("div");
+      newdiv[i*nbrattributes+j+2].id = "effect" + i + j;
+      newdiv[i*nbrattributes+j+2].classList.add("effect" + j);
+      previousdiv.appendChild(newdiv[i*nbrattributes+j+2]);
+      previousdiv.append(newdiv[i*nbrattributes+j+2]);
+    }
+  }
+  for (let i=7;i<12;i++){
+    previousdiv = document.getElementById("carteextra" + i);
+    //
+    newdiv[i*nbrattributes] = document.createElement("div");
+    newdiv[i*nbrattributes].id = "introextra" + i;
+    newdiv[i*nbrattributes].classList.add("intro");
+    previousdiv.appendChild(newdiv[i*nbrattributes]);
+    previousdiv.append(newdiv[i*nbrattributes]);
+    //
+    newdiv[i*nbrattributes+1] = document.createElement("div");
+    newdiv[i*nbrattributes+1].id = "nomextra" + i;
+    newdiv[i*nbrattributes+1].classList.add("titrecarte");
+    previousdiv.appendChild(newdiv[i*nbrattributes+1]);
+    previousdiv.append(newdiv[i*nbrattributes+1]);
+    //
+    newdiv[i*nbrattributes+2] = document.createElement("div");
+    newdiv[i*nbrattributes+2].id = "imgextra" + i;
+    newdiv[i*nbrattributes+2].classList.add("image");
+    previousdiv.appendChild(newdiv[i*nbrattributes+2]);
+    previousdiv.append(newdiv[i*nbrattributes+2]);
+    //
+    for (j=1;j<nbrattributes-2;j++){
+      newdiv[i*nbrattributes+j+2] = document.createElement("div");
+      newdiv[i*nbrattributes+j+2].id = "effectextra" + i + j;
+      newdiv[i*nbrattributes+j+2].classList.add("effect" + j);
+      previousdiv.appendChild(newdiv[i*nbrattributes+j+2]);
+      previousdiv.append(newdiv[i*nbrattributes+j+2]);
+    }
+  }
 }
 
 /* Persos */
@@ -79,7 +143,7 @@ function Personnage(a, b, c, d, e, f) {
   this.atkmel = e;
   this.atkran = f;
 }
-function afficherperso(element, id) {
+function displayperso(element, id) {
   let children = element.children;
   if (id == 0) {
     element.style.backgroundColor = "navy";
@@ -164,13 +228,13 @@ function afficherperso(element, id) {
       children[3].textContent += " | 🤲" + listpersos[id].atkran;
   }
 }
-function afficherallperso(array) {
-  afficherperso(document.getElementById("persoetde0"), array[0]);
-  afficherperso(document.getElementById("persoetde1"), array[1]);
-  afficherperso(document.getElementById("persoetde2"), array[2]);
-  afficherperso(document.getElementById("persoetde3"), array[3]);
-  afficherperso(document.getElementById("persoetde4"), array[4]);
-  afficherperso(document.getElementById("persoetde5"), ennemy);
+function displayallperso(array) {
+  displayperso(document.getElementById("persoetde0"), array[0]);
+  displayperso(document.getElementById("persoetde1"), array[1]);
+  displayperso(document.getElementById("persoetde2"), array[2]);
+  displayperso(document.getElementById("persoetde3"), array[3]);
+  displayperso(document.getElementById("persoetde4"), array[4]);
+  displayperso(document.getElementById("persoetde5"), enemy);
 }
 function generatepersos() {
   //ally
@@ -253,7 +317,7 @@ function Carte(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
   this.effect5 = o;
   this.effectadvanced = p;
 }
-function affichercarte(id) {
+function displaycarte(id) {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   let children;
@@ -377,8 +441,7 @@ function affichercarte(id) {
     .replaceAll("$r", "🏹")
     .replaceAll("$h", "💖");
 
-  /*try {
-    children[X].textContent = listabilities[id].effectadvanced
+    children[15].textContent = listabilities[id].effectadvanced
       .replaceAll("£+", "$")
       .replaceAll("£-", "$")
       .replaceAll("$z", "$")
@@ -393,29 +456,26 @@ function affichercarte(id) {
       .replaceAll("$p", "🚶‍♂️")
       .replaceAll("$s", "🩸")
       .replaceAll("$t", "⌛");
-  } catch {
-    children[X].textContent = "";
-  }*/
 
   /* Advanced mode */
   if (advancedmode == 1) {
     if (id == 0) {
-      document.getElementById("carte" + id).children[15].textContent = "a:🚶‍♂️1";
+      children[15].textContent += "a:🚶‍♂️1";
     } //+4
     if (id == 1) {
-      document.getElementById("carte" + id).children[15].textContent = "a:💖💖";
+      children[15].textContent += "a:💖💖";
     } //+2
     if (id == 2) {
-      document.getElementById("carte" + id).children[15].textContent = "a:💕⌛";
+      children[15].textContent += "a:💕⌛";
     } //+2
     if (id == 3) {
-      document.getElementById("carte" + id).children[15].textContent = "a:⚔️";
+      children[15].textContent += "a:⚔️";
     } //+3
     if (id == 4) {
-      document.getElementById("carte" + id).children[15].textContent = "a:🏹";
+      children[15].textContent += "a:🏹";
     } //+3
     if (id == 5) {
-      document.getElementById("carte" + id).children[15].textContent = "a:🔁";
+      children[15].textContent += "a:🔁";
     } //+6
   }
 
@@ -480,13 +540,13 @@ function displayrange(nbr) {
   }
   return string;
 }
-function afficherallcarte() {
-  affichercarte(0);
-  affichercarte(1);
-  affichercarte(2);
-  affichercarte(3);
-  affichercarte(4);
-  affichercarte(5);
+function displayallcarte() {
+  displaycarte(0);
+  displaycarte(1);
+  displaycarte(2);
+  displaycarte(3);
+  displaycarte(4);
+  displaycarte(5);
 }
 function generatecards() {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
@@ -748,19 +808,19 @@ function lancerdes() {
 function debutdutour() {
   genererevents();
   lancerdes();
-  afficherallperso(ordrepersos);
+  displayallperso(ordrepersos);
 }
 function findutour() {
-  if (listpersos[ennemy].currenthp < 1) {
+  if (listpersos[enemy].currenthp < 1) {
     console.log("Kill");
     //One kill done
-    if (ennemy == 15) {
+    if (enemy == 15) {
       youwin();
       return;
     }
-    ennemy++;
+    enemy++;
     choosenewcard();
-    if (ennemy%2 == 1){
+    if (enemy%2 == 1){
       skips++;
     }
     let elementstyle = document.getElementById("displayrules").style;
@@ -769,8 +829,8 @@ function findutour() {
     elementstyle.height = "22px";
   } else {
     //damage
-    for (let i=0;i<listpersos[ennemy].atkran;i++){
-      listpersos[ordrepersos[i]].currenthp += -1 * listpersos[ennemy].atkmel;
+    for (let i=0;i<listpersos[enemy].atkran;i++){
+      listpersos[ordrepersos[i]].currenthp += -1 * listpersos[enemy].atkmel;
     }
   }
   if (skipnextmessage == 0) {
@@ -856,6 +916,7 @@ function clickde(event) {
     return;
   }
   if (nbrbombs[player.de - 1] == -1) {
+    console.log("nbrbombs negative, should never happen");
     document.getElementById("messagecentral").textContent =
       "Trying to use an explosed card does nothing. You can skip turn instead.";
     return;
@@ -864,15 +925,15 @@ function clickde(event) {
   resolveeffect(player, carte);
 
   if (cantrip == 0) {
-    afficherallperso(ordrepersos);
+    displayallperso(ordrepersos);
     turndelaydecrease();
     findutour();
   } else {
-    if (listpersos[ennemy].currenthp < 1) {
-      listpersos[ennemy].currenthp = 0;
-      afficherallperso(ordrepersos);
+    if (listpersos[enemy].currenthp < 1) {
+      listpersos[enemy].currenthp = 0;
+      displayallperso(ordrepersos);
       document.getElementById("messagecentral").textContent =
-        "Ennemy killed. You must do an extra action (like skip turn) before fighting the next ennemy.";
+        "Enemy killed. You must do an extra action (like skip turn) before fighting the next enemy.";
     } else {
       if (skipnextmessage == 0) {
         document.getElementById("messagecentral").textContent = "Extra turn (🔁)";
@@ -885,197 +946,132 @@ function resolveeffect(player, id) {
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   cantrip = 0;
-  let increaseturndelay = 0;
+  let turnhourglassminuscantrip = 0;
   let applyextraeffects = 0;
   id = specialseffectsbeforebeforebefore(player, id);
   id = specialseffectsbeforebefore(player, id);
   id = specialseffectsbefore(player, id);
-  //bombs
-  if (nbrbombs[listpersos[player.id].de - 1] == 1) {
-    //explosion
-    nbrbombs[listpersos[player.id].de - 1] = -1;
-    nbrbombs[listpersos[player.id].de - 1] = 0;
-    let explosedspot = listabilities[listpersos[player.id].de - 1];
-    explosedspot.avatar = "explosed";
-    explosedspot.nom = "Explosed";
-    explosedspot.color = 10 ;
-    explosedspot.id = "2";
-    explosedspot.effectatk = "$m$r";
-    explosedspot.effect1 = "";
-    explosedspot.effect2 = "";
-    explosedspot.effect3 = "";
-    explosedspot.effect4 = "";
-    explosedspot.effect5 = "";
-    explosedspot.effectadvanced = "";
-    explosedspot.effectbomb = "";
-    explosedspot.effectcantrip = "";
-    explosedspot.effectdelay = "";
-    explosedspot.effecthp = "";
-    explosedspot.effectmove = "";
-    explosedspot.effectselfdamage = "";
-  } else {
-    if (nbrbombs[listpersos[player.id].de - 1] > 1) {
-      //-1bomb
-      nbrbombs[listpersos[player.id].de - 1]--;
-    }
+
+  let permanentbuff = [0, 0, 0]; //[m, r, h]
+
+  let currentplayer = listabilities[player.de - 1];
+  atkmel(player, currentplayer.effectatk.toString().split("$m").length - 1); //⚔️
+  atkmel(player, currentplayer.effectatk.toString().split("$c").length - 1); //🏹
+  let nbraoeheal = currentplayer.effecthp.toString().split("$ha").length - 1; //💕
+  for (let k = 0; k < 5; k++) {
+    heal(listpersos[k], nbraoeheal);
   }
-
-  let permanentbuff = [0,0,0]; //[m, r, h]
-
-for (const property in listabilities[player.de-1]) {
-  let currentproperty = `${listabilities[player.de-1][property]}`;
-  if (property != "avatar" && property != "color" && property != "nom" && property != "id" && currentproperty != ""){
-    let split = currentproperty.split(/\$|\£/).filter(e => e);
-    for (j=0;j<split.length;j++){
-      //console.log(split[j]);
-
-
-      let char = split[j].charAt(0);
-      if (char[0] == "h") {
-        if (split[j].charAt(1) == "a") {
-          //💕
-          for (let k = 0; k < 5; k++) {
-            heal(listpersos[k], 1);
-          }
-          heal(player, -1); //heal all other ally
+  heal(player, -1 * nbraoeheal); //heal all other ally
+  let nbrheal = currentplayer.effecthp.toString().split("$h").length - 1 - nbraoeheal; //💖
+  heal(player,nbrheal);
+  attack(battleheart * nbrheal); //special effect battleheart
+  if (currentplayer.effectmove != ""){
+    move(player, currentplayer.effectmove.charAt(2)); //🚶‍♂️
+  }
+  turnhourglassminuscantrip += -1 * (currentplayer.effectcantrip.toString().split("c").length - 1); //🔁
+  if (currentplayer.effecthp != ""){
+    heal(player, -1 * currentplayer.effecthp.toString().split("$s").length - 1); //🩸
+  }
+  turnhourglassminuscantrip += -1 * (currentplayer.effectdelay.toString().split("$t").length - 1); //⌛
+  
+  //extraeffects
+  let effects = currentplayer.effect1.concat(currentplayer.effect2, currentplayer.effect3, currentplayer.effect4, currentplayer.effect5);
+  let split = effects.split("£").filter (e => e);
+  for (let i = 0; i < split.length; i++) {
+    let char = split[i].charAt(0);
+    //permanent buff on perso
+    if (char[0] == "+") {
+      console.log("+" + split + "| " + split[i].charAt(1));
+      if (split[i].charAt(1) == "m") {
+        permanentbuff[0]++;
+        applyextraeffects = 1;
+      }
+      if (split[i].charAt(1) == "r") {
+        permanentbuff[1]++;
+        applyextraeffects = 1;
+      }
+      if (split[i].charAt(1) == "h") {
+        permanentbuff[2]++;
+        applyextraeffects = 1;
+      }
+    }
+    if (char[0] == "-") {
+      console.log("-" + split + "| " + split[i].charAt(1));
+      if (split[i].charAt(1) == "m") {
+        if (player.atkmel - permanentbuff[0] < 1) {
+          document.getElementById("messagecentral").textContent =
+            "Attack too low: extra effects not applied.";
+          skipnextmessage = 1;
+          applyextraeffects = 0; //useless
         } else {
-          //💖
-          heal(player, 1);
-          //battle heart special effect
-          if (battleheart>0){
-            attack(battleheart);
-          }
+          permanentbuff[0]--;
+          applyextraeffects = 1;
         }
       }
-      if (char[0] == "c") {
-        increaseturndelay--;
-        if ((split[j].charAt(1) == "c")) {
-          increaseturndelay--;
+      if (split[i].charAt(1) == "r") {
+        if (player.atkran - permanentbuff[1] < 1) {
+          document.getElementById("messagecentral").textContent =
+            "Range too low: extra effects not applied.";
+          skipnextmessage = 1;
+          applyextraeffects = 0; //useless
+        } else {
+          permanentbuff[1]--;
+          applyextraeffects = 1;
         }
       }
-
-      if (char[0] == "m") {
-        //⚔️
+      if (split[i].charAt(1) == "h") {
+        if (player.maxhp - permanentbuff[2] < 2) {
+          document.getElementById("messagecentral").textContent =
+            "Health too low: extra effects not applied.";
+          skipnextmessage = 1;
+          applyextraeffects = 0; //useless
+        } else {
+          permanentbuff[2]--;
+          applyextraeffects = 1;
+        }
+      }
+    }
+    if (char[0] == "w" && applyextraeffects == 1) {
+      //£w
+      console.log("Stat lost: extra effects applied");
+      if (split[i].charAt(1) == "m") {
         atkmel(player, 1);
       }
-      if (char[0] == "r") {
-        //🏹
-        atkran(player, 1);
+      if (split[i].charAt(1) == "r") {
+        atkmel(player, 1);
       }
-      if (char[0] == "p") {
-        //🚶‍♂️
-        move(player, split[j].charAt(1));
+      if (split[i].charAt(1) == "h") {
+        heal(player, 1);
       }
-      if (char[0] == "s") {
-        //🩸
-        heal(player, -1);
-      }
-      if (char[0] == "t") {
-        //⌛
-        increaseturndelay++;
-      }
-
-      //permanent buff on perso
-      if (char[0] == "+") {
-        console.log("+" + split + "| " + split[j].charAt(1));
-        if (split[j].charAt(1) == "m") {
-          permanentbuff[0]++;
-          applyextraeffects=1;
-        }
-        if (split[j].charAt(1) == "r") {
-          permanentbuff[1]++;
-          applyextraeffects=1;
-        }
-        if (split[j].charAt(1) == "h") {
-          permanentbuff[2]++;
-          applyextraeffects=1;
-        }
-      }
-      if (char[0] == "-") {
-        console.log("-" + split + "| " + split[j].charAt(1));
-        if (split[j].charAt(1) == "m") {
-          if (player.atkmel-permanentbuff[0] < 1) {
-            document.getElementById("messagecentral").textContent ="Attack too low: extra effects not applied.";
-            skipnextmessage = 1;
-            applyextraeffects=0; //useless
-          } else {
-            permanentbuff[0]--;
-            applyextraeffects=1;
-          }
-        }
-        if (split[j].charAt(1) == "r") {
-          if (player.atkran-permanentbuff[1] < 1) {
-            document.getElementById("messagecentral").textContent ="Range too low: extra effects not applied.";
-            skipnextmessage = 1;
-            applyextraeffects=0; //useless
-          } else {
-            permanentbuff[1]--;
-            applyextraeffects=1;
-          }
-        }
-        if (split[j].charAt(1) == "h") {
-          if (player.maxhp-permanentbuff[2] < 2) {
-            document.getElementById("messagecentral").textContent =
-              "Health too low: extra effects not applied.";
-            skipnextmessage = 1;
-            applyextraeffects=0; //useless
-          } else {
-            permanentbuff[2]--;
-            applyextraeffects=1;
-          }
-        }
-      }
-      if (char[0] == "w" && applyextraeffects==1) {
-        //£w
-        console.log("Stat lost: extra effects applied");
-        if(split[j].charAt(1) == "m"){
-          atkmel(player, 1);
-        }
-        if(split[j].charAt(1) == "r"){
-          atkmel(player, 1);
-        }
-        if(split[j].charAt(1) == "h"){
-          heal(player, 1);
-        }
-      }
-
-      //permanent buff on card
-      if (char[0] == "°") {
-        if (split[j].charAt(1) == "m") {
-          atkmel(player,nbrbonusmelee[player.de]);
-          nbrbonusmelee[player.de]++;
-          afficherallcarte();
-        }
-        if (split[j].charAt(1) == "r") {
-          atkmel(player,nbrbonusrange[player.de]);
-          nbrbonusrange[player.de]++;
-          afficherallcarte();
-        }
-        if (split[j].charAt(1) == "h") {
-          heal(player, nbrbonusheal[player.de]);
-          nbrbonusheal[player.de]++;
-          afficherallcarte();
-        }
-      }
-
     }
-    //console.log(split);
-  }
-}
-    /* Advanced mode */
-    /*if (j==8){
-        if (advancedmode==1){
-          if(player.de==1){split = "a:$p1"}; //+4
-          if(player.de==2){split = "a:$h$h"}; //+2
-          if(player.de==3){split = "a:$ha$t"}; //+2
-          if(player.de==4){split = "a:$m"}; //+3
-          if(player.de==5){split = "a:$r"}; //+3
-          if(player.de==6){split = "a:$c"}; //+1
-          split = split.split("$");
-        } else {
-        split="y";
+
+    //permanent buff on card
+    if (char[0] == "°") {
+      if (split[i].charAt(1) == "m") {
+        atkmel(player, nbrbonusmelee[player.de]);
+        nbrbonusmelee[player.de]++;
+        displayallcarte();
       }
-    }*/
+      if (split[i].charAt(1) == "r") {
+        atkmel(player, nbrbonusrange[player.de]);
+        nbrbonusrange[player.de]++;
+        displayallcarte();
+      }
+      if (split[i].charAt(1) == "h") {
+        heal(player, nbrbonusheal[player.de]);
+        nbrbonusheal[player.de]++;
+        displayallcarte();
+      }
+    }
+  }
+
+  //advanced mode
+  if (advancedmode ==1){
+    effectsadvancedemode(player, turnhourglassminuscantrip);
+  }
+
+
+  managebombs(player, id);
       
 
   //permanent buff
@@ -1088,15 +1084,16 @@ for (const property in listabilities[player.de-1]) {
     }
   }
 
-  if (increaseturndelay > 0) {
-    turndelay[player.id] = increaseturndelay + 1;
+  if (turnhourglassminuscantrip > 0) {
+    //⌛ or ⌛⌛or ⌛⌛⌛...
+    turndelay[player.id] = turnhourglassminuscantrip + 1;
   }
-  if(increaseturndelay == -1){
+  if(turnhourglassminuscantrip == -1){
     //🔁 or 🔁🔁⌛
     diceavailable[player.id] = "n";
     cantrip = 1;
   }
-  if (increaseturndelay == -2 || increaseturndelay == -3){
+  if (turnhourglassminuscantrip == -2 || turnhourglassminuscantrip == -3){
     //🔁🔁
     let previousde = listpersos[player.id].de;
     listpersos[player.id].de = Math.trunc(Math.random() * 5 + 1);
@@ -1105,7 +1102,7 @@ for (const property in listabilities[player.de-1]) {
     }
     cantrip = 1;
   }
-  if (increaseturndelay <= -3){
+  if (turnhourglassminuscantrip <= -3){
     //🔁🔁🔁
     for (let i=0;i<6;i++){
       if (listpersos[i].de>0 && listpersos[i].de<7) {
@@ -1117,9 +1114,74 @@ for (const property in listabilities[player.de-1]) {
   specialseffectsafter(player, id);
 
   checkhps();
-  afficherallcarte();
-  afficherallperso(ordrepersos);
+  displayallcarte();
+  displayallperso(ordrepersos);
 }
+function effectsadvancedemode(player, turnhourglassminuscantrip){
+    /*
+    1 = "a:🚶‍♂️1"; //+1
+    2 = "a:💖💖"; //+2
+    3 = "a:💕⌛"; //+2
+    4 = "a:⚔️"; //+3
+    5 = "a:🏹"; //+3
+    6 = "a:🔁"; //+6 
+    */
+    if (player.de == 1){
+      move (player, 1);
+    }
+    if (player.de == 2){
+      heal (player, 2);
+    }
+    if (player.de ==3) {
+      turnhourglassminuscantrip++;
+      for (let k = 0; k < 5; k++) {
+        heal(listpersos[k], 1);
+      }
+      heal(player, -1); //heal all other ally
+    }
+    if (player.de==4){
+      atkmel(player, 1);
+    }
+    if (player.de==5){
+      atkran(player, 1);
+    }
+    if (player.de==6){
+      turnhourglassminuscantrip--;
+    }
+}
+function managebombs(player, id){
+  //bombs
+  if (nbrbombs[listpersos[player.id].de - 1] == 1) {
+    //explosion
+    explosion = 1;
+    nbrbombs[listpersos[player.id].de - 1] = -1;
+    nbrbombs[listpersos[player.id].de - 1] = 0;
+    let explosedspot = listabilities[listpersos[player.id].de - 1];
+    explosedspot.avatar = "explosed";
+    explosedspot.nom = "Explosed";
+    explosedspot.color = 10 ;
+    explosedspot.id = "2";
+    explosedspot.effectatk = "$m";
+    explosedspot.effecthp = "$h";
+    explosedspot.effect1 = "";
+    explosedspot.effect2 = "";
+    explosedspot.effect3 = "";
+    explosedspot.effect4 = "";
+    explosedspot.effect5 = "";
+    //explosedspot.effectadvanced = "";
+    explosedspot.effectbomb = "";
+    explosedspot.effectcantrip = "";
+    explosedspot.effectdelay = "";
+    explosedspot.effectmove = "";
+    explosedspot.effectselfdamage = "";
+  } else {
+    if (nbrbombs[listpersos[player.id].de - 1] > 1) {
+      //-1bomb
+      nbrbombs[listpersos[player.id].de - 1]--;
+    }
+  }
+}
+
 function specialseffectsbeforebeforebefore(player, id) {
   if (listcards[id].nom == "Chaos") {
     //"$ha", "Trigger a random other ability (non Chaos)"
@@ -1244,14 +1306,14 @@ function specialseffectsafter(player, id) {
     nbrs.splice(alea, 1);
     nbrs.splice(0, 1);
     swap(nbrs[0], nbrs[1]);
-    afficherallperso(ordrepersos);
+    displayallperso(ordrepersos);
   }
   if (listcards[id].nom == "Switch") {
     //"Swap your $m & $r", "$c"
     let i = listpersos[player.id].atkmel;
     listpersos[player.id].atkmel = listpersos[player.id].atkran;
     listpersos[player.id].atkran = i;
-    afficherperso(
+    displayperso(
       document.getElementById("persoetde" + player.id),
       ordrepersos[player.id]
     );
@@ -1264,7 +1326,7 @@ function specialseffectsafter(player, id) {
       }
     }
     listpersos[player.id].de = 7;
-    afficherallperso(ordrepersos);
+    displayallperso(ordrepersos);
   }
   if (listcards[id].nom == "Return") {
     //"Return all unused dice", "$c"
@@ -1274,7 +1336,7 @@ function specialseffectsafter(player, id) {
       }
     }
     listpersos[player.id].de = 7;
-    afficherallperso(ordrepersos);
+    displayallperso(ordrepersos);
   }
   if (listcards[id].nom == "Feed from allies") {
     //"$h$h$h$h$h", "All other allies take one damage", "$cc"
@@ -1294,7 +1356,7 @@ function specialseffectsafter(player, id) {
         console.log("bomb added");
       }
     }
-    afficherallcarte();
+    displayallcarte();
   }
   if (listcards[id].nom == "Accelerate time" || listcards[id].nom == "Skip time") {
     //at:"⌛ cards lose one coldown", "$c"
@@ -1316,12 +1378,12 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Quick things") {
   //"$s", "Others 🔁 dices are rerolled", "$c"
-  afficherallperso(ordrepersos);
+  displayallperso(ordrepersos);
     for (let i=0;i<6;i++){
       if (listpersos[i].de == 7 && turndelay[i]==0){ //not ⌛
         listpersos[i].de = Math.trunc(Math.random() * 6 + 1);
         diceavailable[i] = "y";
-        afficherallperso(ordrepersos);
+        displayallperso(ordrepersos);
       }
     }
     diceavailable[player.id] = "x";
@@ -1349,7 +1411,7 @@ function specialseffectsafter(player, id) {
     }
   }
   if (listcards[id].nom == "Feed"){
-    if (listpersos[ennemy].currenthp <1){
+    if (listpersos[enemy].currenthp <1){
       console.log("Feed activated");
       player.maxhp += 2;
       heal(player, 2);
@@ -1357,35 +1419,35 @@ function specialseffectsafter(player, id) {
   }
   if (listcards[id].nom == "Narrow path"){
     //"Permanently reduce 🤲 of enemy to 2", "$c"
-    if (listpersos[ennemy].atkran>2){
-      listpersos[ennemy].atkran = 2;
+    if (listpersos[enemy].atkran>2){
+      listpersos[enemy].atkran = 2;
     }
   }
   if (listcards[id].nom == "Launch a panel"){
     //"Permanently reduce 🤲 of enemy by 1 (down to 1)", "$c", "$bb"
-    if (listpersos[ennemy].atkran>1){
-      listpersos[ennemy].atkran--;
+    if (listpersos[enemy].atkran>1){
+      listpersos[enemy].atkran--;
     }
   }
   if (listcards[id].nom == "Disarm"){
     //"Permanently reduce ⚔️ of enemy by 1 (down to 5)", "$c"
-    if (listpersos[ennemy].atkmel>5){
-      listpersos[ennemy].atkmel--;
+    if (listpersos[enemy].atkmel>5){
+      listpersos[enemy].atkmel--;
     }
   }
   if (listcards[id].nom == "Lasso"){
     //"Permanently reduce ⚔️ of enemy by 3 (down to 5)", "$b"
-    if (listpersos[ennemy].atkmel>5){
-      if (listpersos[ennemy].atkmel>7){
-        listpersos[ennemy].atkmel += -3;
+    if (listpersos[enemy].atkmel>5){
+      if (listpersos[enemy].atkmel>7){
+        listpersos[enemy].atkmel += -3;
       } else {
-        listpersos[ennemy].atkmel = 5;
+        listpersos[enemy].atkmel = 5;
       }
     }
   }
   if (listcards[id].nom == "Broken heart"){
     //"Half the hp of yourself and the enemy (rounded up)"
-    listpersos[ennemy].currenthp = Math.floor(listpersos[ennemy].currenthp/2);
+    listpersos[enemy].currenthp = Math.floor(listpersos[enemy].currenthp/2);
     player.currenthp = Math.floor(player.currenthp /2);
   }
   if (listcards[id].nom == "Purple heart"){
@@ -1431,13 +1493,13 @@ function heal(player, nbr) {
   player.currenthp += nbr;
 }
 function attack(nbr) {
-  listpersos[ennemy].currenthp += -1 * nbr;
+  listpersos[enemy].currenthp += -1 * nbr;
 }
 function atkmel(player, nbr) {
-  listpersos[ennemy].currenthp += -1 * nbr * player.atkmel;
+  listpersos[enemy].currenthp += -1 * nbr * player.atkmel;
 }
 function atkran(player, nbr) {
-  listpersos[ennemy].currenthp += -1 * nbr * player.atkran;
+  listpersos[enemy].currenthp += -1 * nbr * player.atkran;
 }
 function move(player, string) {
   let endroit = ordrepersos.indexOf(player.id);
@@ -1475,7 +1537,7 @@ function gameover() {
   for (let i = 0; i < 5; i++) {
     listpersos[i].currenthp = 0;
   }
-  afficherallperso(ordrepersos);
+  displayallperso(ordrepersos);
   document.getElementById("messagecentral").textContent =
     "Game over: everyone dies :(";
     if (advancedmode==0){
@@ -1492,7 +1554,7 @@ function gameover() {
 }
 function youwin() {
   console.log("youwin()");
-  afficherallperso(ordrepersos);
+  displayallperso(ordrepersos);
   document.getElementById("messagecentral").textContent =
     "Congratulation you won :)";
   setTimeout(() => {
@@ -1621,13 +1683,13 @@ function choosenewcard() {
   document.getElementById("holdtosee").addEventListener("mouseover" , holdtosee);
   document.getElementById("holdtosee").addEventListener("mouseout" , holdtoseeout);
 
-  affichercarte(7);
-  affichercarte(8);
-  affichercarte(9);
+  displaycarte(7);
+  displaycarte(8);
+  displaycarte(9);
   if (choicesonkill > 3) {
-    affichercarte(10);
+    displaycarte(10);
     if (choicesonkill > 4) {
-      affichercarte(11);
+      displaycarte(11);
     }
   }
 }
@@ -1767,8 +1829,8 @@ function changecarddeck(nbr) {
     nbrbombs[nbr] = 0;
   }
 
-  afficherallperso(ordrepersos);
-  afficherallcarte();
+  displayallperso(ordrepersos);
+  displayallcarte();
   cardchosen = 0;
   document.getElementById("grayscreen").style.visibility = "hidden";
   document.getElementById("messagecentral").textContent = "Next fight";
@@ -1864,7 +1926,7 @@ function setting0() {
     element.innerHTML = "Colors: all";
     disablecolors = 0;
   }
-  afficherallcarte();
+  displayallcarte();
 }
 
 /* Advanced mode: */
@@ -1874,19 +1936,19 @@ function setting1() {
   if (advancedmode == 0) {
     element.innerHTML = "Content: advanced (each slot got extra effects)(for more thinking)(less balanced)";
     advancedmode = 1;
-    document.getElementById("carte0").children[8].textContent = "a:🚶‍♂️1"; //+1
-    document.getElementById("carte1").children[8].textContent = "a:💖💖"; //+2
-    document.getElementById("carte2").children[8].textContent = "a:💕⌛"; //+2
-    document.getElementById("carte3").children[8].textContent = "a:⚔️"; //+3
-    document.getElementById("carte4").children[8].textContent = "a:🏹"; //+3
-    document.getElementById("carte5").children[8].textContent = "a:🔁"; //+6 
+    document.getElementById("carte0").children[15].textContent = "a:🚶‍♂️1"; //+1
+    document.getElementById("carte1").children[15].textContent = "a:💖💖"; //+2
+    document.getElementById("carte2").children[15].textContent = "a:💕⌛"; //+2
+    document.getElementById("carte3").children[15].textContent = "a:⚔️"; //+3
+    document.getElementById("carte4").children[15].textContent = "a:🏹"; //+3
+    document.getElementById("carte5").children[15].textContent = "a:🔁"; //+6 
     element.style.backgroundColor = "darkred";
     document.getElementById("imgpoing").textContent = "✊";
     /*for (i=5;i<16;i++){
       listpersos[i].atkmel+=3;
     }
     if (listpersos[5].nom !="Ratatouille"){
-      listpersos[5].atkmel+=-3; //resolve bug brutally: the current ennemy is twice in data
+      listpersos[5].atkmel+=-3; //resolve bug brutally: the current enemy is twice in data
     }*/
     generatepersosadvanced();
     document.getElementById("atkmel5").style.backgroundColor="darkred";
@@ -1905,23 +1967,23 @@ function setting1() {
     element.innerHTML = "Content: base game (extremely encouraged for first game or casual play)";
     advancedmode = 0;
     element.style.backgroundColor = "darkgreen";
-    document.getElementById("carte0").children[8].textContent = ""; //+4
-    document.getElementById("carte1").children[8].textContent = ""; //+2
-    document.getElementById("carte2").children[8].textContent = ""; //+2
-    document.getElementById("carte3").children[8].textContent = ""; //+3
-    document.getElementById("carte4").children[8].textContent = ""; //+3
-    document.getElementById("carte5").children[8].textContent = ""; //+1  
+    document.getElementById("carte0").children[15].textContent = ""; //+4
+    document.getElementById("carte1").children[15].textContent = ""; //+2
+    document.getElementById("carte2").children[15].textContent = ""; //+2
+    document.getElementById("carte3").children[15].textContent = ""; //+3
+    document.getElementById("carte4").children[15].textContent = ""; //+3
+    document.getElementById("carte5").children[15].textContent = ""; //+1  
     document.getElementById("imgpoing").textContent = "👊";
     /*for (i=5;i<16;i++){
       listpersos[i].atkmel+=-3;
     }
     if (listpersos[5].nom !="Ratatouille"){
-      listpersos[5].atkmel+=+3; //resolve bug brutally: the current ennemy is twice in data
+      listpersos[5].atkmel+=+3; //resolve bug brutally: the current enemy is twice in data
     }*/
     generatepersoseasy();
     document.getElementById("atkmel5").style.backgroundColor="transparent";
   }
-  afficherperso(document.getElementById("persoetde5"), 5);
+  displayperso(document.getElementById("persoetde5"), enemy);
 }
 
 let choicesonkill = 5;
@@ -2057,7 +2119,7 @@ function setting11(){
     "Set 3: Bombs: enabled";
   document.getElementById("disableset4").innerHTML = "Set 4: Extras: enabled";
   document.getElementById("disablesetall").innerHTML = "Disable all";
-  afficherallcarte();
+  displayallcarte();
 }
 
 /* Cookies (first time): */

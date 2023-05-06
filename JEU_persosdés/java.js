@@ -610,7 +610,7 @@ function generatecards() {
   ephemerelistcards.push(new Carte("onethousandclock", 1, "One thousand clock", "Deal 3^x damage to the enemy where x is the number of dices with ⌛", "$c"));
   ephemerelistcards.push(new Carte("four", 1, "Power of four", "Add ⌛⚔️ to the 4️⃣ card", "$c"));
   //ephemerelistcards.push(new Carte("", 1, "", "Deal 2 damage to the enemy per⌛⚔️ to a random other card with ⌛", "$c"));
-  ephemerelistcards.push(new Carte("synchronize", 1, "Synchronize", "Add 🔁⌛⌛⌛ to the 2️⃣ card", "$c", "$b"));
+  ephemerelistcards.push(new Carte("synchronize", 1, "Synchronize", "Add 🔁⌛⌛ to the 2️⃣ card", "$c", "$b"));
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   //$Heal => 17
@@ -972,7 +972,7 @@ function resolveeffect(player, id) {
   if (currentplayer.effecthp != ""){
     heal(player, -1 * currentplayer.effecthp.toString().split("$s").length - 1); //🩸
   }
-  turnhourglassminuscantrip += -1 * (currentplayer.effectdelay.toString().split("$t").length - 1); //⌛
+  turnhourglassminuscantrip += currentplayer.effectdelay.toString().split("$t").length - 1; //⌛
   
   //extraeffects
   let effects = currentplayer.effect1.concat(currentplayer.effect2, currentplayer.effect3, currentplayer.effect4, currentplayer.effect5);
@@ -1481,11 +1481,11 @@ function specialseffectsafter(player, id) {
     }
   }
   if (listcards[id].nom == "Synchronize"){
-    //"Add 🔁⌛⌛⌛ to the 2️⃣ card", "$c", "$b"
+    //"Add 🔁⌛⌛ to the 2️⃣ card", "$c", "$b"
     if (listabilities[1].effectmove == undefined) {
-      listabilities[1].effectmove = "$c$t$t$t";
+      listabilities[1].effectmove = "$c$t$t";
     } else {
-      listabilities[1].effectmove += "$c$t$t$t";
+      listabilities[1].effectmove += "$c$t$t";
     }
   }
 }

@@ -956,7 +956,7 @@ function resolveeffect(player, id) {
 
   let currentplayer = listabilities[player.de - 1];
   atkmel(player, currentplayer.effectatk.toString().split("$m").length - 1); //⚔️
-  atkran(player, currentplayer.effectatk.toString().split("$c").length - 1); //🏹
+  atkran(player, currentplayer.effectatk.toString().split("$r").length - 1); //🏹
   let nbraoeheal = currentplayer.effecthp.toString().split("$ha").length - 1; //💕
   for (let k = 0; k < 5; k++) {
     heal(listpersos[k], nbraoeheal);

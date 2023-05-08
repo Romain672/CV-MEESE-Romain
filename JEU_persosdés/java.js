@@ -663,7 +663,7 @@ function generatecards() {
   ephemerelistcards.push(new Carte("pizza", 1, "Feed", "$r$r", "If that kill the enemy, gain permanently 💖💖")); //+9
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | 💥 | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
-  //Unique effects => 19
+  //Unique effects => 20
   ephemerelistcards.push(new Carte("perfectspot", 4, "Perfect spot", "$m$r", "$h", "💖🏹 if 🚶‍♂️3", "$p3")); //+8.4
   ephemerelistcards.push(new Carte("target", 4, "Balanced attack", "⚔️⚔️⚔️ if 🚶‍♂️1 or 🚶‍♂️2", "🏹🏹🏹 if 🚶‍♂️4 or 🚶‍♂️5")); //+7.2
   ephemerelistcards.push(new Carte("middlewood", 4, "Fortress in the wood", "$m", "⚔️🏹🏹 if 🚶‍♂️2 or 🚶‍♂️3 or 🚶‍♂️4")); //+8.4
@@ -674,6 +674,32 @@ function generatecards() {
   ephemerelistcards.push(new Carte("rubbickscube", 4, "Return", "Return all unused dice", "$c")); //+6
   ephemerelistcards.push(new Carte("jellyfish", 4, "Chaos", "$ha", "Trigger a random other ability (non Chaos)")); //+13
   ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
+  ephemerelistcards.push(new Carte("copycat", 4, "Copycat", "Apply the 1️⃣ effect")); //+9.5
   ephemerelistcards.push(new Carte("blackhole", 4, "Feed from allies", "$h$h$h$h$h", "All other allies take one damage", "$cc")); //+10
   ephemerelistcards.push(new Carte("fightofelements", 4, "Fight of elements", "Loses permanently 2⚔️ and 3🏹 then double them", "$cc", "$b"));
   ephemerelistcards.push(new Carte("newminion", 4, "Song of robustness", "Loses permanently 6💖 then double it", "$cc", "$b"));
@@ -683,7 +709,7 @@ function generatecards() {
   ephemerelistcards.push(new Carte("punch", 4, "Disarm", "Permanently reduce ⚔️ of enemy by 1 (down to 5)", "$c"));
   ephemerelistcards.push(new Carte("lasso", 4, "Lasso", "Permanently reduce ⚔️ of enemy by 3 (down to 5)", "$bb"));
   ephemerelistcards.push(new Carte("halfheart", 4, "Broken heart", "Half the hp of yourself and the enemy (rounded down)"));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$s$s$s", "$c", "Your lifebar regain 3 health."));
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   generatecardscreateorder(ephemerelistcards);
@@ -1217,13 +1243,14 @@ function specialseffectsbeforebefore(player, id) {
   if (listcards[id].nom == "Copycat") {
     //Apply the 1️⃣ effect
     if (listabilities[0].nom != "Copycat") {
+      player.de = 1;
       return listabilities[0].id;
     } else {
       console.log("Copycat ability used in 1");
       skipnextmessage = 1;
       document.getElementById("messagecentral").textContent =
         "Effect skipped: copycat ability used in 1";
-      return "0";
+        return "0";
     }
   }
   return id;
@@ -1497,8 +1524,8 @@ function specialseffectsafter(player, id) {
     }
   }
   if (listcards[id].nom == "Recover"){
-    //"$c", "Your lifebar regain 2 health."
-    lifebarhp +=2;
+    //"$s$s$s", "$c", "Your lifebar regain 3 health.
+    lifebarhp +=3;
     checkhps();
   }
 }

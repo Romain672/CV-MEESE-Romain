@@ -311,3 +311,33 @@ img{
 #content{
     background-color: darkgreen;
 }
+
+#conteneurlifebar{
+    display: flex;
+    justify-content: center;
+}
+.lifebar{
+    height:20px;
+    position: relative;
+    width: 40%;
+    height:18px;
+}
+#greenlifebar{
+    background-color: green;
+    border-radius: 10px 0 0 10px;
+    width:60%;
+    z-index:0;
+}
+#redlifebar{
+    background-color: red;
+    border-radius: 0 10px 10px 0;
+    width:20%;
+    z-index:0;
+}
+#textlifebar {
+    position: absolute;
+    width:50px;
+    height:0;
+    z-index:1;
+    text-align: center;
+}

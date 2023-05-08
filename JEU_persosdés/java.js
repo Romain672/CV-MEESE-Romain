@@ -21,6 +21,10 @@ let nbrbonusheal = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let nbrbonusmelee = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let nbrbonusrange = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+let healonkill = 5;
+let lifebarhp = 50;
+let maximumlifebarhp = 50;
+
 let skipnextmessage = 0; //this is a variable which let you skip the next normal message displayed in the middle
 let ordercolor = [
   "darkgreen",
@@ -49,6 +53,7 @@ function onload() {
   cookieonstart();
   createbasicdeck();
   displayallcarte();
+  updatelifebar();
   document.getElementById("grayscreen").style.height =
     document.body.scrollHeight + 20 + "px";
   document.getElementById("grayscreen").style.visibility = "visible";
@@ -678,6 +683,34 @@ function generatecards() {
   ephemerelistcards.push(new Carte("punch", 4, "Disarm", "Permanently reduce ⚔️ of enemy by 1 (down to 5)", "$c"));
   ephemerelistcards.push(new Carte("lasso", 4, "Lasso", "Permanently reduce ⚔️ of enemy by 3 (down to 5)", "$bb"));
   ephemerelistcards.push(new Carte("halfheart", 4, "Broken heart", "Half the hp of yourself and the enemy (rounded down)"));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
+  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   generatecardscreateorder(ephemerelistcards);
@@ -823,6 +856,10 @@ function findutour() {
     if (enemy%2 == 1){
       skips++;
     }
+    lifebarhp += healonkill;
+    if (lifebarhp>maximumlifebarhp){
+      lifebarhp = maximumlifebarhp;
+    }
     let elementstyle = document.getElementById("displayrules").style;
     elementstyle.fontSize = "20px";
     elementstyle.width = "120px";
@@ -849,27 +886,24 @@ function turndelaydecrease() {
   }
 }
 function checkhps() {
-  let morts = 672;
   let nbrheal = 0;
-  while (morts > 0) {
-    morts = 0;
+  let restart = 1;
+  while (restart == 1){
+    restart = 0;
     for (let i = 0; i < 5; i++) {
       if (listpersos[i].currenthp < 1) {
-        listpersos[i].currenthp += 4;
-        listpersos[0].currenthp--;
-        listpersos[1].currenthp--;
-        listpersos[2].currenthp--;
-        listpersos[3].currenthp--;
-        listpersos[4].currenthp--;
-        morts++;
+        listpersos[i].currenthp++;
+        lifebarhp--;
         nbrheal++;
+        restart = 1;
       }
     }
-    if (morts == 5) {
-      gameover();
-      return;
-    }
   }
+  if (lifebarhp <= 0) {
+    gameover();
+    return;
+  }
+  updatelifebar();
   for (let i = 0; i < 5; i++) {
     if (listpersos[i].currenthp > listpersos[i].maxhp) {
       listpersos[i].currenthp = listpersos[i].maxhp;
@@ -878,14 +912,14 @@ function checkhps() {
   if (nbrheal > 0) {
     if (nbrheal == 1) {
       document.getElementById("messagecentral").textContent =
-        "Someone took lethal damage: he got healed (*3) but everyone else took damage (" +
+        "Someone took lethal damage: he got healed but you lost " +
         nbrheal +
-        " time)";
+        " hp.";
     } else {
       document.getElementById("messagecentral").textContent =
-        "Someone took lethal damage: he got healed (*3) but everyone else took damage (" +
+        "Someone took lethal damage: he got healed but you lost " +
         nbrheal +
-        " times)";
+        " hp.";
     }
   }
 }
@@ -1113,6 +1147,7 @@ function resolveeffect(player, id) {
   
   specialseffectsafter(player, id);
 
+  updatelifebar();
   checkhps();
   displayallcarte();
   displayallperso(ordrepersos);
@@ -1487,6 +1522,11 @@ function specialseffectsafter(player, id) {
     } else {
       listabilities[1].effectmove += "$c$t$t";
     }
+  }
+  if (listcards[id].nom == "Recover"){
+    //"$c", "Your lifebar regain 2 health."
+    lifebarhp +=2;
+    checkhps();
   }
 }
 function heal(player, nbr) {
@@ -2218,4 +2258,20 @@ function displayrules(){
   document.getElementById("rules").style.visibility = "visible";
   document.getElementById("displayrules").style.visibility = "hidden";
   document.getElementById("grayscreen").style.visibility = "hidden";
+}
+
+/* Lifebar: */
+function updatelifebar() {
+  let actualhp = Math.max(lifebarhp, 0);
+  document.getElementById("textlifebar").innerHTML = actualhp + " / " + maximumlifebarhp;
+  document.getElementById("greenlifebar").style.width =  [actualhp / maximumlifebarhp * 40] + "%";
+  document.getElementById("redlifebar").style.width = [(maximumlifebarhp-actualhp) / maximumlifebarhp * 40] + "%";
+  if (actualhp==maximumlifebarhp){
+    document.getElementById("greenlifebar").style.borderRadius = "10px";
+  } else {
+    document.getElementById("greenlifebar").style.borderRadius = "10px 0 0 10px";
+  }
+  if (actualhp==0){
+    document.getElementById("redlifebar").style.borderRadius = "10px";
+  }
 }

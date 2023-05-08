@@ -684,33 +684,6 @@ function generatecards() {
   ephemerelistcards.push(new Carte("lasso", 4, "Lasso", "Permanently reduce ⚔️ of enemy by 3 (down to 5)", "$bb"));
   ephemerelistcards.push(new Carte("halfheart", 4, "Broken heart", "Half the hp of yourself and the enemy (rounded down)"));
   ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
-  ephemerelistcards.push(new Carte("flowerheart", 4, "Recover", "$c", "Your lifebar regain 2 health."));
   //$h=💖 |$ha=💕 | $c=🔁|$cc=🔁🔁 | $m=⚔️ | $r=🏹 | $p=🚶‍♂️ | $s=🩸 | $t=⌛ | $z.=display but ignore
   //+1    |  +4    |  +6  |   +9     |   +3  |   +3  |$p>=0 $p5=1| -1   |  -2   =  +9
   generatecardscreateorder(ephemerelistcards);

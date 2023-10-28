@@ -1,52 +1,204 @@
-<!--Bonjour, le code n'a pas été optimisé: ça n'a pas été ma priorité, je me suis amusé en apprenant. Et ne faites pas l'énigme, ça n'en vaut pas la peine.-->
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="stylesheet" href="./Bootstrap v3/css/bootstrap.css">-->
+    <title>CV octobre</title>
+
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" href="./style.css">
-    <!--<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="./Bootstrap v3/js/bootstrap.js"></script>-->
-    <title>MEESE Romain CV - Accueil</title>
 </head>
 
-<body id="bodyindex">
-    <header id="header">
-        <div id="enteteNom" class="">
-            <div><img src="./Icones/age.svg" alt="icone age" class="icon"></div>
-            <div id="coucou">Meese Romain<br>Informatique</div>
+<body>
+    <header>
+        <span id="topbanner">
+            <img src="avatarsansfond.png" alt="avatar">
+            <p id="Accueil">Accueil</p>
+            <p>CV</p>
+            <p>Créations</p>
+            <p>FAQ</p>
+            <p>
+                <img src='./Icones/mail.svg' class='icon reversecolor'><a href='mailto:romain.Meese@hotmail.fr' id='entetemailto'>romain.meese@hotmail.fr</a>
+                <img src='./Icones/phone.svg' class='icon reversecolor'>06.18.93.41.48
+        
+            </p>
+        </span>
+        <article id="avatar">
+            <img src="avatarsansfond.png" alt="avatar">
+            <p>Meese Romain</p>
+            <p>Informatique</p>
+        </article>
+        <div>
+            Accueil
         </div>
-        <div id="enteteIndex" class="diventete diventetefalse"><img src="./Icones/index.svg" class="icon reversecolor iconfalse">
-            Accueil</div>
-        <div id="enteteCV" class="diventete"><img src="./Icones/CV.svg" class="icon reversecolor">CV</div>
-        <div id="enteteCreations" class="diventete"><img src="./Icones/creations.svg" class="icon reversecolor">Créations
+        <div>
+            CV
         </div>
-        <div id="enteteFAQ" class="diventete"><img src="./Icones/chatbubbles.svg" class="icon reversecolor"></img>FAQ</div>
-        <div id="enteteContact" class="diventete"><img src="./Icones/contacts.svg" class="icon reversecolor"><span title=2>Contact</span></div>
+        <div>
+            Créations
+        </div>
+        <div>
+            FAQ
+        </div>
+        <div>
+            Contact
+        </div>
     </header>
-    <br>
-    <div id="ContactDisplay"></div>
-    <div id="phraseaccroche">
-        <div id="textphraseaccroche">
-            <img src="./Icones/sun.svg" class="icon reversecolor">
-            Sérieux, motivé, je m'investi dans la majorité des activités que je commence.
-            J'essaye souvent, quand c'est possible, de m'amuser ou de rendre l'ensemble plus divertissant en rajoutant images et/ou couleurs quand le projet le permet.
-        </div>
+    <main>
+        <article>
+            <section>
+                Je suis à la recherche d'un stage (conventionné, non rémunéré) sur le développement web entre le 4 mars
+                2024 et le 17 mai 2024.
+            </section>
+            <section>
+                Titulaire d'une licence d'informatique, et effectuant en ce moment une formation 'Développeur web & web
+                mobile', je pourrais être la personne que vous souhaitez.
+            </section>
+        </article>
+        <article>
+            <section id="bienveillant">
+                <p>Je suis bienveillant, aime partager mes connaissances, et aime travailler en équipe.</p>
+                <p></p>
+            </section>
+        </article>
+        <article>
+            <section id="CV">
+                <a rel="stylesheet" href="/CV/CViframe/index.html">
+                Voici mon CV: Cliquez-ici pour l'agrandir, l'imprimer, ou le télécharger en pdf via l'impression
+            </a>
+                <iframe src="../CV/CViframe/index.html" id="iframeCV">
+                </iframe>
+            </section>
+        </article>
+        <article>
+            <section id="Créations">
+                <a rel="stylesheet" href="../Jeux/Dice's fighting/index.html">
+                    CSS+JS: Cliquez-ici pour voir mon projet le plus ambitieux effectué avant ma formation: il s'agit
+                    d'un jeu sous forme de roguelike, avec énormément d'algorithmie.
+                </a>
+
+                <iframe src="../Jeux/Dice's fighting/index.html" id="iframeJeu">
+                </iframe>
+
+            </section>
+        </article>
+
+
+
+
+
+    </main>
+
+
+    <!--Le code ci-dessous vient de mon ancienne manière de coder -->
+    <div id="creationPartieGithub" class="creationPartie">
+        <figure>
+            <img src="Images/Github.jpg" alt="logo Github" class="image">
+            <a href="https://github.com/Romain672/CV-MEESE-Romain" class="creationstexte"><img src="./Icones/add.svg" class="icon reversecolor">Lien Github</a>
+        </figure>
     </div>
 
-    <br>
-    
-    <footer>
+    <div id="creationPartieDWWM" class="creationPartie">
+        <p class="creationTitre">Effectué avec DWWM:</p>
+        <figure>
+            <img src="Images/Mon site.jpg" alt="tableau abstrait de couleurs" class="image">
+            <a href="" class="creationstexte"><img src="./Icones/site.svg" class="icon reversecolor">Ce site :3</a>
+        </figure>
+        <figure>
+            <img src="https://placehold.co/100x100" alt="unknown" class="image">
+            <a href="https://romain672.github.io/JeuxPerso/Romain's%20Tangram's%20game/" class="creationstexte"><img src="./Icones/alarme.svg" class="icon reversecolor">Romain's Tangram's game</a>
+        </figure>
+    </div>
+    <div id="creationPartieJeuxPerso" class="creationPartie">
+        <p class="creationTitre">Jeux persos:</p>
+        <figure>
+            <img src="Images/jeu2.jpg" alt="jeu par moi" class="image">
+            <a href="https://romain672.github.io/JeuxPerso/Dice's%20fighting/"
+                class="creationstexte"><img src="./Icones/site.svg" class="icon reversecolor">Javascript roguelike animations</a>
+        </figure>
+
+        <figure>
+            <img src="Images/jeu.jpg" alt="jeu par moi" class="image">
+            <a href="https://romain672.github.io/JeuxPerso/Dice's%20combat/Jeu.html" class="creationstexte"><img
+                    src="./Icones/site.svg" class="icon reversecolor">Jeu de test en Javascript (bof)</a>
+        </figure>
+    </div>
+    <div id="creationPartieLoisirsPerso" class="creationPartie">
+        <p class="creationTitre">Loisirs:</p>
+        <figure>
+            <img src="Images/Cards.jpg" alt="jeu de societe de cartes" class="image">
+            <a href="https://docs.google.com/document/d/1w4rU2aaTluTH91sfSKyxd0shhHKpnPCaZCTxkl4PHOQ/edit"
+                class="creationstexte"><img src="Icones/loisirs.svg" class="icon reversecolor">[en] Guide stratégique
+                d'un jeu de société</a>
+        </figure>
+
+        <figure>
+            <img src="Images/Maths.jpg" alt="tableau représentant les mathématiques" class="image">
+            <a href="https://docs.google.com/spreadsheets/d/1zWN1CpFVgDNcDBYhy0MNEjmvRqb2I85BJm5Z4aZEvqI/edit#gid=1846324187"
+                class="creationstexte"><img src="Icones/cerclemoitie.svg" class="icon reversecolor">Googlesheet simple
+                pour avoir les probabilités de chance sur des lancés de dés ou
+                des pile ou face</a>
+        </figure>
+
+        <figure>
+            <img src="Images/Color.jpg" alt="tableau abstrait de couleurs" class="image">
+            <a href="https://docs.google.com/spreadsheets/d/1cvibWT7esdo43xqKWwzZ10io8yeNo63yNjLMtx_b7Ws/edit#gid=1099947395"
+                class="creationstexte"><img src="./Icones/index.svg" class="icon reversecolor">Googlesheet plus complexe
+                sur
+                le jeu Yokai, permettant à partir de 16 cartes disposés en 4x4 de colorer les cartes sur certaines
+                coordonnées, les inverser, écrire des notes dessus...</a>
+        </figure>
+    </div>
+    <div id="creationPartieServiceCiviqueRoumanie" class="creationPartie">
+        <p class="creationTitre">Service civique Roumanie:</p>
+
+        <figure>
+            <img src="Images/Bingo.jpg" alt="bingo" class="image">
+            <a href="https://docs.google.com/spreadsheets/d/1EUSdMXDpB7TshHsQ_d9fvoiZMWKv2QXNTgjZlOgyU-Y/edit#gid=0"
+                class="creationstexte"><img src="Icones/ticket.svg" class="icon reversecolor">[en] 5x5 épreuves sous la
+                forme d'un 'bingo' pour des enfants</a>
+        </figure>
+
+        <figure>
+            <img src="Images/Trésor.jpg" alt="trésor" class="image">
+            <a href="https://docs.google.com/document/d/1RaTScdKxBdDunXlvEIwdLuU6AbvmrkO9hQIkbDB6Bx0/edit"
+                class="creationstexte"><img src="Icones/move.svg" class="icon reversecolor">[en] Ebauche d'une
+                chasse au
+                trésor pour des enfants</a>
+        </figure>
+    </div>
+    <div id="creationPartieServiceCiviqueUnisCite" class="creationPartie">
+        <p class="creationTitre">Service civique Unis-Cité:</p>
+        <figure>
+            <img src="Images/Réseauxsociaux.jpg" alt="réseaux sociaux" class="image">
+            <a href="https://docs.google.com/document/d/1gcSTKOMwSgrqh1S4mA-vUPX4bYlItolR5K-E61dflCY/edit"
+                class="creationstexte"><img src="Icones/shield.svg" class="icon reversecolor">Organisation d'une séance
+                d'une heure de prévention sur les réseaux sociaux</a>
+        </figure>
+        <figure>
+            <img src="Images/Prezi.jpg" alt="compte rendu sur prezi" class="image">
+            <a href="https://prezi.com/p/ukjuzqjcnc9e/bilan-jeunes-citoyens-du-numerique" class="creationstexte"><img
+                    src="Icones/venn.svg" class="icon reversecolor">Compte rendu d'un projet sur Prezi</a>
+        </figure>
+    </div>
+    </div>
+    <!--Le code ci-dessus vient de mon ancienne manière de coder -->
+
+
+
+
+
+    <footer id="Contact">
         <div><img src='./Icones/mail.svg' class='icon reversecolor'>
-        <a href='mailto:romain.Meese@hotmail.fr' id='entetemailto'><span class="footertext" id="footerleft">romain.meese@hotmail.fr</span></a> - <span id="footerbeforephone"></span>
-        <img src='./Icones/phone.svg' class='icon reversecolor'><span class="footertext" id="footerright">06.18.93.41.48</span></div>
+            <a href='mailto:romain.Meese@hotmail.fr' id='entetemailto'><span class="footertext"
+                    id="footerleft">romain.meese@hotmail.fr</span></a> - <span id="footerbeforephone"></span>
+            <img src='./Icones/phone.svg' class='icon reversecolor'><span class="footertext"
+                id="footerright">06.18.93.41.48</span>
+        </div>
     </footer>
 
-    <script src="./java.js"></script>
-    <!--Icons from https://ionic.io/ionicons -->
-</body>
 
+    <script src="./javascript.js"></script>
+</body>
 </html>

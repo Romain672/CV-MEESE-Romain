@@ -3,7 +3,7 @@ window.addEventListener("load", onload);
 function onload() {
   heightavatar = document.querySelector("#avatar").offsetHeight;
   for (let i = 0; i < 5; i++) {
-    document.querySelectorAll("div")[i].style.marginTop =
+    document.querySelectorAll("header div")[i].style.marginTop =
       (heightavatar - 35) / 2 + "px";
   }
 }
@@ -56,3 +56,15 @@ setInterval(function () {
     }, 2000);
   }
 }, 150);
+
+
+
+let elements = document.querySelectorAll("#changecolor div");
+for (let i=0;i<elements.length;i++){
+  elements[i].style.setProperty("background-color", elements[i].id.split("|")[1]); 
+  elements[i].addEventListener("click", changecolor);
+}
+function changecolor (event){
+  document.querySelector(':root').style.setProperty('--color1', event.target.id.split("|")[1]);
+  document.querySelector(':root').style.setProperty('--color2', event.target.id.split("|")[2]);
+}

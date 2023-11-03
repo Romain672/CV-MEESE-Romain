@@ -65,6 +65,11 @@ for (let i=0;i<elements.length;i++){
   elements[i].addEventListener("click", changecolor);
 }
 function changecolor (event){
-  document.querySelector(':root').style.setProperty('--color1', event.target.id.split("|")[1]);
-  document.querySelector(':root').style.setProperty('--color2', event.target.id.split("|")[2]);
+  for (let i=0;i<elements.length;i++){
+    elements[i].innerHTML = "";
+  }
+  event.target.innerHTML = "!";
+  let rootstyle = document.querySelector(':root').style;
+  rootstyle.setProperty('--color1', event.target.id.split("|")[1]);
+  rootstyle.setProperty('--color2', event.target.id.split("|")[2]);
 }

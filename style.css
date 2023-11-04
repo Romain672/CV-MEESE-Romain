@@ -286,7 +286,7 @@ section article div {
     background-color: var(--color1);
 }
 
-section article div a p{
+section article div a h1{
     width:30%;
     margin-left:2%;
     position:relative;
@@ -317,50 +317,22 @@ section article:first-child div::after {
 }
 
 
-
-@keyframes changecolor {
-    0% {
-        background-color: var(--color1);
-    }
-    10% {
-        background-color: mix(--color1, --color2, 10%);
-    }
-    20% {
-        background-color: mix(--color1, --color2, 20%);
-    }
-    30% {
-        background-color: mix(--color1, --color2, 30%);
-    }
-    40% {
-        background-color: mix(--color1, --color2, 40%);
-    }
-    50% {
-        background-color: mix(--color1, --color2, 50%);
-    }
-    60% {
-        background-color: mix(--color1, --color2, 60%);
-    }
-    70% {
-        background-color: mix(--color1, --color2, 70%);
-    }
-    80% {
-        background-color: mix(--color1, --color2, 80%);
-    }
-    90% {
-        background-color: mix(--color1, --color2, 90%);
-    }
-    100% {
-        background-color: var(--color2);
-    }
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 
 
 
-
-
-
-
+@keyframes changecolor {
+    from {
+        background-color: var(--color1);
+    }
+    to {
+        background-color: var(--color2);
+    }
+}
 
 
 
@@ -413,4 +385,17 @@ figure{
 #topbanner .icon {
     width:15px;
     height:15px;
+}
+
+.mySwiper, #othersLinks  {
+    height:150px;
+    position:relative;
+    top:-100px;
+    z-index:90;
+    background-color: var(--color3);
+}
+
+#othersLinks {
+    top:-120px;
+    padding:10px;
 }

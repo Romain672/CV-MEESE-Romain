@@ -1,4 +1,14 @@
 
+var swiper = new Swiper(".mySwiper", {
+  pagination: {
+    el: ".swiper-pagination",
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  slidesPerView: 3,});
+
 console.log(document.getElementById("iframeCV").offsetWidth);
 
 
@@ -31,8 +41,6 @@ setInterval(function () {
     document.getElementById("Créations"),
     document.getElementById("topbanner"),
   ];
-  console.log("!!!!", elements[1])
-  console.log(elements);
   if (window.scrollY + window.innerHeight * 0.7 > elements[0].offsetTop) { //bienveillant
     elements[0].style.animation = "slideinleftwithoutrotate ease-out 0.5s";
     elements[0].style.visibility = "visible";

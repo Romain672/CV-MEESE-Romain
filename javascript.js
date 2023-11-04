@@ -1,3 +1,7 @@
+
+console.log(document.getElementById("iframeCV").offsetWidth);
+
+
 window.addEventListener("load", onload);
 
 function onload() {
@@ -27,19 +31,21 @@ setInterval(function () {
     document.getElementById("Créations"),
     document.getElementById("topbanner"),
   ];
-  if (window.scrollY + window.innerHeight * 0.7 > elements[0].offsetTop) {
+  console.log("!!!!", elements[1])
+  console.log(elements);
+  if (window.scrollY + window.innerHeight * 0.7 > elements[0].offsetTop) { //bienveillant
     elements[0].style.animation = "slideinleftwithoutrotate ease-out 0.5s";
     elements[0].style.visibility = "visible";
   }
-  if (window.scrollY + window.innerHeight * 0.7 > elements[1].offsetTop) {
-    elements[1].style.animation = "slideinleftwithoutrotate ease-out 0.5s";
-    elements[1].style.visibility = "visible";
+  if (window.scrollY + window.innerHeight * 0.7 > elements[1].offsetTop) { //CV
+    elements[1].style.animation = "changecolor ease-out 5s";
+    elements[1].style.backgroundColor = "var(--color2)";
   }
-  if (window.scrollY + window.innerHeight * 0.7 > elements[2].offsetTop) {
-    elements[2].style.animation = "slideinleftwithoutrotate ease-out 0.5s";
-    elements[2].style.visibility = "visible";
+  if (window.scrollY + window.innerHeight * 0.7 > elements[2].offsetTop) { //Creations
+    elements[2].style.animation = "changecolor ease-out 5s";
+    elements[2].style.backgroundColor = "var(--color2)";
   }
-  if (window.scrollY > 150 && topbanneranimation == 0) {
+  if (window.scrollY > 150 && topbanneranimation == 0) { //topbanner
     topbanneranimation = 2;
     elements[3].style.animation = "opacityon 2s";
     setTimeout(() => {
@@ -55,8 +61,7 @@ setInterval(function () {
       topbanneranimation = 0;
     }, 2000);
   }
-}, 150);
-
+}, 500);
 
 
 let elements = document.querySelectorAll("#changecolor div");

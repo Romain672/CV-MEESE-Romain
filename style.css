@@ -2,6 +2,7 @@
     --color1: orange;
     --color2: darkorange;
     --color3: lightcoral;
+    --maxwidth: 1600px;
 }
 body {
     margin:0;
@@ -18,11 +19,12 @@ body {
     opacity:0;
     position:fixed;
     top:0;
-    z-index:100;
+    z-index:10000;
     background-color: black;
     color:var(--color1);
     width: 100%;
     display:flex;
+    flex-wrap: wrap;
     justify-content:space-around;
 }
 #topbanner p {
@@ -124,8 +126,9 @@ main article:first-child section{
 footer {
     background-color: var(--color1);
     display:inline-block;
-    padding:10px;
+    padding:30px;
     margin:10px;
+    border-radius: 50%;
 }
 @keyframes slideintop {
     from {
@@ -234,7 +237,7 @@ header div:hover {
     position:absolute;
     top:10px;
     right:10px;
-    z-index:200;
+    z-index:20000;
 }
 #changecolor div {
     height:30px;
@@ -264,7 +267,8 @@ section article::before {
     width:200%;
     height:20px;
     background-color:var(--color1);
-    z-index:10;
+    /*background-color: red;*/
+    z-index:110;
     content:"";
     transform: rotate(2.5deg);
     position:relative;
@@ -273,47 +277,57 @@ section article::before {
 
 section article div::before {
     background-color: inherit;
+    /*background-color: purple;*/
     display:block;
     height:80px;
     width:200%;
     transform: rotate(2.5deg);
     content:"";
+    z-index:100;
     position:relative;
     right:30%;
 }
 
 section article div {
     background-color: var(--color1);
+    /*background-color: orange;*/
+    position:relative;
+    z-index:100;
+}
+section article div::target-text {
+    position:relative;
+    z-index:10000;
 }
 
 section article div a h1{
+    min-width:300px;
     width:30%;
     margin-left:2%;
     position:relative;
     top:-100px;
-    z-index:3;
     background-color: inherit;
+    /*background-color: blue;*/
+    z-index:1000;
     margin:0;
     padding:0;
 }
 
 
-p {
-}
 section article div iframe {
     position:relative;
     top:-110px;
-    z-index:5;
 }
 
 section article:first-child div::after {
     display:block;
     background-color: inherit;
+    /*background-color: green;*/
     position:absolute;
     content:"";
     height:200px;
-    z-index:-1;
+    z-index:90;
     width:100%;
+    max-width:var(--maxwidth);
 }
 
 
@@ -391,11 +405,51 @@ figure{
     height:150px;
     position:relative;
     top:-100px;
-    z-index:90;
+    z-index:1000 !important;
     background-color: var(--color3);
+}
+.mySwiper{
+    padding-top:50px !important;
 }
 
 #othersLinks {
     top:-120px;
-    padding:10px;
+    padding:15px;
+    border-radius: 100%;
+}
+
+
+/* Responsivité: */
+body {
+    background-color: red !important;
+    margin:auto;
+    width:var(--maxwidth);
+}
+html {
+    background-color: blue !important;
+    background-image:url(background-nuages.jpg);
+    background-size: cover;
+}
+@media(max-width: 550px) {
+    header div{
+        font-size:15px;
+            border-radius:0 15px;
+            border:solid black 2px;
+            padding:9px;
+            height:20px;
+            margin-left: auto;
+            margin-right: auto;
+    }
+}
+@media(max-width: 350px) {
+   * {
+    flex-direction: column;
+    align-items: center;
+   }
+
+   header div, #topbanner {
+    display:none;
+   }
+
+   
 }

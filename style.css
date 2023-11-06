@@ -2,17 +2,25 @@
     --color1: orange;
     --color2: darkorange;
     --color3: lightcoral;
-    --maxwidth: 1600px;
+    --maxwidth: 1515px;
 }
 body {
     margin:0;
     padding:0;
     background-color: lightblue;
     background-image:url(entrance.webp);
-    background-size: cover;
+
+
+    background-size:100% 100%;
+
+
+
     font-size:20px;
-    font-family:'Times New Roman', Times, serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
+}
+h1, h2 {
+    text-shadow: #ad651f 1.5px 1.5px 1px;
 }
 
 #topbanner {
@@ -90,7 +98,7 @@ header:first-child div:last-child{
 
 main {
     background-image:url(background-computer.jpg);
-    background-size: cover;
+    background-size:100% 100%;
     width:94%;
     text-align: center;
     margin:auto 3%;
@@ -419,14 +427,19 @@ figure{
 }
 
 
+/* Formulaire */
+section form {
+    background-color: lightgreen;
+}
+
+
+
 /* Responsivité: */
 body {
-    background-color: red !important;
     margin:auto;
     width:var(--maxwidth);
 }
 html {
-    background-color: blue !important;
     background-image:url(background-nuages.jpg);
     background-size: cover;
 }

@@ -108,3 +108,14 @@ function changecolor(event) {
   rootstyle.setProperty("--color2", event.target.id.split("|")[2]);
   rootstyle.setProperty("--color3", event.target.id.split("|")[3]);
 }
+
+
+
+/* Formulaire */
+document.querySelector("form button").addEventListener("click", validerFormulaire);
+
+function validerFormulaire (event) {
+  event.preventDefault();
+
+  
+}

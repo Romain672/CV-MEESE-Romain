@@ -9,6 +9,41 @@ var swiper = new Swiper(".mySwiper", {
   slidesPerView: 3,
 });
 
+
+
+
+/* Generation random colors */
+for (let i=0;i<60;i++){
+  let newdiv = document.createElement("div");
+  let col1 = Math.floor(Math.random()*16777215).toString(16);
+  if (col1.length==5){
+    col1 = "0" + col1;
+  }
+  let col2 = Math.floor(Math.random()*16777215).toString(16);
+  if (col2.length==5){
+    col2 = "0" + col2;
+  }
+  let col3 = Math.floor(Math.random()*16777215).toString(16);
+  if (col3.length==5){
+    col3 = "0" + col3;
+  }
+  console.log(col1, "-", col2, "-", col3)
+  newdiv.id = "changecolor|#" + col1 + "|#" + col2 + "|#" + col3;
+  document.getElementById("changecolor").append(newdiv);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 console.log(document.getElementById("iframeCV").offsetWidth);
 
 const nbrElementsHeader = document.querySelectorAll("header span p").length - 1;
@@ -93,29 +128,55 @@ setInterval(function () {
 let elements = document.querySelectorAll("#changecolor div");
 for (let i = 0; i < elements.length; i++) {
   elements[i].style.setProperty(
+    "border-right",
+    "15px solid " + elements[i].id.split("|")[3]
+  );
+  elements[i].style.setProperty(
+    "border-top",
+    "15px solid " + elements[i].id.split("|")[1]
+  );
+  elements[i].style.setProperty(
+    "border-left",
+    "15px solid " + elements[i].id.split("|")[2]
+  );
+  elements[i].style.setProperty(
+    "border-bottom",
+    "15px solid " + elements[i].id.split("|")[2]
+  );
+  elements[i].style.setProperty("transform", "rotate(45deg)");
+  elements[i].style.setProperty("border-radius", "100px");
+
+  /*elements[i].style.setProperty(
     "background-color",
     elements[i].id.split("|")[1]
-  );
+  );*/
   elements[i].addEventListener("click", changecolor);
 }
 function changecolor(event) {
-  for (let i = 0; i < elements.length; i++) {
+  /*for (let i = 0; i < elements.length; i++) {
     elements[i].innerHTML = "";
   }
-  event.target.innerHTML = "!";
+  event.target.innerHTML = "!";*/
   let rootstyle = document.querySelector(":root").style;
   rootstyle.setProperty("--color1", event.target.id.split("|")[1]);
   rootstyle.setProperty("--color2", event.target.id.split("|")[2]);
   rootstyle.setProperty("--color3", event.target.id.split("|")[3]);
 }
 
-
+/* Links */
+listlinks = document.querySelectorAll("div a");
+for (let i = 0; i < listlinks.length; i++) {
+  listlinks[i].addEventListener("click", ouvrirNouvellepage);
+}
+function ouvrirNouvellepage(event) {
+  event.preventDefault();
+  window.open(this.href);
+}
 
 /* Formulaire */
-document.querySelector("form button").addEventListener("click", validerFormulaire);
+//document.querySelector("form button").addEventListener("click", validerFormulaire);
 
-function validerFormulaire (event) {
+function validerFormulaire(event) {
   event.preventDefault();
-
-  
 }
+

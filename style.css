@@ -10,10 +10,7 @@ body {
     background-color: lightblue;
     background-image:url(entrance.webp);
 
-
-    background-size:100% 100%;
-
-
+    background-size: 100% 900px;
 
     font-size:20px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -96,13 +93,20 @@ header:first-child div:last-child{
     animation: slideinright ease-out 2s;
 }*/
 
+/* Images main */
+
+main img {
+    min-width:150px;
+    min-height:150px;
+}
+
 main {
     background-image:url(background-computer.jpg);
     background-size:100% 100%;
     width:94%;
     text-align: center;
     margin:auto 3%;
-    padding: 30px 0
+    padding: 30px 0;
 }
 main article {
     display:flex;
@@ -114,6 +118,11 @@ main article section {
     padding:7px;
     width:70%;
     background-color: var(--color2);
+    display: flex;
+}
+main article section p, main div {
+    display:flex;
+    align-items: center;
 }
 main article section:nth-child(1){
     margin-left:10px;
@@ -248,12 +257,10 @@ header div:hover {
     z-index:20000;
 }
 #changecolor div {
-    height:30px;
-    width:30px;
+    /*height:30px;
+    width:30px;*/
     border-radius: 100%;
 }
-
-
 
 section {
     margin:0;
@@ -314,10 +321,20 @@ section article div a h1{
     position:relative;
     top:-100px;
     background-color: inherit;
-    /*background-color: blue;*/
     z-index:1000;
     margin:0;
     padding:0;
+}
+
+section article div a:visited{
+    text-decoration: none;
+    color:lightgreen;
+    background-color:#00000050;
+}
+section article div a:link{
+    text-decoration: none;
+    color:lightblue;
+    background-color:#00000050;
 }
 
 
@@ -425,6 +442,7 @@ figure{
     padding:15px;
     border-radius: 100%;
 }
+
 
 
 /* Formulaire */

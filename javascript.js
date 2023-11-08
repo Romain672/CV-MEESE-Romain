@@ -9,11 +9,6 @@ var swiper = new Swiper(".mySwiper", {
   slidesPerView: 3,
 });
 
-let colorText = document.querySelectorAll("footer, header, main, #othersLinks");
-for (const data of colorText) {
-  data.style.color = "white";
-}
-
 /* Generation random colors */
   displayNewColors();
 let ccam = document.getElementById("changecoloraddmore");
@@ -175,37 +170,19 @@ function changecolor(event) {
       parseInt(col1.substring(5, 7), 16) >
     400
   ) {
-    //console.log(">400");
-    let query = document.querySelectorAll("footer");
-    for (const data of query) {
-      data.style.color = "black";
-    }
+      document.querySelector(':root').style.setProperty('--color1', "black");
   } else {
-    //console.log("<400");
-    let query = document.querySelectorAll("footer");
-    for (const data of query) {
-      data.style.color = "white";
-    }
+      document.querySelector(':root').style.setProperty('--color1', "white");
   }
-
-
   if (
     parseInt(col2.substring(1, 3), 16) +
       parseInt(col2.substring(3, 5), 16) +
       parseInt(col2.substring(5, 7), 16) >
     400
   ) {
-    //console.log(">400");
-    let query = document.querySelectorAll("header, main");
-    for (const data of query) {
-      data.style.color = "black";
-    }
+      document.querySelector(':root').style.setProperty('--color2', "black");
   } else {
-    //console.log("<400");
-    let query = document.querySelectorAll("header, main");
-    for (const data of query) {
-      data.style.color = "white";
-    }
+      document.querySelector(':root').style.setProperty('--color2', "white");
   }
   if (
     parseInt(col3.substring(1, 3), 16) +
@@ -213,20 +190,10 @@ function changecolor(event) {
       parseInt(col3.substring(5, 7), 16) >
     400
   ) {
-    //console.log(">400");
-    let query = document.querySelectorAll("#othersLinks");
-    for (const data of query) {
-      data.style.color = "black";
-    }
+      document.querySelector(':root').style.setProperty('--color3', "black");
   } else {
-    //console.log("<400");
-    let query = document.querySelectorAll("#othersLinks");
-    for (const data of query) {
-      data.style.color = "white";
-    }
+      document.querySelector(':root').style.setProperty('--color3', "white");
   }
-
-  //+parseInt(col1.substring(3,5), 16) + parseInt(col1.substring(5,7), 16)
 }
 
 /* Links */

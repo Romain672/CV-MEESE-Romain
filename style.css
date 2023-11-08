@@ -30,6 +30,7 @@ h1, h2 {
     z-index:10000;
     background-color: black;
     color:var(--backgroundColor1);
+    color:var(--color1);
     width: 100%;
     display:flex;
     flex-wrap: wrap;
@@ -251,7 +252,7 @@ header div:hover {
     color:var(--color1);
   }
 #topbanner p:hover {
-    color: var(--backgroundColor1);
+    color: white;
     text-decoration: underline;
 
 }
@@ -455,6 +456,7 @@ figure{
     top:-100px;
     z-index:1000 !important;
     background-color: var(--backgroundColor3);
+    color: var(--color3);
 }
 .mySwiper{
     padding-top:50px !important;

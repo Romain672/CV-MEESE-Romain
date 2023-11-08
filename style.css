@@ -1,7 +1,10 @@
 :root{
-    --color1: lightgreen;
-    --color2: lightseagreen;
-    --color3: green;
+    --backgroundColor1: lightgreen;
+    --color1:black;
+    --backgroundColor2: lightseagreen;
+    --color2:white;
+    --backgroundColor3: green;
+    --color3:white;
     --maxwidth: 1515px;
 }
 body {
@@ -26,7 +29,7 @@ h1, h2 {
     top:0;
     z-index:10000;
     background-color: black;
-    color:var(--color1);
+    color:var(--backgroundColor1);
     width: 100%;
     display:flex;
     flex-wrap: wrap;
@@ -43,10 +46,10 @@ h1, h2 {
 header article img {
     width:100px;
     height:100px;
-    border: var(--color1) solid 2px;
+    border: var(--backgroundColor1) solid 2px;
 }
 header article:hover img {
-    border: var(--color2) solid 2px;
+    border: var(--backgroundColor2) solid 2px;
 }
 
 header {
@@ -68,10 +71,10 @@ header div{
         height: 35px;
         padding: 5px;
         margin: 1px;
-        color:var(--color1);
+        color:var(--backgroundColor1);
         cursor:pointer;
         border: 3px solid black;
-        border-bottom: 0.1px solid var(--color2);
+        border-bottom: 0.1px solid var(--backgroundColor2);
         border-radius: 30px 0;
         border-inline-end-width: 10px;
         border-inline-start-width: 10px;
@@ -79,9 +82,10 @@ header div{
 header p {
     margin:0;
     padding:0;
+    color:var(--color2);
 }
 header article{
-    background-color: var(--color2);
+    background-color: var(--backgroundColor2);
     border-radius: 0 0 15px 15px;
     display:inline-block;
     position:relative;
@@ -117,8 +121,9 @@ main article section {
     position:relative;
     padding:7px;
     width:70%;
-    background-color: var(--color2);
+    background-color: var(--backgroundColor2);
     display: flex;
+    color:var(--color2);
 }
 main article section p, main div {
     display:flex;
@@ -141,7 +146,7 @@ main article:first-child section{
     visibility:visible;
 }
 footer {
-    background-color: var(--color1);
+    background-color: var(--backgroundColor1);
     display:inline-block;
     padding:30px;
     margin:10px;
@@ -241,11 +246,12 @@ header div:hover {
   }
 
   main article section:hover, #avatar:hover {
-    background-color: var(--color1);
+    background-color: var(--backgroundColor1);
     border-radius: 20px;
+    color:var(--color1);
   }
 #topbanner p:hover {
-    color: var(--color1);
+    color: var(--backgroundColor1);
     text-decoration: underline;
 
 }
@@ -264,7 +270,7 @@ header div:hover {
 
 #changecoloraddmore {
     position:absolute;
-    top:55px;
+    top:265px;
     right:10px;
     width:30px;
     height:30px;
@@ -272,7 +278,11 @@ header div:hover {
     color:white;
     border-radius: 100%;
     z-index:20000;
-    margin: auto;
+    width:30px;
+    height:30px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
 section {
@@ -294,7 +304,7 @@ section article::before {
     display:block;
     width:200%;
     height:20px;
-    background-color:var(--color1);
+    background-color:var(--backgroundColor1);
     /*background-color: red;*/
     z-index:110;
     content:"";
@@ -317,7 +327,7 @@ section article div::before {
 }
 
 section article div {
-    background-color: var(--color1);
+    background-color: var(--backgroundColor1);
     /*background-color: orange;*/
     position:relative;
     z-index:100;
@@ -379,10 +389,10 @@ html, body {
 
 @keyframes changecolor {
     from {
-        background-color: var(--color1);
+        background-color: var(--backgroundColor1);
     }
     to {
-        background-color: var(--color2);
+        background-color: var(--backgroundColor2);
     }
 }
 
@@ -444,7 +454,7 @@ figure{
     position:relative;
     top:-100px;
     z-index:1000 !important;
-    background-color: var(--color3);
+    background-color: var(--backgroundColor3);
 }
 .mySwiper{
     padding-top:50px !important;

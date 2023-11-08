@@ -15,7 +15,7 @@ for (const data of colorText) {
 }
 
 /* Generation random colors */
-generateNewColors();
+  displayNewColors();
 let ccam = document.getElementById("changecoloraddmore");
 ccam.addEventListener("click", generateNewColors);
 function generateNewColors() {
@@ -37,7 +37,10 @@ function generateNewColors() {
     newdiv.id = "changecolor|#" + col1 + "|#" + col2 + "|#" + col3;
     document.getElementById("changecolor").append(newdiv);
   }
-
+  displayNewColors();
+  document.getElementById("changecoloraddmore").style.top = parseInt(window.getComputedStyle(document.getElementById("changecoloraddmore")).getPropertyValue('top').replace("px","")) + 149 + "px";
+}
+function displayNewColors () {
   let elements = document.querySelectorAll("#changecolor div");
   for (let i = 0; i < elements.length; i++) {
     elements[i].style.setProperty(
@@ -65,15 +68,7 @@ function generateNewColors() {
     );*/
     elements[i].addEventListener("click", changecolor);
   }
-
-  document.getElementById("changecoloraddmore").style.top = parseInt(window.getComputedStyle(document.getElementById("changecoloraddmore")).getPropertyValue('top').replace("px","")) + 150 + "px";
 }
-
-
-
-
-
-
 
 
 
@@ -123,12 +118,12 @@ setInterval(function () {
   if (window.scrollY + window.innerHeight * 0.7 > elements[1].offsetTop) {
     //CV
     elements[1].style.animation = "changecolor ease-out 5s";
-    elements[1].style.backgroundColor = "var(--color2)";
+    elements[1].style.backgroundColor = "var(--backgroundColor2)";
   }
   if (window.scrollY + window.innerHeight * 0.7 > elements[2].offsetTop) {
     //Creations
     elements[2].style.animation = "changecolor ease-out 5s";
-    elements[2].style.backgroundColor = "var(--color2)";
+    elements[2].style.backgroundColor = "var(--backgroundColor2)";
   }
   if (window.scrollY > 150 && topbanneranimation == 0) {
     //topbanner
@@ -169,9 +164,9 @@ function changecolor(event) {
   let col2 = event.target.id.split("|")[2];
   let col3 = event.target.id.split("|")[3];
 
-  rootstyle.setProperty("--color1", col1);
-  rootstyle.setProperty("--color2", col2);
-  rootstyle.setProperty("--color3", col3);
+  rootstyle.setProperty("--backgroundColor1", col1);
+  rootstyle.setProperty("--backgroundColor2", col2);
+  rootstyle.setProperty("--backgroundColor3", col3);
 
   /* Text color black or white depending of the background color chosen: */
   if (
@@ -192,6 +187,8 @@ function changecolor(event) {
       data.style.color = "white";
     }
   }
+
+
   if (
     parseInt(col2.substring(1, 3), 16) +
       parseInt(col2.substring(3, 5), 16) +

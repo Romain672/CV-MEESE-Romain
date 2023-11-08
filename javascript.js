@@ -9,27 +9,64 @@ var swiper = new Swiper(".mySwiper", {
   slidesPerView: 3,
 });
 
-
-
+let colorText = document.querySelectorAll("footer, header, main, #othersLinks");
+for (const data of colorText) {
+  data.style.color = "white";
+}
 
 /* Generation random colors */
-for (let i=0;i<60;i++){
-  let newdiv = document.createElement("div");
-  let col1 = Math.floor(Math.random()*16777215).toString(16);
-  if (col1.length==5){
-    col1 = "0" + col1;
+generateNewColors();
+let ccam = document.getElementById("changecoloraddmore");
+ccam.addEventListener("click", generateNewColors);
+function generateNewColors() {
+  let nbrColors = (window.getComputedStyle(document.getElementById("changecoloraddmore")).getPropertyValue('top').replace("px","")-25) / 30;
+  for (let i = nbrColors; i < nbrColors+5; i++) {
+    let newdiv = document.createElement("div");
+    let col1 = Math.floor(Math.random() * 16777215).toString(16);
+    if (col1.length == 5) {
+      col1 = "0" + col1;
+    }
+    let col2 = Math.floor(Math.random() * 16777215).toString(16);
+    if (col2.length == 5) {
+      col2 = "0" + col2;
+    }
+    let col3 = Math.floor(Math.random() * 16777215).toString(16);
+    if (col3.length == 5) {
+      col3 = "0" + col3;
+    }
+    newdiv.id = "changecolor|#" + col1 + "|#" + col2 + "|#" + col3;
+    document.getElementById("changecolor").append(newdiv);
   }
-  let col2 = Math.floor(Math.random()*16777215).toString(16);
-  if (col2.length==5){
-    col2 = "0" + col2;
+
+  let elements = document.querySelectorAll("#changecolor div");
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].style.setProperty(
+      "border-right",
+      "15px solid " + elements[i].id.split("|")[3]
+    );
+    elements[i].style.setProperty(
+      "border-top",
+      "15px solid " + elements[i].id.split("|")[1]
+    );
+    elements[i].style.setProperty(
+      "border-left",
+      "15px solid " + elements[i].id.split("|")[2]
+    );
+    elements[i].style.setProperty(
+      "border-bottom",
+      "15px solid " + elements[i].id.split("|")[2]
+    );
+    elements[i].style.setProperty("transform", "rotate(45deg)");
+    elements[i].style.setProperty("border-radius", "100px");
+  
+    /*elements[i].style.setProperty(
+      "background-color",
+      elements[i].id.split("|")[1]
+    );*/
+    elements[i].addEventListener("click", changecolor);
   }
-  let col3 = Math.floor(Math.random()*16777215).toString(16);
-  if (col3.length==5){
-    col3 = "0" + col3;
-  }
-  console.log(col1, "-", col2, "-", col3)
-  newdiv.id = "changecolor|#" + col1 + "|#" + col2 + "|#" + col3;
-  document.getElementById("changecolor").append(newdiv);
+
+  document.getElementById("changecoloraddmore").style.top = parseInt(window.getComputedStyle(document.getElementById("changecoloraddmore")).getPropertyValue('top').replace("px","")) + 150 + "px";
 }
 
 
@@ -42,9 +79,6 @@ for (let i=0;i<60;i++){
 
 
 
-
-
-console.log(document.getElementById("iframeCV").offsetWidth);
 
 const nbrElementsHeader = document.querySelectorAll("header span p").length - 1;
 
@@ -125,42 +159,77 @@ setInterval(function () {
   }
 }, 500);
 
-let elements = document.querySelectorAll("#changecolor div");
-for (let i = 0; i < elements.length; i++) {
-  elements[i].style.setProperty(
-    "border-right",
-    "15px solid " + elements[i].id.split("|")[3]
-  );
-  elements[i].style.setProperty(
-    "border-top",
-    "15px solid " + elements[i].id.split("|")[1]
-  );
-  elements[i].style.setProperty(
-    "border-left",
-    "15px solid " + elements[i].id.split("|")[2]
-  );
-  elements[i].style.setProperty(
-    "border-bottom",
-    "15px solid " + elements[i].id.split("|")[2]
-  );
-  elements[i].style.setProperty("transform", "rotate(45deg)");
-  elements[i].style.setProperty("border-radius", "100px");
-
-  /*elements[i].style.setProperty(
-    "background-color",
-    elements[i].id.split("|")[1]
-  );*/
-  elements[i].addEventListener("click", changecolor);
-}
 function changecolor(event) {
   /*for (let i = 0; i < elements.length; i++) {
     elements[i].innerHTML = "";
   }
   event.target.innerHTML = "!";*/
   let rootstyle = document.querySelector(":root").style;
-  rootstyle.setProperty("--color1", event.target.id.split("|")[1]);
-  rootstyle.setProperty("--color2", event.target.id.split("|")[2]);
-  rootstyle.setProperty("--color3", event.target.id.split("|")[3]);
+  let col1 = event.target.id.split("|")[1];
+  let col2 = event.target.id.split("|")[2];
+  let col3 = event.target.id.split("|")[3];
+
+  rootstyle.setProperty("--color1", col1);
+  rootstyle.setProperty("--color2", col2);
+  rootstyle.setProperty("--color3", col3);
+
+  /* Text color black or white depending of the background color chosen: */
+  if (
+    parseInt(col1.substring(1, 3), 16) +
+      parseInt(col1.substring(3, 5), 16) +
+      parseInt(col1.substring(5, 7), 16) >
+    400
+  ) {
+    //console.log(">400");
+    let query = document.querySelectorAll("footer");
+    for (const data of query) {
+      data.style.color = "black";
+    }
+  } else {
+    //console.log("<400");
+    let query = document.querySelectorAll("footer");
+    for (const data of query) {
+      data.style.color = "white";
+    }
+  }
+  if (
+    parseInt(col2.substring(1, 3), 16) +
+      parseInt(col2.substring(3, 5), 16) +
+      parseInt(col2.substring(5, 7), 16) >
+    400
+  ) {
+    //console.log(">400");
+    let query = document.querySelectorAll("header, main");
+    for (const data of query) {
+      data.style.color = "black";
+    }
+  } else {
+    //console.log("<400");
+    let query = document.querySelectorAll("header, main");
+    for (const data of query) {
+      data.style.color = "white";
+    }
+  }
+  if (
+    parseInt(col3.substring(1, 3), 16) +
+      parseInt(col3.substring(3, 5), 16) +
+      parseInt(col3.substring(5, 7), 16) >
+    400
+  ) {
+    //console.log(">400");
+    let query = document.querySelectorAll("#othersLinks");
+    for (const data of query) {
+      data.style.color = "black";
+    }
+  } else {
+    //console.log("<400");
+    let query = document.querySelectorAll("#othersLinks");
+    for (const data of query) {
+      data.style.color = "white";
+    }
+  }
+
+  //+parseInt(col1.substring(3,5), 16) + parseInt(col1.substring(5,7), 16)
 }
 
 /* Links */
@@ -179,4 +248,3 @@ function ouvrirNouvellepage(event) {
 function validerFormulaire(event) {
   event.preventDefault();
 }
-

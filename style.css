@@ -1,7 +1,7 @@
 :root{
-    --color1: orange;
-    --color2: darkorange;
-    --color3: lightcoral;
+    --color1: lightgreen;
+    --color2: lightseagreen;
+    --color3: green;
     --maxwidth: 1515px;
 }
 body {
@@ -262,6 +262,19 @@ header div:hover {
     border-radius: 100%;
 }
 
+#changecoloraddmore {
+    position:absolute;
+    top:55px;
+    right:10px;
+    width:30px;
+    height:30px;
+    background-color: black;
+    color:white;
+    border-radius: 100%;
+    z-index:20000;
+    margin: auto;
+}
+
 section {
     margin:0;
     padding:0;
@@ -481,6 +494,4 @@ html {
    header div, #topbanner {
     display:none;
    }
-
-   
 }

@@ -214,14 +214,14 @@ footer {
 }
 
 #iframeCV{
-    height:400px;
+    height:600px;
     width:100%;
     max-width:1500px;
     transform: scale(0.7);
 }
 
 #iframeJeu{
-    height:400px;
+    height:600px;
     width:100%;
     transform: scale(0.7);
 }

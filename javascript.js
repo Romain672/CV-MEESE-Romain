@@ -33,7 +33,7 @@ function generateNewColors() {
     document.getElementById("changecolor").append(newdiv);
   }
   displayNewColors();
-  document.getElementById("changecoloraddmore").style.top = parseInt(window.getComputedStyle(document.getElementById("changecoloraddmore")).getPropertyValue('top').replace("px","")) + 149 + "px";
+  document.getElementById("changecoloraddmore").style.top = parseInt(window.getComputedStyle(document.getElementById("changecoloraddmore")).getPropertyValue('top').replace("px","")) + 148 + "px";
 }
 function displayNewColors () {
   let elements = document.querySelectorAll("#changecolor div");

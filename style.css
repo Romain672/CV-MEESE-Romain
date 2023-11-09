@@ -29,6 +29,7 @@ h1, h2 {
     top:0;
     z-index:10000;
     background-color: black;
+    color:white;
     color:var(--backgroundColor1);
     color:var(--color1);
     width: 100%;

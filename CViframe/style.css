@@ -5,6 +5,7 @@ body{
 
     font-family: Helvetica, Arial, sans-serif;
     color:#404040;
+    padding-bottom: 20px;
 }
 
 #gauche h1, #gauche h2, #gauche h3 {
@@ -70,7 +71,7 @@ h1:after, h2:after {
     margin-right: -100%;
     margin-left: 10px;
     /*border-top: 1px solid black;*/
-    border-top-style: dotted;
+    /*border-top-style: dotted;*/
     border-width: 3px;
 }
 
@@ -80,6 +81,9 @@ h1, h2, h3, p {
     margin-top: 5px;
     margin-right: 0px;
 }
+#droite h2 {
+    margin-top: 20px;
+}
 h2 {
     margin-top: 15px;
 }
@@ -88,7 +92,7 @@ h2 {
     background-color: #cd853f;
     width:33%;
     margin:0px;
-    left:0;
+    padding-left:10px;
     min-width: 250px;
     
     display:flex;

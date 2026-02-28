@@ -103,8 +103,10 @@ setInterval(function () {
     document.getElementById("bienveillant"),
     document.getElementById("CV"),
     document.getElementById("Créations"),
+    document.getElementById("ProjetData"),
     document.getElementById("topbanner"),
   ];
+
   if (window.scrollY + window.innerHeight * 0.7 > elements[0].offsetTop) {
     //bienveillant
     elements[0].style.animation = "slideinleftwithoutrotate ease-out 0.5s";
@@ -120,10 +122,15 @@ setInterval(function () {
     elements[2].style.animation = "changecolor ease-out 5s";
     elements[2].style.backgroundColor = "var(--backgroundColor2)";
   }
+  if (window.scrollY + window.innerHeight * 0.7 > elements[2].offsetTop) {
+    //Creations
+    elements[3].style.animation = "changecolor ease-out 5s";
+    elements[3].style.backgroundColor = "var(--backgroundColor2)";
+  }
   if (window.scrollY > 150 && topbanneranimation == 0) {
     //topbanner
     topbanneranimation = 2;
-    elements[3].style.animation = "opacityon 2s";
+    elements[4].style.animation = "opacityon 2s";
     setTimeout(() => {
       elements[3].style.opacity = "1";
       topbanneranimation = 1;
@@ -131,7 +138,7 @@ setInterval(function () {
   }
   if (window.scrollY < 150 && topbanneranimation == 1) {
     topbanneranimation = 2;
-    elements[3].style.animation = "opacityoff 2s";
+    elements[4].style.animation = "opacityoff 2s";
     setTimeout(() => {
       elements[3].style.opacity = "0";
       topbanneranimation = 0;

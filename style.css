@@ -22,6 +22,9 @@ body {
 h1, h2 {
     text-shadow: #ad651f 1.5px 1.5px 1px;
 }
+h1 {
+    font-size:25px
+}
 
 #topbanner {
     opacity:0;
@@ -227,7 +230,6 @@ footer {
     transform: scale(0.7);
 }
 
-
 header div:hover {
     animation: slideintop ease-out 1.5s 1, rotation 2s infinite linear;
 }
@@ -341,7 +343,7 @@ section article div::target-text {
 
 section article div a h1{
     min-width:300px;
-    width:30%;
+    width:35%;
     margin-left:2%;
     position:relative;
     top:-100px;

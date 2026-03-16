@@ -230,6 +230,13 @@ footer {
     transform: scale(0.7);
 }
 
+#iframeTitanic{
+    height:400px;
+    width: 100%;
+    max-width:555px;
+    transform: scale(0.7);
+}
+
 header div:hover {
     animation: slideintop ease-out 1.5s 1, rotation 2s infinite linear;
 }
